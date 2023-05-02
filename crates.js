@@ -1,1 +1,1 @@
-window.ALL_CRATES = ["navigator_rs"];
+window.ALL_CRATES = ["ads1x1x","ak09915_rs","bitflags","bmp280","byteorder","cast","cfg_if","embedded_hal","gpio_cdev","i2cdev","icm20689","ioctl_rs","libc","linux_embedded_hal","memoffset","navigator_rs","nb","nix","pwm_pca9685","serial_core","serial_unix","spidev","sysfs_gpio","termios","void"];
