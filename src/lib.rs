@@ -15,25 +15,25 @@ use linux_embedded_hal::{Delay, Pin, Spidev};
 use nb::block;
 use pwm_pca9685::{Address as pwm_Address, Channel as pwm_Channel, Pca9685};
 
-pub struct ReadAxis {
+pub struct AxisData {
     pub x: f32,
     pub y: f32,
     pub z: f32,
 }
 
-pub struct ReadADC {
+pub struct ADCData {
     pub first: i16,
     pub second: i16,
     pub third: i16,
     pub fourth: i16,
 }
 pub struct SensorData {
-    pub adc: ReadADC,
+    pub adc: ADCData,
     pub temperature: f32,
     pub pressure: f32,
-    pub accelerometer: ReadAxis,
-    pub magnetometer: ReadAxis,
-    pub gyro: ReadAxis,
+    pub accelerometer: AxisData,
+    pub magnetometer: AxisData,
+    pub gyro: AxisData,
 }
 
 pub struct Navigator {
@@ -211,9 +211,9 @@ impl Navigator {
         self.led.all_off()
     }
 
-    pub fn read_mag(&mut self) -> ReadAxis {
+    pub fn read_mag(&mut self) -> AxisData {
         let (x, y, z) = self.mag.read().unwrap();
-        ReadAxis {
+        AxisData {
             x: (x.into()),
             y: (y.into()),
             z: (z.into()),
@@ -232,25 +232,25 @@ impl Navigator {
         self.bmp.pressure_kpa().unwrap()
     }
 
-    pub fn read_adc(&mut self) -> ReadADC {
-        ReadADC {
+    pub fn read_adc(&mut self) -> ADCData {
+        ADCData {
             first: block!(self.adc.read(&mut channel::SingleA0)).unwrap(),
             second: block!(self.adc.read(&mut channel::SingleA1)).unwrap(),
             third: block!(self.adc.read(&mut channel::SingleA2)).unwrap(),
             fourth: block!(self.adc.read(&mut channel::SingleA3)).unwrap(),
         }
     }
-    pub fn read_accel(&mut self) -> ReadAxis {
+    pub fn read_accel(&mut self) -> AxisData {
         let reading: [f32; 3] = self.imu.get_scaled_accel().unwrap();
-        ReadAxis {
+        AxisData {
             x: reading[0],
             y: reading[1],
             z: reading[2],
         }
     }
-    pub fn read_gyro(&mut self) -> ReadAxis {
+    pub fn read_gyro(&mut self) -> AxisData {
         let reading: [f32; 3] = self.imu.get_scaled_gyro().unwrap();
-        ReadAxis {
+        AxisData {
             x: reading[0],
             y: reading[1],
             z: reading[2],
