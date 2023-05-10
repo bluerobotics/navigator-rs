@@ -13,7 +13,7 @@ fn main() {
     let read = nav.read_adc();
     println!(
         "adc values per channel: 1 : {},2: {}, 3: {}, 4: {}",
-        read.first, read.second, read.third, read.fourth
+        read.channel[0], read.channel[1], read.channel[2], read.channel[3]
     );
 
     println!("pressure values: {}", nav.read_pressure());
@@ -30,10 +30,10 @@ fn main() {
         let sensor_data: SensorData = nav.read_all();
         println!(
             "ADC values: {}, {}, {}, {}",
-            sensor_data.adc.first,
-            sensor_data.adc.second,
-            sensor_data.adc.third,
-            sensor_data.adc.fourth
+            sensor_data.adc.channel[0],
+            sensor_data.adc.channel[1],
+            sensor_data.adc.channel[2],
+            sensor_data.adc.channel[3],
         );
         println!("PRES   :   P: {}", sensor_data.pressure);
         println!("TEMP   :   T: {}", sensor_data.temperature);
