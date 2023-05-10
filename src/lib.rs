@@ -22,10 +22,7 @@ pub struct AxisData {
 }
 
 pub struct ADCData {
-    pub first: i16,
-    pub second: i16,
-    pub third: i16,
-    pub fourth: i16,
+    pub channel: [i16; 4],
 }
 pub struct SensorData {
     pub adc: ADCData,
@@ -234,10 +231,12 @@ impl Navigator {
 
     pub fn read_adc(&mut self) -> ADCData {
         ADCData {
-            first: block!(self.adc.read(&mut channel::SingleA0)).unwrap(),
-            second: block!(self.adc.read(&mut channel::SingleA1)).unwrap(),
-            third: block!(self.adc.read(&mut channel::SingleA2)).unwrap(),
-            fourth: block!(self.adc.read(&mut channel::SingleA3)).unwrap(),
+            channel: [
+                block!(self.adc.read(&mut channel::SingleA0)).unwrap(),
+                block!(self.adc.read(&mut channel::SingleA1)).unwrap(),
+                block!(self.adc.read(&mut channel::SingleA2)).unwrap(),
+                block!(self.adc.read(&mut channel::SingleA3)).unwrap(),
+            ],
         }
     }
     pub fn read_accel(&mut self) -> AxisData {
