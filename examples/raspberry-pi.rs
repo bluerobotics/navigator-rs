@@ -10,7 +10,7 @@ fn main() {
     nav.init();
 
     println!("Reading all sensors individually");
-    let read = nav.read_adc();
+    let read = nav.read_adc_all();
     println!(
         "adc values per channel: 1 : {},2: {}, 3: {}, 4: {}",
         read.channel[0], read.channel[1], read.channel[2], read.channel[3]
