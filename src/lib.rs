@@ -11,7 +11,9 @@ use linux_embedded_hal::sysfs_gpio::Direction;
 use linux_embedded_hal::I2cdev;
 use linux_embedded_hal::{Delay, Pin, Spidev};
 use nb::block;
-use pwm_pca9685::{Address as pwm_Address, Channel as pwm_Channel, Pca9685};
+use pwm_pca9685::{Address as pwm_Address, Pca9685};
+
+pub use pwm_pca9685::Channel as pwm_Channel;
 
 pub use ads1x1x::ChannelSelection as adc_Channel;
 
