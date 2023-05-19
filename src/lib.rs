@@ -210,11 +210,7 @@ impl Navigator {
 
     pub fn read_mag(&mut self) -> AxisData {
         let (x, y, z) = self.mag.read().unwrap();
-        AxisData {
-            x: (x.into()),
-            y: (y.into()),
-            z: (z.into()),
-        }
+        AxisData { x, y, z }
     }
 
     pub fn read_temperature(&mut self) -> f32 {
