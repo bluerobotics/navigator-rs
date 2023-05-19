@@ -262,10 +262,6 @@
 <a href="#262" id="262">262</a>
 <a href="#263" id="263">263</a>
 <a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-<a href="#266" id="266">266</a>
-<a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a>
 </pre><pre class="rust"><code><span class="kw">use </span>ads1x1x::{
     channel,
     ic::{Ads1115, Resolution16Bit},
@@ -478,11 +474,7 @@
 
     <span class="kw">pub fn </span>read_mag(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; AxisData {
         <span class="kw">let </span>(x, y, z) = <span class="self">self</span>.mag.read().unwrap();
-        AxisData {
-            x: (x.into()),
-            y: (y.into()),
-            z: (z.into()),
-        }
+        AxisData { x, y, z }
     }
 
     <span class="kw">pub fn </span>read_temperature(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; f32 {
