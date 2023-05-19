@@ -1,4 +1,4 @@
-use navigator_rs::{Navigator, SensorData};
+use navigator_rs::{pwm_Channel, Navigator, SensorData};
 use std::thread::sleep;
 use std::time::Duration;
 
@@ -26,7 +26,7 @@ fn main() {
     println!("mag values: X={},Y={},Z={}", read.x, read.y, read.z);
     println!("Reading all sensors with read_all");
     loop {
-        nav.set_pwm_value();
+        nav.set_pwm_channel_value(pwm_Channel::All, 0);
         let sensor_data: SensorData = nav.read_all();
         println!(
             "ADC values: {}, {}, {}, {}",
