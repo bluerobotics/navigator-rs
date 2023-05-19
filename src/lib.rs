@@ -189,6 +189,26 @@ impl Navigator {
         self.pwm.set_channel_off(channel, value).unwrap();
     }
 
+    pub fn set_pwm_channels_value<const N: usize>(
+        &mut self,
+        channels: &[pwm_Channel; N],
+        value: u16,
+    ) {
+        for &channel in channels.iter().take(N) {
+            self.set_pwm_channel_value(channel, value)
+        }
+    }
+
+    pub fn set_pwm_channels_values<const N: usize>(
+        &mut self,
+        channels: &[pwm_Channel; N],
+        values: &[u16; N],
+    ) {
+        for i in 0..N {
+            self.set_pwm_channel_value(channels[i], values[i])
+        }
+    }
+
     pub fn set_pwm_freq(&mut self) {
         todo!()
     }
