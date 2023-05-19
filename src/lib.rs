@@ -236,6 +236,11 @@ impl Navigator {
             ],
         }
     }
+
+    pub fn read_adc(&mut self, channel: adc_Channel) -> i16 {
+        block!(self.adc.read(channel)).unwrap()
+    }
+
     pub fn read_accel(&mut self) -> AxisData {
         let reading: [f32; 3] = self.imu.get_scaled_accel().unwrap();
         AxisData {
