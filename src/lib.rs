@@ -1,5 +1,4 @@
 use ads1x1x::{
-    channel,
     ic::{Ads1115, Resolution16Bit},
     interface::I2cInterface,
     Ads1x1x, SlaveAddr as adc_Address,
@@ -14,6 +13,8 @@ use linux_embedded_hal::I2cdev;
 use linux_embedded_hal::{Delay, Pin, Spidev};
 use nb::block;
 use pwm_pca9685::{Address as pwm_Address, Channel as pwm_Channel, Pca9685};
+
+pub use ads1x1x::ChannelSelection as adc_Channel;
 
 pub struct AxisData {
     pub x: f32,
