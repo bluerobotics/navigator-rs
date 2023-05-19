@@ -184,10 +184,8 @@ impl Navigator {
             .expect("Error : Error on magnetometer during self-test")
     }
 
-    pub fn set_pwm_value(&mut self) {
-        let channel = pwm_Channel::C0; //todo import enums
-        let value = 2047; //todo a fomula that validades from 0 to 100.00% and convert to 4092
-        self.pwm.set_channel_on(channel, 0).unwrap(); //Channel::C0
+    pub fn set_pwm_channel_value(&mut self, channel: pwm_Channel, value: u16) {
+        self.pwm.set_channel_on(channel, 0).unwrap();
         self.pwm.set_channel_off(channel, value).unwrap();
     }
 
