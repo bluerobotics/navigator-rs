@@ -226,7 +226,7 @@ impl Navigator {
         self.bmp.pressure_kpa().unwrap()
     }
 
-    pub fn read_adc(&mut self) -> ADCData {
+    pub fn read_adc_all(&mut self) -> ADCData {
         ADCData {
             channel: [
                 block!(self.adc.read(&mut channel::SingleA0)).unwrap(),
@@ -254,7 +254,7 @@ impl Navigator {
     }
     pub fn read_all(&mut self) -> SensorData {
         SensorData {
-            adc: self.read_adc(),
+            adc: self.read_adc_all(),
             temperature: self.read_temperature(),
             pressure: self.read_pressure(),
             accelerometer: self.read_accel(),
