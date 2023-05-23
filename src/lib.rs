@@ -1,11 +1,10 @@
 use ads1x1x::{
     ic::{Ads1115, Resolution16Bit},
     interface::I2cInterface,
-    Ads1x1x, SlaveAddr as adc_Address,
+    Ads1x1x, DynamicOneShot, SlaveAddr as adc_Address,
 };
 use ak09915_rs::{Ak09915, Mode as mag_Mode};
 use bmp280::{Bmp280, Bmp280Builder};
-use embedded_hal::adc::OneShot;
 use icm20689::{self, AccelRange, Builder as imu_Builder, GyroRange, SpiInterface, ICM20689};
 use linux_embedded_hal::spidev::{self, SpidevOptions};
 use linux_embedded_hal::sysfs_gpio::Direction;
