@@ -228,10 +228,10 @@ impl Navigator {
     pub fn read_adc_all(&mut self) -> ADCData {
         ADCData {
             channel: [
-                block!(self.adc.read(adc_Channel::SingleA0)).unwrap(),
-                block!(self.adc.read(adc_Channel::SingleA1)).unwrap(),
-                block!(self.adc.read(adc_Channel::SingleA2)).unwrap(),
-                block!(self.adc.read(adc_Channel::SingleA3)).unwrap(),
+                self.read_adc(adc_Channel::SingleA0),
+                self.read_adc(adc_Channel::SingleA1),
+                self.read_adc(adc_Channel::SingleA2),
+                self.read_adc(adc_Channel::SingleA3),
             ],
         }
     }
