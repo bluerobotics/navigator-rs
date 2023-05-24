@@ -267,6 +267,26 @@
 <a href="#267" id="267">267</a>
 <a href="#268" id="268">268</a>
 <a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
 </pre><pre class="rust"><code><span class="kw">use </span>ads1x1x::{
     ic::{Ads1115, Resolution16Bit},
     interface::I2cInterface,
@@ -280,7 +300,9 @@
 <span class="kw">use </span>linux_embedded_hal::I2cdev;
 <span class="kw">use </span>linux_embedded_hal::{Delay, Pin, Spidev};
 <span class="kw">use </span>nb::block;
-<span class="kw">use </span>pwm_pca9685::{Address <span class="kw">as </span>pwm_Address, Channel <span class="kw">as </span>pwm_Channel, Pca9685};
+<span class="kw">use </span>pwm_pca9685::{Address <span class="kw">as </span>pwm_Address, Pca9685};
+
+<span class="kw">pub use </span>pwm_pca9685::Channel <span class="kw">as </span>pwm_Channel;
 
 <span class="kw">pub use </span>ads1x1x::ChannelSelection <span class="kw">as </span>adc_Channel;
 
@@ -451,11 +473,29 @@
             .expect(<span class="string">&quot;Error : Error on magnetometer during self-test&quot;</span>)
     }
 
-    <span class="kw">pub fn </span>set_pwm_value(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">let </span>channel = pwm_Channel::C0; <span class="comment">//todo import enums
-        </span><span class="kw">let </span>value = <span class="number">2047</span>; <span class="comment">//todo a fomula that validades from 0 to 100.00% and convert to 4092
-        </span><span class="self">self</span>.pwm.set_channel_on(channel, <span class="number">0</span>).unwrap(); <span class="comment">//Channel::C0
-        </span><span class="self">self</span>.pwm.set_channel_off(channel, value).unwrap();
+    <span class="kw">pub fn </span>set_pwm_channel_value(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel: pwm_Channel, value: u16) {
+        <span class="self">self</span>.pwm.set_channel_on(channel, <span class="number">0</span>).unwrap();
+        <span class="self">self</span>.pwm.set_channel_off(channel, value).unwrap();
+    }
+
+    <span class="kw">pub fn </span>set_pwm_channels_value&lt;<span class="kw">const </span>N: usize&gt;(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        channels: <span class="kw-2">&amp;</span>[pwm_Channel; N],
+        value: u16,
+    ) {
+        <span class="kw">for </span><span class="kw-2">&amp;</span>channel <span class="kw">in </span>channels.iter().take(N) {
+            <span class="self">self</span>.set_pwm_channel_value(channel, value)
+        }
+    }
+
+    <span class="kw">pub fn </span>set_pwm_channels_values&lt;<span class="kw">const </span>N: usize&gt;(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        channels: <span class="kw-2">&amp;</span>[pwm_Channel; N],
+        values: <span class="kw-2">&amp;</span>[u16; N],
+    ) {
+        <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..N {
+            <span class="self">self</span>.set_pwm_channel_value(channels[i], values[i])
+        }
     }
 
     <span class="kw">pub fn </span>set_pwm_freq(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
