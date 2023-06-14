@@ -5,6 +5,7 @@ use ads1x1x::{
 };
 use ak09915_rs::{Ak09915, Mode as mag_Mode};
 use bmp280::{Bmp280, Bmp280Builder};
+use embedded_hal::prelude::_embedded_hal_blocking_delay_DelayMs;
 use icm20689::{self, AccelRange, Builder as imu_Builder, GyroRange, SpiInterface, ICM20689};
 use linux_embedded_hal::spidev::{self, SpidevOptions};
 use linux_embedded_hal::sysfs_gpio::Direction;
@@ -66,6 +67,7 @@ impl Led {
 
         for pin in led.as_mut_array().iter_mut() {
             pin.export().expect("Error: Error during led pins export");
+            Delay {}.delay_ms(30_u16);
             pin.set_direction(Direction::High)
                 .expect("Error: Setting led pins as output");
         }
@@ -127,12 +129,14 @@ impl Navigator {
         //Define CS2 pin ICM-20602
         let cs_2 = Pin::new(16);
         cs_2.export().expect("Error: Error during CS2 export");
+        Delay {}.delay_ms(30_u16);
         cs_2.set_direction(Direction::High)
             .expect("Error: Setting CS2 pin as output");
 
         //not using yet, define CS1 pin for MMC5983
         let cs_1 = Pin::new(17);
         cs_1.export().expect("Error: Error during CS1 export");
+        Delay {}.delay_ms(30_u16);
         cs_1.set_direction(Direction::High)
             .expect("Error: Setting CS2 pin as output");
 
