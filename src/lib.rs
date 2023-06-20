@@ -18,16 +18,21 @@ pub use pwm_pca9685::Channel as pwm_Channel;
 
 pub use ads1x1x::ChannelSelection as adc_Channel;
 
+use std::fmt::Debug;
+
+#[derive(Debug)]
 pub struct AxisData {
     pub x: f32,
     pub y: f32,
     pub z: f32,
 }
 
+#[derive(Debug)]
 pub struct ADCData {
     pub channel: [i16; 4],
 }
 
+#[derive(Debug)]
 pub struct SensorData {
     pub adc: ADCData,
     pub temperature: f32,
@@ -37,6 +42,12 @@ pub struct SensorData {
     pub gyro: AxisData,
 }
 
+pub struct Led {
+    first: Pin,
+    second: Pin,
+    third: Pin,
+}
+
 pub struct Navigator {
     pwm: Pca9685<I2cdev>,
     bmp: Bmp280,
@@ -44,12 +55,6 @@ pub struct Navigator {
     imu: ICM20689<SpiInterface<Spidev, Pin>>,
     mag: Ak09915<I2cdev>,
     led: Led,
-}
-
-pub struct Led {
-    first: Pin,
-    second: Pin,
-    third: Pin,
 }
 
 impl Default for Led {
@@ -292,6 +297,46 @@ impl Navigator {
             accelerometer: self.read_accel(),
             magnetometer: self.read_mag(),
             gyro: self.read_gyro(),
+        }
+    }
+
+    pub fn fmt_debug(&mut self) -> impl Debug {
+        #[allow(dead_code)]
+        #[derive(Debug)]
+        struct Bmp {
+            temperature: f32,
+            altitude: f32,
+            pressure: f32,
+        }
+
+        #[allow(dead_code)]
+        #[derive(Debug)]
+        struct Imu {
+            accelerometer: AxisData,
+            gyroscope: AxisData,
+        }
+
+        #[allow(dead_code)]
+        #[derive(Debug)]
+        struct Navigator {
+            adc: ADCData,
+            bmp: Bmp,
+            imu: Imu,
+            mag: AxisData,
+        }
+
+        Navigator {
+            adc: self.read_adc_all(),
+            bmp: Bmp {
+                temperature: self.read_temperature(),
+                altitude: self.read_altitude(),
+                pressure: self.read_pressure(),
+            },
+            imu: Imu {
+                accelerometer: self.read_accel(),
+                gyroscope: self.read_gyro(),
+            },
+            mag: self.read_mag(),
         }
     }
 }
