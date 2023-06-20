@@ -27,6 +27,7 @@ pub struct AxisData {
 pub struct ADCData {
     pub channel: [i16; 4],
 }
+
 pub struct SensorData {
     pub adc: ADCData,
     pub temperature: f32,
@@ -228,6 +229,7 @@ impl Navigator {
     pub fn set_led_on(&mut self) {
         self.led.all_on()
     }
+
     pub fn set_led_off(&mut self) {
         self.led.all_off()
     }
@@ -272,6 +274,7 @@ impl Navigator {
             z: reading[2],
         }
     }
+
     pub fn read_gyro(&mut self) -> AxisData {
         let reading: [f32; 3] = self.imu.get_scaled_gyro().unwrap();
         AxisData {
@@ -280,6 +283,7 @@ impl Navigator {
             z: reading[2],
         }
     }
+
     pub fn read_all(&mut self) -> SensorData {
         SensorData {
             adc: self.read_adc_all(),
