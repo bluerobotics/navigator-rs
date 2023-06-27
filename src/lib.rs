@@ -13,6 +13,7 @@ use linux_embedded_hal::I2cdev;
 use linux_embedded_hal::{Delay, Pin, Spidev};
 use nb::block;
 use pwm_pca9685::{Address as pwm_Address, Pca9685};
+use std::ops::{Deref, DerefMut};
 
 pub use pwm_pca9685::Channel as pwm_Channel;
 
@@ -49,12 +50,31 @@ pub struct Led {
 }
 
 pub struct Navigator {
-    pwm: Pca9685<I2cdev>,
+    pwm: Pwm,
     bmp: Bmp280,
     adc: Ads1x1x<I2cInterface<I2cdev>, Ads1115, Resolution16Bit, ads1x1x::mode::OneShot>,
     imu: ICM20689<SpiInterface<Spidev, Pin>>,
     mag: Ak09915<I2cdev>,
     led: Led,
+}
+
+impl Deref for Pwm {
+    type Target = Pca9685<I2cdev>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.pca
+    }
+}
+
+impl DerefMut for Pwm {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.pca
+    }
+}
+
+pub struct Pwm {
+    pca: Pca9685<I2cdev>,
+    oe_pin: Pin,
 }
 
 impl Default for Led {
@@ -161,7 +181,7 @@ impl Navigator {
         Self {
             adc: (adc),
             bmp: (bmp),
-            pwm: (pwm),
+            pwm: Pwm { pca: pwm, oe_pin },
             mag: (mag),
             imu: (imu),
             led: (led),
