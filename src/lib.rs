@@ -146,6 +146,14 @@ impl Navigator {
         cs_1.set_direction(Direction::High)
             .expect("Error: Setting CS2 pin as output");
 
+        //Define pwm OE_Pin - PWM initialize disabled
+        let oe_pin = Pin::new(26);
+        oe_pin.export().expect("Error: Error during oe_pin export");
+        Delay {}.delay_ms(30_u16);
+        oe_pin
+            .set_direction(Direction::High)
+            .expect("Error: Setting oe_pin pin as output");
+
         let imu = imu_Builder::new_spi(spi, cs_2);
 
         let led = Led::new();
