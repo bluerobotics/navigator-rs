@@ -340,6 +340,43 @@
 <a href="#340" id="340">340</a>
 <a href="#341" id="341">341</a>
 <a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>ads1x1x::{
     ic::{Ads1115, Resolution16Bit},
     interface::I2cInterface,
@@ -355,6 +392,7 @@
 <span class="kw">use </span>linux_embedded_hal::{Delay, Pin, Spidev};
 <span class="kw">use </span>nb::block;
 <span class="kw">use </span>pwm_pca9685::{Address <span class="kw">as </span>pwm_Address, Pca9685};
+<span class="kw">use </span>std::ops::{Deref, DerefMut};
 
 <span class="kw">pub use </span>pwm_pca9685::Channel <span class="kw">as </span>pwm_Channel;
 
@@ -391,12 +429,31 @@
 }
 
 <span class="kw">pub struct </span>Navigator {
-    pwm: Pca9685&lt;I2cdev&gt;,
+    pwm: Pwm,
     bmp: Bmp280,
     adc: Ads1x1x&lt;I2cInterface&lt;I2cdev&gt;, Ads1115, Resolution16Bit, ads1x1x::mode::OneShot&gt;,
     imu: ICM20689&lt;SpiInterface&lt;Spidev, Pin&gt;&gt;,
     mag: Ak09915&lt;I2cdev&gt;,
     led: Led,
+}
+
+<span class="kw">impl </span>Deref <span class="kw">for </span>Pwm {
+    <span class="kw">type </span>Target = Pca9685&lt;I2cdev&gt;;
+
+    <span class="kw">fn </span>deref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="self">Self</span>::Target {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.pca
+    }
+}
+
+<span class="kw">impl </span>DerefMut <span class="kw">for </span>Pwm {
+    <span class="kw">fn </span>deref_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Target {
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>.pca
+    }
+}
+
+<span class="kw">pub struct </span>Pwm {
+    pca: Pca9685&lt;I2cdev&gt;,
+    oe_pin: Pin,
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>Led {
@@ -488,6 +545,14 @@
         cs_1.set_direction(Direction::High)
             .expect(<span class="string">&quot;Error: Setting CS2 pin as output&quot;</span>);
 
+        <span class="comment">//Define pwm OE_Pin - PWM initialize disabled
+        </span><span class="kw">let </span>oe_pin = Pin::new(<span class="number">26</span>);
+        oe_pin.export().expect(<span class="string">&quot;Error: Error during oe_pin export&quot;</span>);
+        Delay {}.delay_ms(<span class="number">30_u16</span>);
+        oe_pin
+            .set_direction(Direction::High)
+            .expect(<span class="string">&quot;Error: Setting oe_pin pin as output&quot;</span>);
+
         <span class="kw">let </span>imu = imu_Builder::new_spi(spi, cs_2);
 
         <span class="kw">let </span>led = Led::new();
@@ -495,7 +560,7 @@
         <span class="self">Self </span>{
             adc: (adc),
             bmp: (bmp),
-            pwm: (pwm),
+            pwm: Pwm { pca: pwm, oe_pin },
             mag: (mag),
             imu: (imu),
             led: (led),
@@ -520,7 +585,6 @@
         <span class="self">self</span>.pwm.reset_internal_driver_state();
         <span class="self">self</span>.pwm.use_external_clock().unwrap();
         <span class="self">self</span>.pwm.set_prescale(<span class="number">100</span>).unwrap();
-        <span class="self">self</span>.pwm.enable().unwrap();
 
         <span class="self">self</span>.bmp.zero().unwrap();
 
@@ -534,6 +598,16 @@
         <span class="self">self</span>.mag
             .self_test()
             .expect(<span class="string">&quot;Error : Error on magnetometer during self-test&quot;</span>)
+    }
+
+    <span class="kw">pub fn </span>pwm_enable(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+        <span class="self">self</span>.pwm.enable().unwrap();
+        <span class="self">self</span>.pwm.oe_pin.set_direction(Direction::Low).unwrap();
+    }
+
+    <span class="kw">pub fn </span>pwm_disable(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+        <span class="self">self</span>.pwm.disable().unwrap();
+        <span class="self">self</span>.pwm.oe_pin.set_direction(Direction::High).unwrap();
     }
 
     <span class="kw">pub fn </span>set_pwm_channel_value(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel: pwm_Channel, value: u16) {
