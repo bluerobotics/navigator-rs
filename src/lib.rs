@@ -206,7 +206,6 @@ impl Navigator {
         self.pwm.reset_internal_driver_state();
         self.pwm.use_external_clock().unwrap();
         self.pwm.set_prescale(100).unwrap();
-        self.pwm.enable().unwrap();
 
         self.bmp.zero().unwrap();
 
@@ -220,6 +219,16 @@ impl Navigator {
         self.mag
             .self_test()
             .expect("Error : Error on magnetometer during self-test")
+    }
+
+    pub fn pwm_enable(&mut self) {
+        self.pwm.enable().unwrap();
+        self.pwm.oe_pin.set_direction(Direction::Low).unwrap();
+    }
+
+    pub fn pwm_disable(&mut self) {
+        self.pwm.disable().unwrap();
+        self.pwm.oe_pin.set_direction(Direction::High).unwrap();
     }
 
     pub fn set_pwm_channel_value(&mut self, channel: pwm_Channel, value: u16) {
