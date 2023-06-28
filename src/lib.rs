@@ -237,7 +237,30 @@ impl Navigator {
         self.pwm.oe_pin.set_direction(Direction::High).unwrap();
     }
 
-    pub fn set_pwm_channel_value(&mut self, channel: pwm_Channel, value: u16) {
+    /// Sets the Duty Cycle (high value time) of selected channel.
+    ///
+    /// On PCA9685, this function sets the `OFF` counter and uses ON value as 0.
+    ///
+    /// # Further info
+    /// Check **[7.3.3 LED output and PWM control](https://www.nxp.com/docs/en/data-sheet/PCA9685.pdf#page=16)**
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use navigator_rs::{pwm_Channel, Navigator};
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    /// nav.pwm_enable();
+    /// nav.set_pwm_freq_prescale(100); // sets the pwm frequency to 60 Hz
+    /// nav.set_pwm_channel_value(pwm_Channel::C0, 2048); // sets the duty cycle to 50%
+    /// ```
+    pub fn set_pwm_channel_value(&mut self, channel: pwm_Channel, mut value: u16) {
+        let max_value = 4095;
+        if value > max_value {
+            warn!("Invalid value. Value must be less than or equal {max_value}.");
+            value = max_value;
+        }
         self.pwm.set_channel_on(channel, 0).unwrap();
         self.pwm.set_channel_off(channel, value).unwrap();
     }
@@ -319,6 +342,7 @@ impl Navigator {
     /// use std::thread::sleep;
     /// use std::time::Duration;
     ///
+    /// let mut nav = Navigator::new();
     /// nav.init();
     /// nav.pwm_enable();
     /// let mut i: f32 = 10.0;
