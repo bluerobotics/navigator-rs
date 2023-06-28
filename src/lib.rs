@@ -16,14 +16,74 @@ use nb::block;
 use pwm_pca9685::{Address as pwm_Address, Pca9685};
 use std::ops::{Deref, DerefMut};
 
-pub use pwm_pca9685::Channel as pwm_Channel;
-
-pub use ads1x1x::ChannelSelection as adc_Channel;
-
 use std::fmt::Debug;
 
 /// Navigator's default crystal clock for PWM, with a value of 24.5760 MHz
 const NAVIGATOR_PWM_XTAL_CLOCK_FREQ: f32 = 24_576_000.0;
+
+impl From<AdcChannel> for ads1x1x::ChannelSelection {
+    fn from(channel: AdcChannel) -> Self {
+        match channel {
+            AdcChannel::Ch0 => ads1x1x::ChannelSelection::SingleA0,
+            AdcChannel::Ch1 => ads1x1x::ChannelSelection::SingleA1,
+            AdcChannel::Ch2 => ads1x1x::ChannelSelection::SingleA2,
+            AdcChannel::Ch3 => ads1x1x::ChannelSelection::SingleA3,
+        }
+    }
+}
+
+impl From<PwmChannel> for pwm_pca9685::Channel {
+    fn from(channel: PwmChannel) -> Self {
+        match channel {
+            PwmChannel::Ch0 => pwm_pca9685::Channel::C0,
+            PwmChannel::Ch1 => pwm_pca9685::Channel::C1,
+            PwmChannel::Ch2 => pwm_pca9685::Channel::C2,
+            PwmChannel::Ch3 => pwm_pca9685::Channel::C3,
+            PwmChannel::Ch4 => pwm_pca9685::Channel::C4,
+            PwmChannel::Ch5 => pwm_pca9685::Channel::C5,
+            PwmChannel::Ch6 => pwm_pca9685::Channel::C6,
+            PwmChannel::Ch7 => pwm_pca9685::Channel::C7,
+            PwmChannel::Ch8 => pwm_pca9685::Channel::C8,
+            PwmChannel::Ch9 => pwm_pca9685::Channel::C9,
+            PwmChannel::Ch10 => pwm_pca9685::Channel::C10,
+            PwmChannel::Ch11 => pwm_pca9685::Channel::C11,
+            PwmChannel::Ch12 => pwm_pca9685::Channel::C12,
+            PwmChannel::Ch13 => pwm_pca9685::Channel::C13,
+            PwmChannel::Ch14 => pwm_pca9685::Channel::C14,
+            PwmChannel::Ch15 => pwm_pca9685::Channel::C15,
+            PwmChannel::All => pwm_pca9685::Channel::All,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+pub enum AdcChannel {
+    Ch0,
+    Ch1,
+    Ch2,
+    Ch3,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum PwmChannel {
+    Ch0,
+    Ch1,
+    Ch2,
+    Ch3,
+    Ch4,
+    Ch5,
+    Ch6,
+    Ch7,
+    Ch8,
+    Ch9,
+    Ch10,
+    Ch11,
+    Ch12,
+    Ch13,
+    Ch14,
+    Ch15,
+    All,
+}
 
 #[derive(Debug)]
 pub struct AxisData {
@@ -252,22 +312,23 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     /// nav.init();
     /// nav.pwm_enable();
-    /// nav.set_pwm_freq_prescale(100); // sets the pwm frequency to 60 Hz
-    /// nav.set_pwm_channel_value(pwm_Channel::C0, 2048); // sets the duty cycle to 50%
+    ///
+    /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
+    /// nav.set_pwm_channel_value(PwmChannel::Ch0, 2048); // sets the duty cycle to 50%
     /// ```
-    pub fn set_pwm_channel_value(&mut self, channel: pwm_Channel, mut value: u16) {
+    pub fn set_pwm_channel_value(&mut self, channel: PwmChannel, mut value: u16) {
         let max_value = 4095;
         if value > max_value {
             warn!("Invalid value. Value must be less than or equal {max_value}.");
             value = max_value;
         }
-        self.pwm.set_channel_on(channel, 0).unwrap();
-        self.pwm.set_channel_off(channel, value).unwrap();
+        self.pwm.set_channel_on(channel.into(), 0).unwrap();
+        self.pwm.set_channel_off(channel.into(), value).unwrap();
     }
 
     pub fn set_pwm_channels_value<const N: usize>(
         &mut self,
-        channels: &[pwm_Channel; N],
+        channels: &[PwmChannel; N],
         value: u16,
     ) {
         for &channel in channels.iter().take(N) {
@@ -277,7 +338,7 @@ impl Navigator {
 
     pub fn set_pwm_channels_values<const N: usize>(
         &mut self,
-        channels: &[pwm_Channel; N],
+        channels: &[PwmChannel; N],
         values: &[u16; N],
     ) {
         for i in 0..N {
@@ -316,8 +377,10 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     /// nav.init();
     /// nav.pwm_enable();
-    /// nav.set_pwm_freq_prescale(100); // sets the pwm frequency to 60 Hz
-    /// nav.set_pwm_channel_value(pwm_Channel::C0, 2048); // sets the duty cycle to 50%
+    ///
+    /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
+    ///
+    /// nav.set_pwm_channel_value(PwmChannel::Ch0, 2048); // sets the duty cycle to 50%
     /// ```
     pub fn set_pwm_freq_prescale(&mut self, mut value: u8) {
         let min_prescale = 3;
@@ -348,8 +411,8 @@ impl Navigator {
     /// let mut i: f32 = 10.0;
     ///
     /// loop {
-    ///     nav.set_pwm_freq_hz(i); // sets the PWM frequency to 60 Hz
-    ///     nav.set_pwm_channel_value(pwm_Channel::C0, 2048); // sets the duty cycle to 50%
+    ///     nav.set_pwm_freq_hz(i);
+    ///     nav.set_pwm_channel_value(PwmChannel::Ch0, 2048); // sets the duty cycle to 50%
     ///     i = i + 10.0;
     ///     sleep(Duration::from_millis(1000));
     /// }
@@ -409,16 +472,16 @@ impl Navigator {
     pub fn read_adc_all(&mut self) -> ADCData {
         ADCData {
             channel: [
-                self.read_adc(adc_Channel::SingleA0),
-                self.read_adc(adc_Channel::SingleA1),
-                self.read_adc(adc_Channel::SingleA2),
-                self.read_adc(adc_Channel::SingleA3),
+                self.read_adc(AdcChannel::Ch0),
+                self.read_adc(AdcChannel::Ch1),
+                self.read_adc(AdcChannel::Ch2),
+                self.read_adc(AdcChannel::Ch3),
             ],
         }
     }
 
-    pub fn read_adc(&mut self, channel: adc_Channel) -> i16 {
-        block!(self.adc.read(channel)).unwrap()
+    pub fn read_adc(&mut self, channel: AdcChannel) -> i16 {
+        block!(self.adc.read(channel.into())).unwrap()
     }
 
     pub fn read_accel(&mut self) -> AxisData {
