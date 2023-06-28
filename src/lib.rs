@@ -307,7 +307,7 @@ impl Navigator {
     /// # Examples
     ///
     /// ```no_run
-    /// use navigator_rs::{pwm_Channel, Navigator};
+    /// use navigator_rs::{Navigator, PwmChannel};
     ///
     /// let mut nav = Navigator::new();
     /// nav.init();
@@ -326,6 +326,25 @@ impl Navigator {
         self.pwm.set_channel_off(channel.into(), value).unwrap();
     }
 
+    /// Like [`set_pwm_channel_value`](struct.Navigator.html#method.set_pwm_channel_value). This function
+    /// sets the Duty Cycle for a list of multiple channels.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator, PwmChannel};
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// nav.pwm_enable();
+    /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
+    ///
+    /// let channels: [PwmChannel; 3] = [PwmChannel::Ch0, PwmChannel::Ch1, PwmChannel::Ch2];
+    /// let values: [u16; 3] = [200, 1000, 300];
+    ///
+    /// nav.set_pwm_channels_value(&channels, 2048); // sets the duty cycle according to the list.
+    /// ```
     pub fn set_pwm_channels_value<const N: usize>(
         &mut self,
         channels: &[PwmChannel; N],
@@ -336,6 +355,25 @@ impl Navigator {
         }
     }
 
+    /// Like [`set_pwm_channel_value`](struct.Navigator.html#method.set_pwm_channel_value). This function
+    /// sets the Duty Cycle for a list of multiple channels with multiple values.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator, PwmChannel};
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// nav.pwm_enable();
+    /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
+    ///
+    /// let channels: [PwmChannel; 3] = [PwmChannel::Ch0, PwmChannel::Ch1, PwmChannel::Ch2];
+    /// let values: [u16; 3] = [200, 1000, 300];
+    ///
+    /// nav.set_pwm_channels_values(&channels, &values); // sets the duty cycle according to the lists.
+    /// ```
     pub fn set_pwm_channels_values<const N: usize>(
         &mut self,
         channels: &[PwmChannel; N],
@@ -372,7 +410,7 @@ impl Navigator {
     /// # Examples
     ///
     /// ```no_run
-    /// use navigator_rs::{pwm_Channel, Navigator};
+    /// use navigator_rs::{Navigator, PwmChannel};
     ///
     /// let mut nav = Navigator::new();
     /// nav.init();
@@ -401,7 +439,7 @@ impl Navigator {
     /// # Examples
     ///
     /// ```no_run
-    /// use navigator_rs::{pwm_Channel, Navigator, SensorData};
+    /// use navigator_rs::{Navigator, PwmChannel};
     /// use std::thread::sleep;
     /// use std::time::Duration;
     ///
