@@ -246,7 +246,7 @@ impl Navigator {
     ///
     /// # Examples
     ///
-    /// ```
+    /// ```no_run
     /// use navigator_rs::{pwm_Channel, Navigator};
     ///
     /// let mut nav = Navigator::new();
@@ -310,7 +310,7 @@ impl Navigator {
     ///
     /// # Examples
     ///
-    /// ```
+    /// ```no_run
     /// use navigator_rs::{pwm_Channel, Navigator};
     ///
     /// let mut nav = Navigator::new();
@@ -337,7 +337,7 @@ impl Navigator {
     ///
     /// # Examples
     ///
-    /// ```
+    /// ```no_run
     /// use navigator_rs::{pwm_Channel, Navigator, SensorData};
     /// use std::thread::sleep;
     /// use std::time::Duration;
