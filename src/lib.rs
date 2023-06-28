@@ -307,6 +307,46 @@ impl Navigator {
         let clamped_freq = NAVIGATOR_PWM_XTAL_CLOCK_FREQ / (4_096.0 * (value as f32 + 1.0));
         info!("PWM frequency set to {clamped_freq:.2} Hz. Prescaler value: {value}");
     }
+
+    /// Sets the pwm frequency in Hertz of [`Navigator`].
+    ///
+    /// The navigator module uses a crystal with a 24.5760 MHz clock. You can set a value for a frequency between 24 and 1526 Hz.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use navigator_rs::{pwm_Channel, Navigator, SensorData};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// nav.init();
+    /// nav.pwm_enable();
+    /// let mut i: f32 = 10.0;
+    ///
+    /// loop {
+    ///     nav.set_pwm_freq_hz(i); // sets the PWM frequency to 60 Hz
+    ///     nav.set_pwm_channel_value(pwm_Channel::C0, 2048); // sets the duty cycle to 50%
+    ///     i = i + 10.0;
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
+    pub fn set_pwm_freq_hz(&mut self, mut freq: f32) {
+        let min_freq = 24.0;
+        if freq < min_freq {
+            warn!("Invalid value. Value must be greater than or equal to {min_freq}.");
+            freq = min_freq;
+        }
+
+        let max_freq = 1526.0;
+        if freq > max_freq {
+            warn!("Invalid value. Value must be less than or equal to {max_freq}.");
+            freq = max_freq;
+        }
+
+        let prescale_clamped_value =
+            (NAVIGATOR_PWM_XTAL_CLOCK_FREQ / (4_096.0 * freq)).round() as u8 - 1;
+
+        self.set_pwm_freq_prescale(prescale_clamped_value);
     }
 
     pub fn set_pwm_off(&mut self) {
