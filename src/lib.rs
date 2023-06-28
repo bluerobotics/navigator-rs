@@ -11,6 +11,7 @@ use linux_embedded_hal::spidev::{self, SpidevOptions};
 use linux_embedded_hal::sysfs_gpio::Direction;
 use linux_embedded_hal::I2cdev;
 use linux_embedded_hal::{Delay, Pin, Spidev};
+use log::{info, warn};
 use nb::block;
 use pwm_pca9685::{Address as pwm_Address, Pca9685};
 use std::ops::{Deref, DerefMut};
@@ -125,6 +126,8 @@ impl Default for Navigator {
 
 impl Navigator {
     pub fn new() -> Navigator {
+        env_logger::init();
+
         let dev = I2cdev::new("/dev/i2c-4").unwrap();
         let address = pwm_Address::default();
         let pwm = Pca9685::new(dev, address).unwrap();
