@@ -262,8 +262,51 @@ impl Navigator {
         }
     }
 
-    pub fn set_pwm_freq(&mut self) {
-        todo!()
+    /// Sets the PWM frequency of [`Navigator`].
+    ///
+    /// It changes the PRE_SCALE value on PCA9685.
+    ///
+    /// The prescaler value can be calculated for an update rate using the formula:
+    ///
+    /// `prescale_value = round(clock_freq / (4096 * desired_freq)) - 1`.
+    ///
+    /// The minimum prescaler value is 3, which corresponds to 1526 Hz.
+    /// The maximum prescaler value is 255, which corresponds to 24 Hz.
+    ///
+    /// If you want to control a servo, set a prescaler value of 100. This will
+    /// correspond to a frequency of about 60 Hz, which is the frequency at
+    /// which servos work.
+    ///
+    /// Internally, this function stops the oscillator and restarts it after
+    /// setting the prescaler value if it was running.
+    ///
+    /// Re-run the set_pwm_channel_value() is required.
+    ///
+    /// # Further info
+    /// Check **[7.3.5 - PWM frequency PRE_SCALE](https://www.nxp.com/docs/en/data-sheet/PCA9685.pdf#page=25)**
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use navigator_rs::{pwm_Channel, Navigator};
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    /// nav.pwm_enable();
+    /// nav.set_pwm_freq_prescale(100); // sets the pwm frequency to 60 Hz
+    /// nav.set_pwm_channel_value(pwm_Channel::C0, 2048); // sets the duty cycle to 50%
+    /// ```
+    pub fn set_pwm_freq_prescale(&mut self, mut value: u8) {
+        let min_prescale = 3;
+        if value < min_prescale {
+            warn!("Invalid value. Value must be greater than {min_prescale}.");
+            value = min_prescale;
+        }
+        self.pwm.set_prescale(value).unwrap();
+
+        let clamped_freq = NAVIGATOR_PWM_XTAL_CLOCK_FREQ / (4_096.0 * (value as f32 + 1.0));
+        info!("PWM frequency set to {clamped_freq:.2} Hz. Prescaler value: {value}");
+    }
     }
 
     pub fn set_pwm_off(&mut self) {
