@@ -22,6 +22,9 @@ pub use ads1x1x::ChannelSelection as adc_Channel;
 
 use std::fmt::Debug;
 
+/// Navigator's default crystal clock for PWM, with a value of 24.5760 MHz
+const NAVIGATOR_PWM_XTAL_CLOCK_FREQ: f32 = 24_576_000.0;
+
 #[derive(Debug)]
 pub struct AxisData {
     pub x: f32,
