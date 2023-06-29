@@ -494,23 +494,128 @@ impl Navigator {
         self.led.all_off()
     }
 
+    /// Reads the magnetometer Ak09915 of [`Navigator`].
+    ///
+    /// Measurements in \[µT\]
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     let mag = nav.read_mag();
+    ///     println!("mag values: X={}, Y={}, Z={} [µT]", mag.x, mag.y, mag.z);
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
     pub fn read_mag(&mut self) -> AxisData {
         let (x, y, z) = self.mag.read().unwrap();
         AxisData { x, y, z }
     }
 
+    /// Reads the temperature using BMP280 of [`Navigator`].
+    ///
+    /// Measurements in \[˚C\]
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     let temperature = nav.read_temperature();
+    ///     println!("temperature value: {temperature} [˚C]");
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
     pub fn read_temperature(&mut self) -> f32 {
         self.bmp.temperature_celsius().unwrap()
     }
 
+    /// Reads the altitude based on pressure values measured by BMP280 of [`Navigator`].
+    ///
+    /// Measurements in \[m\]
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     let altitude = nav.read_altitude();
+    ///     println!("altitude value: {altitude} [m]");
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
     pub fn read_altitude(&mut self) -> f32 {
         self.bmp.altitude_m().unwrap()
     }
 
+    /// Reads the pressure based on BMP280 of [`Navigator`].
+    ///
+    /// Measurements in \[kPa\]
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     let pressure = nav.read_pressure();
+    ///     println!("pressure value: {pressure} [kPa]");
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
     pub fn read_pressure(&mut self) -> f32 {
         self.bmp.pressure_kpa().unwrap()
     }
 
+    /// Reads the ADC based on ADS1115 of [`Navigator`].
+    ///
+    /// Measurements in \[V\]
+    ///
+    /// Same as [`read_adc`](struct.Navigator.html#method.read_adc), but it returns an array with all channel readings
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     let adc_data = nav.read_adc_all();
+    ///     println!(
+    ///         "adc values per channel: 1: {}, 2: {}, 3: {}, 4: {}",
+    ///         adc_data.channel[0], adc_data.channel[1], adc_data.channel[2], adc_data.channel[3]
+    ///     );
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
     pub fn read_adc_all(&mut self) -> ADCData {
         ADCData {
             channel: [
@@ -526,6 +631,26 @@ impl Navigator {
         block!(self.adc.read(channel.into())).unwrap()
     }
 
+    /// Reads acceleration based on ICM20689 of [`Navigator`].
+    ///
+    /// Measurements in \[m/s²\]
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     let accel = nav.read_accel();
+    ///     println!("accel values: X={}, Y={}, Z={} [m/s²]", accel.x, accel.y, accel.z);
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
     pub fn read_accel(&mut self) -> AxisData {
         let reading: [f32; 3] = self.imu.get_scaled_accel().unwrap();
         AxisData {
@@ -535,6 +660,26 @@ impl Navigator {
         }
     }
 
+    /// Reads angular velocity based on ICM20689 of [`Navigator`].
+    ///
+    /// Measurements in \[rad/s\]
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     let gyro = nav.read_gyro();
+    ///     println!("accel values: X={}, Y={}, Z={} [rad/s]", gyro.x, gyro.y, gyro.z);
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
     pub fn read_gyro(&mut self) -> AxisData {
         let reading: [f32; 3] = self.imu.get_scaled_gyro().unwrap();
         AxisData {
@@ -544,6 +689,25 @@ impl Navigator {
         }
     }
 
+    /// Reads all sensors and stores on a single structure.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator, SensorData};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     println!("---------------reading---------------");
+    ///     let sensors_data = nav.read_all();
+    ///     println!("{sensors_data:#?}");
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
     pub fn read_all(&mut self) -> SensorData {
         SensorData {
             adc: self.read_adc_all(),
