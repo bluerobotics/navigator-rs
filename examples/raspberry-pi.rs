@@ -1,4 +1,4 @@
-use navigator_rs::{pwm_Channel, Navigator, SensorData};
+use navigator_rs::{Navigator, PwmChannel};
 use std::thread::sleep;
 use std::time::Duration;
 
@@ -10,7 +10,7 @@ fn main() {
     nav.init();
 
     loop {
-        nav.set_pwm_channel_value(pwm_Channel::All, 0);
+        nav.set_pwm_channel_value(PwmChannel::All, 0);
         println!("{:#?}", nav.fmt_debug());
         sleep(Duration::from_millis(1000));
     }
