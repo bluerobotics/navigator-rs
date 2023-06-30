@@ -209,7 +209,7 @@ impl Navigator {
             .expect("Error: Failed to build BMP280 device");
         bmp.zero().unwrap();
 
-        let mut spi = Spidev::open("/dev/spidev1.0").expect("Error: Failled during setting up SPI");
+        let mut spi = Spidev::open("/dev/spidev1.0").expect("Error: Failed during setting up SPI");
         let options = SpidevOptions::new()
             .bits_per_word(8)
             .max_speed_hz(10_000_000)
