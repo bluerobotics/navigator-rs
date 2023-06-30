@@ -85,6 +85,7 @@ pub enum PwmChannel {
     All,
 }
 
+/// The `AxisData` struct encapsulate values for the x, y, and z axes.
 #[derive(Debug)]
 pub struct AxisData {
     pub x: f32,
@@ -92,11 +93,13 @@ pub struct AxisData {
     pub z: f32,
 }
 
+/// Encapsulates the value of ADC's four channels.
 #[derive(Debug)]
 pub struct ADCData {
     pub channel: [i16; 4],
 }
 
+/// Encapsulates the value of all sensors on the board.
 #[derive(Debug)]
 pub struct SensorData {
     pub adc: ADCData,
@@ -107,12 +110,22 @@ pub struct SensorData {
     pub gyro: AxisData,
 }
 
+/// The `Led` struct represents the 3 LEDs on navigator board.
+///
+/// All this components were abstracted to be used directly from navigator module.
 pub struct Led {
     first: Pin,
     second: Pin,
     third: Pin,
 }
 
+/// The `Navigator` struct contains various components used for navigator. It includes PWM control,
+/// pressure and temperature sensing, analog-to-digital conversion, inertial measurement unit,
+/// magnetometer, and LEDs control.
+///
+/// All this components were integrated and abstracted to be used directly from navigator module.
+///
+/// Please check [`Implementations`](struct.Navigator.html#implementations) and it's examples, then start to coding your applications!
 pub struct Navigator {
     pwm: Pwm,
     bmp: Bmp280,
@@ -136,8 +149,14 @@ impl DerefMut for Pwm {
     }
 }
 
+/// The `Pwm` struct represents a PWM (Pulse Width Modulation) controller with a PCA9685 chip and it's
+/// output enable pin.
+///
 pub struct Pwm {
     pca: Pca9685<I2cdev>,
+    /// * `oe_pin`: The `oe_pin` component is a pin that is used to enable or disable the output of the PWM
+    /// signal. It is connected to the Output Enable (OE) pin of the PCA9685 PWM controller.
+    /// The default initialization of the navigator sets oe_pin to a digital high state, which disables the PCA9685's PWM.
     oe_pin: Pin,
 }
 
