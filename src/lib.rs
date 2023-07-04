@@ -310,6 +310,7 @@ impl Navigator {
     /// use navigator_rs::{Navigator, PwmChannel};
     ///
     /// let mut nav = Navigator::new();
+    ///
     /// nav.init();
     /// nav.pwm_enable();
     ///
@@ -413,6 +414,7 @@ impl Navigator {
     /// use navigator_rs::{Navigator, PwmChannel};
     ///
     /// let mut nav = Navigator::new();
+    ///
     /// nav.init();
     /// nav.pwm_enable();
     ///
@@ -444,8 +446,10 @@ impl Navigator {
     /// use std::time::Duration;
     ///
     /// let mut nav = Navigator::new();
+    ///
     /// nav.init();
     /// nav.pwm_enable();
+    ///
     /// let mut i: f32 = 10.0;
     ///
     /// loop {
