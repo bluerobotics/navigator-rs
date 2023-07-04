@@ -2,7 +2,7 @@ var sourcesIndex = JSON.parse('{\
 "ads1x1x":["",[["devices",[["features",[],["mod.rs","tier1.rs","tier2.rs"]],["mode",[],["continuous.rs","mod.rs","oneshot.rs"]]],["common.rs","mod.rs"]]],["channels.rs","construction.rs","conversion.rs","ic.rs","interface.rs","lib.rs","types.rs"]],\
 "aho_corasick":["",[["nfa",[],["contiguous.rs","mod.rs","noncontiguous.rs"]],["packed",[["teddy",[],["compile.rs","mod.rs","runtime.rs"]]],["api.rs","mod.rs","pattern.rs","rabinkarp.rs","vector.rs"]],["util",[],["alphabet.rs","buffer.rs","byte_frequencies.rs","debug.rs","error.rs","int.rs","mod.rs","prefilter.rs","primitives.rs","remapper.rs","search.rs","special.rs"]]],["ahocorasick.rs","automaton.rs","dfa.rs","lib.rs","macros.rs"]],\
 "ak09915_rs":["",[],["lib.rs"]],\
-"bitflags":["",[],["lib.rs"]],\
+"bitflags":["",[],["external.rs","internal.rs","iter.rs","lib.rs","parser.rs","public.rs","traits.rs"]],\
 "bmp280":["",[],["lib.rs"]],\
 "byteorder":["",[],["io.rs","lib.rs"]],\
 "cast":["",[],["lib.rs"]],\
@@ -13,7 +13,6 @@ var sourcesIndex = JSON.parse('{\
 "humantime":["",[],["date.rs","duration.rs","lib.rs","wrapper.rs"]],\
 "i2cdev":["",[],["core.rs","ffi.rs","lib.rs","linux.rs","mock.rs"]],\
 "icm20689":["",[["interface",[],["i2c.rs","mod.rs","spi.rs"]]],["lib.rs"]],\
-"io_lifetimes":["",[],["example_ffi.rs","lib.rs","portability.rs","raw.rs","traits.rs","views.rs"]],\
 "ioctl_rs":["",[["os",[],["linux.rs","mod.rs"]]],["lib.rs"]],\
 "is_terminal":["",[],["lib.rs"]],\
 "libc":["",[["unix",[["linux_like",[["linux",[["arch",[["generic",[],["mod.rs"]]],["mod.rs"]],["gnu",[["b64",[["x86_64",[],["align.rs","mod.rs","not_x32.rs"]]],["mod.rs"]]],["align.rs","mod.rs"]]],["align.rs","mod.rs","non_exhaustive.rs"]]],["mod.rs"]]],["align.rs","mod.rs"]]],["fixed_width_ints.rs","lib.rs","macros.rs"]],\
@@ -28,7 +27,7 @@ var sourcesIndex = JSON.parse('{\
 "pwm_pca9685":["",[],["channels.rs","config.rs","device_impl.rs","lib.rs","register_access.rs","types.rs"]],\
 "regex":["",[["literal",[],["imp.rs","mod.rs"]]],["backtrack.rs","compile.rs","dfa.rs","error.rs","exec.rs","expand.rs","find_byte.rs","input.rs","lib.rs","pikevm.rs","pool.rs","prog.rs","re_builder.rs","re_bytes.rs","re_set.rs","re_trait.rs","re_unicode.rs","sparse.rs","utf8.rs"]],\
 "regex_syntax":["",[["ast",[],["mod.rs","parse.rs","print.rs","visitor.rs"]],["hir",[],["interval.rs","literal.rs","mod.rs","print.rs","translate.rs","visitor.rs"]],["unicode_tables",[],["mod.rs"]]],["debug.rs","either.rs","error.rs","lib.rs","parser.rs","rank.rs","unicode.rs","utf8.rs"]],\
-"rustix":["",[["backend",[["linux_raw",[["arch",[["inline",[],["mod.rs","x86_64.rs"]]],["mod.rs"]],["io",[],["epoll.rs","errno.rs","mod.rs","poll_fd.rs","syscalls.rs","types.rs"]],["process",[],["cpu_set.rs","mod.rs","syscalls.rs","types.rs","wait.rs"]],["termios",[],["mod.rs","syscalls.rs","types.rs"]],["time",[],["mod.rs","types.rs"]]],["c.rs","conv.rs","elf.rs","mod.rs","reg.rs"]]]],["ffi",[],["mod.rs"]],["io",[],["close.rs","dup.rs","errno.rs","eventfd.rs","fcntl.rs","ioctl.rs","mod.rs","pipe.rs","poll.rs","read_write.rs","seek_from.rs","stdio.rs"]],["path",[],["arg.rs","mod.rs"]],["process",[],["chdir.rs","chroot.rs","exit.rs","id.rs","ioctl.rs","kill.rs","membarrier.rs","mod.rs","pidfd.rs","prctl.rs","priority.rs","rlimit.rs","sched.rs","sched_yield.rs","system.rs","umask.rs","wait.rs"]],["termios",[],["cf.rs","constants.rs","mod.rs","tc.rs","tty.rs"]]],["const_assert.rs","cstr.rs","lib.rs","utils.rs","weak.rs"]],\
+"rustix":["",[["backend",[["linux_raw",[["arch",[["inline",[],["mod.rs","x86_64.rs"]]],["mod.rs"]],["io",[],["errno.rs","mod.rs","syscalls.rs","types.rs"]],["termios",[],["mod.rs","syscalls.rs"]]],["c.rs","conv.rs","mod.rs","reg.rs"]]]],["io",[],["close.rs","dup.rs","errno.rs","fcntl.rs","ioctl.rs","mod.rs","read_write.rs"]],["maybe_polyfill",[["std",[],["mod.rs"]]]],["termios",[],["ioctl.rs","mod.rs","tc.rs","tty.rs","types.rs"]]],["bitcast.rs","cstr.rs","ffi.rs","lib.rs","pid.rs","utils.rs","weak.rs"]],\
 "serial_core":["",[],["lib.rs"]],\
 "serial_unix":["",[],["error.rs","lib.rs","poll.rs","tty.rs"]],\
 "spidev":["",[],["lib.rs","spidevioctl.rs"]],\
