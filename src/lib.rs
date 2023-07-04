@@ -94,7 +94,7 @@ pub struct AxisData {
 
 #[derive(Debug)]
 pub struct ADCData {
-    pub channel: [i16; 4],
+    pub channel: [f32; 4],
 }
 
 #[derive(Debug)]
@@ -525,8 +525,27 @@ impl Navigator {
         }
     }
 
-    pub fn read_adc(&mut self, channel: AdcChannel) -> i16 {
-        block!(self.adc.read(channel.into())).unwrap()
+    /// Reads the ADC based on ADS1115 of [`Navigator`].
+    ///
+    /// Measurements in \[V\]
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{AdcChannel, Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     println!("ADC channel 1 value: {} [V]", nav.read_adc(AdcChannel::Ch1));
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    pub fn read_adc(&mut self, channel: AdcChannel) -> f32 {
+        let conversion_volts: f32 = 0.000_125; // According to data-sheet, LSB = 125 μV for ±4.096 scale register, navigator's default
+        block!(self.adc.read(channel.into())).unwrap() as f32 * conversion_volts
     }
 
     pub fn read_accel(&mut self) -> AxisData {
