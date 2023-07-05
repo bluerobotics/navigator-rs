@@ -226,6 +226,15 @@ impl Led {
             .set_value((!state).into())
             .unwrap_or_else(|_| panic!("Error: Set {} LED value to {}", color, state));
     }
+
+    pub fn led_toggle(&mut self, pin: LedColor) {
+        let pin_struct = self.select_by_color(pin);
+
+        let state = pin_struct.get_value().unwrap() == 1;
+
+        self.set_led(pin, state)
+    }
+
     pub fn all_on(&mut self) {
         for pin in self.as_mut_array().iter_mut() {
             pin.set_value(0).expect("Error: Set led value to 0");
@@ -573,6 +582,31 @@ impl Navigator {
     /// ```
     pub fn set_led(&mut self, color: LedColor, state: bool) {
         self.led.set_led(color, state)
+    }
+
+    /// Toggle the output of selected LED color.
+    ///
+    /// # Arguments
+    ///
+    /// * `color` - A pin selected by LED's color from [`LedColor`](enum.LedColor.html).
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{LedColor, Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// loop {
+    ///     nav.set_led_toggle(LedColor::Green);
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
+    pub fn set_led_toggle(&mut self, color: LedColor) {
+        self.led.led_toggle(color)
     }
 
     /// Set all LEDs on ( Blue, Green and Red ).
