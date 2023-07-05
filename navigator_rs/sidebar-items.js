@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["AdcChannel","PwmChannel"],"struct":["ADCData","AxisData","Led","Navigator","Pwm","SensorData"]};
+window.SIDEBAR_ITEMS = {"enum":["AdcChannel","LedColor","PwmChannel"],"struct":["ADCData","AxisData","Led","Navigator","Pwm","SensorData"]};
