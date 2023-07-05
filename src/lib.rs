@@ -14,7 +14,10 @@ use linux_embedded_hal::{Delay, Pin, Spidev};
 use log::{info, warn};
 use nb::block;
 use pwm_pca9685::{Address as pwm_Address, Pca9685};
-use std::ops::{Deref, DerefMut};
+use std::{
+    fmt,
+    ops::{Deref, DerefMut},
+};
 
 use std::fmt::Debug;
 
@@ -62,6 +65,27 @@ pub enum AdcChannel {
     Ch1,
     Ch2,
     Ch3,
+}
+
+/// Set of options to control navigator's LEDs.
+#[derive(Debug, Clone, Copy)]
+pub enum LedColor {
+    /// Attached to LED_1 though GPIO 24.
+    Blue,
+    /// Attached to LED_2 though GPIO 25.
+    Green,
+    /// Attached to LED_3 though GPIO 11.
+    Red,
+}
+
+impl fmt::Display for LedColor {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            LedColor::Green => write!(f, "green"),
+            LedColor::Blue => write!(f, "blue"),
+            LedColor::Red => write!(f, "red"),
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -187,6 +211,13 @@ impl Led {
         [&mut self.first, &mut self.second, &mut self.third]
     }
 
+    pub fn select_by_color(&mut self, color: LedColor) -> &mut Pin {
+        match color {
+            LedColor::Green => &mut self.first,
+            LedColor::Blue => &mut self.second,
+            LedColor::Red => &mut self.third,
+        }
+    }
     pub fn all_on(&mut self) {
         for pin in self.as_mut_array().iter_mut() {
             pin.set_value(0).expect("Error: Set led value to 0");
