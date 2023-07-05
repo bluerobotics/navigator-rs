@@ -508,11 +508,34 @@ impl Navigator {
         todo!()
     }
 
-    pub fn set_led_on(&mut self) {
+    /// Set all LEDs on ( Blue, Green and Red ).
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// loop {
+    ///     nav.set_led_all_on();
+    ///     sleep(Duration::from_millis(1000));
+    ///     nav.set_led_all_off();
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
+    pub fn set_led_all_on(&mut self) {
         self.led.all_on()
     }
 
-    pub fn set_led_off(&mut self) {
+    /// Set all LEDs Off ( Blue, Green and Red ).
+    ///
+    /// # Examples
+    /// Same as [`set_led_all_on`](struct.Navigator.html#method.set_led_all_on)
+    pub fn set_led_all_off(&mut self) {
         self.led.all_off()
     }
 
