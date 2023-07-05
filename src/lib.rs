@@ -219,6 +219,15 @@ impl Led {
         }
     }
 
+    pub fn get_led(&mut self, color: LedColor) -> bool {
+        let pin_struct = self.select_by_color(color);
+
+        pin_struct
+            .get_value()
+            .unwrap_or_else(|_| panic!("Error: Get {} LED value", color))
+            == 0
+    }
+
     pub fn set_led(&mut self, color: LedColor, state: bool) {
         let pin_struct = self.select_by_color(color);
 
@@ -228,11 +237,9 @@ impl Led {
     }
 
     pub fn led_toggle(&mut self, pin: LedColor) {
-        let pin_struct = self.select_by_color(pin);
+        let state = self.get_led(pin);
 
-        let state = pin_struct.get_value().unwrap() == 1;
-
-        self.set_led(pin, state)
+        self.set_led(pin, !state)
     }
 
     pub fn all_on(&mut self) {
@@ -554,6 +561,33 @@ impl Navigator {
 
     pub fn set_pwm_on(&mut self) {
         todo!()
+    }
+
+    /// Gets the navigator LED output state based on it's color. The true state means the LED is on.
+    ///
+    /// # Arguments
+    ///
+    /// * `color` - A pin selected by LED's color from [`LedColor`](enum.LedColor.html).
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{LedColor, Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// loop {
+    ///     let logic_value: bool = nav.get_led(LedColor::Blue);
+    ///     println!("Blue LED logic value is {logic_value}.");
+    ///     nav.set_led_toggle(LedColor::Blue);
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
+    pub fn get_led(&mut self, color: LedColor) -> bool {
+        self.led.get_led(color)
     }
 
     /// Sets the navigator LED output based on it's color.
