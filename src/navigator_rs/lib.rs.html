@@ -595,6 +595,25 @@
 <a href="#595" id="595">595</a>
 <a href="#596" id="596">596</a>
 <a href="#597" id="597">597</a>
+<a href="#598" id="598">598</a>
+<a href="#599" id="599">599</a>
+<a href="#600" id="600">600</a>
+<a href="#601" id="601">601</a>
+<a href="#602" id="602">602</a>
+<a href="#603" id="603">603</a>
+<a href="#604" id="604">604</a>
+<a href="#605" id="605">605</a>
+<a href="#606" id="606">606</a>
+<a href="#607" id="607">607</a>
+<a href="#608" id="608">608</a>
+<a href="#609" id="609">609</a>
+<a href="#610" id="610">610</a>
+<a href="#611" id="611">611</a>
+<a href="#612" id="612">612</a>
+<a href="#613" id="613">613</a>
+<a href="#614" id="614">614</a>
+<a href="#615" id="615">615</a>
+<a href="#616" id="616">616</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>ads1x1x::{
     ic::{Ads1115, Resolution16Bit},
     interface::I2cInterface,
@@ -682,19 +701,22 @@
     All,
 }
 
-<span class="attr">#[derive(Debug)]
+<span class="doccomment">/// The `AxisData` struct encapsulate values for the x, y, and z axes.
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>AxisData {
     <span class="kw">pub </span>x: f32,
     <span class="kw">pub </span>y: f32,
     <span class="kw">pub </span>z: f32,
 }
 
-<span class="attr">#[derive(Debug)]
+<span class="doccomment">/// Encapsulates the value of ADC&#39;s four channels.
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ADCData {
     <span class="kw">pub </span>channel: [i16; <span class="number">4</span>],
 }
 
-<span class="attr">#[derive(Debug)]
+<span class="doccomment">/// Encapsulates the value of all sensors on the board.
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>SensorData {
     <span class="kw">pub </span>adc: ADCData,
     <span class="kw">pub </span>temperature: f32,
@@ -704,13 +726,23 @@
     <span class="kw">pub </span>gyro: AxisData,
 }
 
-<span class="kw">pub struct </span>Led {
+<span class="doccomment">/// The `Led` struct represents the 3 LEDs on navigator board.
+///
+/// All this components were abstracted to be used directly from navigator module.
+</span><span class="kw">pub struct </span>Led {
     first: Pin,
     second: Pin,
     third: Pin,
 }
 
-<span class="kw">pub struct </span>Navigator {
+<span class="doccomment">/// The `Navigator` struct contains various components used for navigator. It includes PWM control,
+/// pressure and temperature sensing, analog-to-digital conversion, inertial measurement unit,
+/// magnetometer, and LEDs control.
+///
+/// All this components were integrated and abstracted to be used directly from navigator module.
+///
+/// Please check [`Implementations`](struct.Navigator.html#implementations) and it&#39;s examples, then start to coding your applications!
+</span><span class="kw">pub struct </span>Navigator {
     pwm: Pwm,
     bmp: Bmp280,
     adc: Ads1x1x&lt;I2cInterface&lt;I2cdev&gt;, Ads1115, Resolution16Bit, ads1x1x::mode::OneShot&gt;,
@@ -733,9 +765,15 @@
     }
 }
 
-<span class="kw">pub struct </span>Pwm {
+<span class="doccomment">/// The `Pwm` struct represents a PWM (Pulse Width Modulation) controller with a PCA9685 chip and it&#39;s
+/// output enable pin.
+///
+</span><span class="kw">pub struct </span>Pwm {
     pca: Pca9685&lt;I2cdev&gt;,
-    oe_pin: Pin,
+    <span class="doccomment">/// * `oe_pin`: The `oe_pin` component is a pin that is used to enable or disable the output of the PWM
+    /// signal. It is connected to the Output Enable (OE) pin of the PCA9685 PWM controller.
+    /// The default initialization of the navigator sets oe_pin to a digital high state, which disables the PCA9685&#39;s PWM.
+    </span>oe_pin: Pin,
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>Led {
