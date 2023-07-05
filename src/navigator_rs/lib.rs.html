@@ -778,6 +778,28 @@
 <a href="#778" id="778">778</a>
 <a href="#779" id="779">779</a>
 <a href="#780" id="780">780</a>
+<a href="#781" id="781">781</a>
+<a href="#782" id="782">782</a>
+<a href="#783" id="783">783</a>
+<a href="#784" id="784">784</a>
+<a href="#785" id="785">785</a>
+<a href="#786" id="786">786</a>
+<a href="#787" id="787">787</a>
+<a href="#788" id="788">788</a>
+<a href="#789" id="789">789</a>
+<a href="#790" id="790">790</a>
+<a href="#791" id="791">791</a>
+<a href="#792" id="792">792</a>
+<a href="#793" id="793">793</a>
+<a href="#794" id="794">794</a>
+<a href="#795" id="795">795</a>
+<a href="#796" id="796">796</a>
+<a href="#797" id="797">797</a>
+<a href="#798" id="798">798</a>
+<a href="#799" id="799">799</a>
+<a href="#800" id="800">800</a>
+<a href="#801" id="801">801</a>
+<a href="#802" id="802">802</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>ads1x1x::{
     ic::{Ads1115, Resolution16Bit},
     interface::I2cInterface,
@@ -876,7 +898,7 @@
 <span class="doccomment">/// Encapsulates the value of ADC&#39;s four channels.
 </span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>ADCData {
-    <span class="kw">pub </span>channel: [i16; <span class="number">4</span>],
+    <span class="kw">pub </span>channel: [f32; <span class="number">4</span>],
 }
 
 <span class="doccomment">/// Encapsulates the value of all sensors on the board.
@@ -1067,6 +1089,9 @@
         <span class="self">self</span>.imu.set_gyro_range(GyroRange::Range_250dps).unwrap();
 
         <span class="self">self</span>.adc.reset_internal_driver_state();
+        <span class="self">self</span>.adc
+            .set_full_scale_range(ads1x1x::FullScaleRange::Within4_096V)
+            .unwrap();
 
         <span class="self">self</span>.pwm.reset_internal_driver_state();
         <span class="self">self</span>.pwm.use_external_clock().unwrap();
@@ -1426,8 +1451,27 @@
         }
     }
 
-    <span class="kw">pub fn </span>read_adc(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel: AdcChannel) -&gt; i16 {
-        <span class="macro">block!</span>(<span class="self">self</span>.adc.read(channel.into())).unwrap()
+    <span class="doccomment">/// Reads the ADC based on ADS1115 of [`Navigator`].
+    ///
+    /// Measurements in \[V\]
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{AdcChannel, Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     println!(&quot;ADC channel 1 value: {} [V]&quot;, nav.read_adc(AdcChannel::Ch1));
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    </span><span class="kw">pub fn </span>read_adc(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel: AdcChannel) -&gt; f32 {
+        <span class="kw">let </span>conversion_volts: f32 = <span class="number">0.000_125</span>; <span class="comment">// According to data-sheet, LSB = 125 μV for ±4.096 scale register, navigator&#39;s default
+        </span><span class="macro">block!</span>(<span class="self">self</span>.adc.read(channel.into())).unwrap() <span class="kw">as </span>f32 * conversion_volts
     }
 
     <span class="doccomment">/// Reads acceleration based on ICM20689 of [`Navigator`].
