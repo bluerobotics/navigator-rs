@@ -589,15 +589,6 @@ impl Navigator {
 
         self.set_pwm_freq_prescale(prescale_clamped_value);
     }
-
-    pub fn set_pwm_off(&mut self) {
-        todo!()
-    }
-
-    pub fn set_pwm_on(&mut self) {
-        todo!()
-    }
-
     /// Gets the navigator LED output state based on it's color. The true state means the LED is on.
     ///
     /// # Arguments
