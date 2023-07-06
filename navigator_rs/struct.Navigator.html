@@ -16,7 +16,7 @@ nav.init();
 nav.pwm_enable();
 
 nav.set_pwm_freq_prescale(<span class="number">99</span>); <span class="comment">// sets the pwm frequency to 60 Hz
-</span>nav.set_pwm_channel_value(PwmChannel::Ch0, <span class="number">2048</span>); <span class="comment">// sets the duty cycle to 50%</span></code></pre></div>
+</span>nav.set_pwm_channel_value(PwmChannel::Ch1, <span class="number">2048</span>); <span class="comment">// sets the duty cycle to 50%</span></code></pre></div>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.set_pwm_channels_value" class="method"><a class="srclink rightside" href="../src/navigator_rs/lib.rs.html#426-434">source</a><h4 class="code-header">pub fn <a href="#method.set_pwm_channels_value" class="fn">set_pwm_channels_value</a>&lt;const N: <a class="primitive" href="https://doc.rust-lang.org/1.70.0/std/primitive.usize.html">usize</a>&gt;(
     &amp;mut self,
     channels: &amp;[<a class="enum" href="enum.PwmChannel.html" title="enum navigator_rs::PwmChannel">PwmChannel</a>; <a class="primitive" href="https://doc.rust-lang.org/1.70.0/std/primitive.array.html">N</a>],
@@ -32,7 +32,7 @@ nav.init();
 nav.pwm_enable();
 nav.set_pwm_freq_prescale(<span class="number">99</span>); <span class="comment">// sets the pwm frequency to 60 Hz
 
-</span><span class="kw">let </span>channels: [PwmChannel; <span class="number">3</span>] = [PwmChannel::Ch0, PwmChannel::Ch1, PwmChannel::Ch2];
+</span><span class="kw">let </span>channels: [PwmChannel; <span class="number">3</span>] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
 <span class="kw">let </span>values: [u16; <span class="number">3</span>] = [<span class="number">200</span>, <span class="number">1000</span>, <span class="number">300</span>];
 
 nav.set_pwm_channels_value(<span class="kw-2">&amp;</span>channels, <span class="number">2048</span>); <span class="comment">// sets the duty cycle according to the list.</span></code></pre></div>
@@ -51,7 +51,7 @@ nav.init();
 nav.pwm_enable();
 nav.set_pwm_freq_prescale(<span class="number">99</span>); <span class="comment">// sets the pwm frequency to 60 Hz
 
-</span><span class="kw">let </span>channels: [PwmChannel; <span class="number">3</span>] = [PwmChannel::Ch0, PwmChannel::Ch1, PwmChannel::Ch2];
+</span><span class="kw">let </span>channels: [PwmChannel; <span class="number">3</span>] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
 <span class="kw">let </span>values: [u16; <span class="number">3</span>] = [<span class="number">200</span>, <span class="number">1000</span>, <span class="number">300</span>];
 
 nav.set_pwm_channels_values(<span class="kw-2">&amp;</span>channels, <span class="kw-2">&amp;</span>values); <span class="comment">// sets the duty cycle according to the lists.</span></code></pre></div>
@@ -79,7 +79,7 @@ nav.pwm_enable();
 
 nav.set_pwm_freq_prescale(<span class="number">99</span>); <span class="comment">// sets the pwm frequency to 60 Hz
 
-</span>nav.set_pwm_channel_value(PwmChannel::Ch0, <span class="number">2048</span>); <span class="comment">// sets the duty cycle to 50%</span></code></pre></div>
+</span>nav.set_pwm_channel_value(PwmChannel::Ch1, <span class="number">2048</span>); <span class="comment">// sets the duty cycle to 50%</span></code></pre></div>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.set_pwm_freq_hz" class="method"><a class="srclink rightside" href="../src/navigator_rs/lib.rs.html#539-556">source</a><h4 class="code-header">pub fn <a href="#method.set_pwm_freq_hz" class="fn">set_pwm_freq_hz</a>(&amp;mut self, freq: <a class="primitive" href="https://doc.rust-lang.org/1.70.0/std/primitive.f32.html">f32</a>)</h4></section></summary><div class="docblock"><p>Sets the pwm frequency in Hertz of <a href="struct.Navigator.html" title="struct navigator_rs::Navigator"><code>Navigator</code></a>.</p>
 <p>The navigator module uses a crystal with a 24.5760 MHz clock. You can set a value for a frequency between 24 and 1526 Hz.</p>
 <h5 id="examples-4"><a href="#examples-4">Examples</a></h5>
@@ -96,7 +96,7 @@ nav.pwm_enable();
 
 <span class="kw">loop </span>{
     nav.set_pwm_freq_hz(i);
-    nav.set_pwm_channel_value(PwmChannel::Ch0, <span class="number">2048</span>); <span class="comment">// sets the duty cycle to 50%
+    nav.set_pwm_channel_value(PwmChannel::Ch1, <span class="number">2048</span>); <span class="comment">// sets the duty cycle to 50%
     </span>i = i + <span class="number">10.0</span>;
     sleep(Duration::from_millis(<span class="number">1000</span>));
 }</code></pre></div>
