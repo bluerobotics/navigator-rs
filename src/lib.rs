@@ -38,22 +38,22 @@ impl From<AdcChannel> for ads1x1x::ChannelSelection {
 impl From<PwmChannel> for pwm_pca9685::Channel {
     fn from(channel: PwmChannel) -> Self {
         match channel {
-            PwmChannel::Ch0 => pwm_pca9685::Channel::C0,
-            PwmChannel::Ch1 => pwm_pca9685::Channel::C1,
-            PwmChannel::Ch2 => pwm_pca9685::Channel::C2,
-            PwmChannel::Ch3 => pwm_pca9685::Channel::C3,
-            PwmChannel::Ch4 => pwm_pca9685::Channel::C4,
-            PwmChannel::Ch5 => pwm_pca9685::Channel::C5,
-            PwmChannel::Ch6 => pwm_pca9685::Channel::C6,
-            PwmChannel::Ch7 => pwm_pca9685::Channel::C7,
-            PwmChannel::Ch8 => pwm_pca9685::Channel::C8,
-            PwmChannel::Ch9 => pwm_pca9685::Channel::C9,
-            PwmChannel::Ch10 => pwm_pca9685::Channel::C10,
-            PwmChannel::Ch11 => pwm_pca9685::Channel::C11,
-            PwmChannel::Ch12 => pwm_pca9685::Channel::C12,
-            PwmChannel::Ch13 => pwm_pca9685::Channel::C13,
-            PwmChannel::Ch14 => pwm_pca9685::Channel::C14,
-            PwmChannel::Ch15 => pwm_pca9685::Channel::C15,
+            PwmChannel::Ch1 => pwm_pca9685::Channel::C0,
+            PwmChannel::Ch2 => pwm_pca9685::Channel::C1,
+            PwmChannel::Ch3 => pwm_pca9685::Channel::C2,
+            PwmChannel::Ch4 => pwm_pca9685::Channel::C3,
+            PwmChannel::Ch5 => pwm_pca9685::Channel::C4,
+            PwmChannel::Ch6 => pwm_pca9685::Channel::C5,
+            PwmChannel::Ch7 => pwm_pca9685::Channel::C6,
+            PwmChannel::Ch8 => pwm_pca9685::Channel::C7,
+            PwmChannel::Ch9 => pwm_pca9685::Channel::C8,
+            PwmChannel::Ch10 => pwm_pca9685::Channel::C9,
+            PwmChannel::Ch11 => pwm_pca9685::Channel::C10,
+            PwmChannel::Ch12 => pwm_pca9685::Channel::C11,
+            PwmChannel::Ch13 => pwm_pca9685::Channel::C12,
+            PwmChannel::Ch14 => pwm_pca9685::Channel::C13,
+            PwmChannel::Ch15 => pwm_pca9685::Channel::C14,
+            PwmChannel::Ch16 => pwm_pca9685::Channel::C15,
             PwmChannel::All => pwm_pca9685::Channel::All,
         }
     }
@@ -90,7 +90,6 @@ impl fmt::Display for LedColor {
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum PwmChannel {
-    Ch0,
     Ch1,
     Ch2,
     Ch3,
@@ -106,6 +105,7 @@ pub enum PwmChannel {
     Ch13,
     Ch14,
     Ch15,
+    Ch16,
     All,
 }
 
@@ -392,7 +392,7 @@ impl Navigator {
     /// nav.pwm_enable();
     ///
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
-    /// nav.set_pwm_channel_value(PwmChannel::Ch0, 2048); // sets the duty cycle to 50%
+    /// nav.set_pwm_channel_value(PwmChannel::Ch1, 2048); // sets the duty cycle to 50%
     /// ```
     pub fn set_pwm_channel_value(&mut self, channel: PwmChannel, mut value: u16) {
         let max_value = 4095;
@@ -418,7 +418,7 @@ impl Navigator {
     /// nav.pwm_enable();
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
-    /// let channels: [PwmChannel; 3] = [PwmChannel::Ch0, PwmChannel::Ch1, PwmChannel::Ch2];
+    /// let channels: [PwmChannel; 3] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
     /// let values: [u16; 3] = [200, 1000, 300];
     ///
     /// nav.set_pwm_channels_value(&channels, 2048); // sets the duty cycle according to the list.
@@ -447,7 +447,7 @@ impl Navigator {
     /// nav.pwm_enable();
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
-    /// let channels: [PwmChannel; 3] = [PwmChannel::Ch0, PwmChannel::Ch1, PwmChannel::Ch2];
+    /// let channels: [PwmChannel; 3] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
     /// let values: [u16; 3] = [200, 1000, 300];
     ///
     /// nav.set_pwm_channels_values(&channels, &values); // sets the duty cycle according to the lists.
@@ -497,7 +497,7 @@ impl Navigator {
     ///
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
-    /// nav.set_pwm_channel_value(PwmChannel::Ch0, 2048); // sets the duty cycle to 50%
+    /// nav.set_pwm_channel_value(PwmChannel::Ch1, 2048); // sets the duty cycle to 50%
     /// ```
     pub fn set_pwm_freq_prescale(&mut self, mut value: u8) {
         let min_prescale = 3;
@@ -531,7 +531,7 @@ impl Navigator {
     ///
     /// loop {
     ///     nav.set_pwm_freq_hz(i);
-    ///     nav.set_pwm_channel_value(PwmChannel::Ch0, 2048); // sets the duty cycle to 50%
+    ///     nav.set_pwm_channel_value(PwmChannel::Ch1, 2048); // sets the duty cycle to 50%
     ///     i = i + 10.0;
     ///     sleep(Duration::from_millis(1000));
     /// }
