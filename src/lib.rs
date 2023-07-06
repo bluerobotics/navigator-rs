@@ -103,21 +103,21 @@ pub enum AdcChannel {
 
 /// Set of options to control navigator's LEDs.
 #[derive(Debug, Clone, Copy)]
-pub enum LedColor {
-    /// Attached to LED_1 though GPIO 24.
-    Blue,
-    /// Attached to LED_2 though GPIO 25.
-    Green,
-    /// Attached to LED_3 though GPIO 11.
-    Red,
+pub enum UserLed {
+    /// Attached to green LED through GPIO 24, labelled LED_1.
+    Led1,
+    /// Attached to blue LED through GPIO 25, labelled LED_2.
+    Led2,
+    /// Attached to red LED through GPIO 11, labelled LED_3.
+    Led3,
 }
 
-impl fmt::Display for LedColor {
+impl fmt::Display for UserLed {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            LedColor::Green => write!(f, "green"),
-            LedColor::Blue => write!(f, "blue"),
-            LedColor::Red => write!(f, "red"),
+            UserLed::Led1 => write!(f, "LED_1"),
+            UserLed::Led2 => write!(f, "LED_2"),
+            UserLed::Led3 => write!(f, "LED_3"),
         }
     }
 }
@@ -246,35 +246,35 @@ impl Led {
         [&mut self.first, &mut self.second, &mut self.third]
     }
 
-    pub fn select_by_color(&mut self, color: LedColor) -> &mut Pin {
-        match color {
-            LedColor::Green => &mut self.first,
-            LedColor::Blue => &mut self.second,
-            LedColor::Red => &mut self.third,
+    pub fn select(&mut self, select: UserLed) -> &mut Pin {
+        match select {
+            UserLed::Led1 => &mut self.first,
+            UserLed::Led2 => &mut self.second,
+            UserLed::Led3 => &mut self.third,
         }
     }
 
-    pub fn get_led(&mut self, color: LedColor) -> bool {
-        let pin_struct = self.select_by_color(color);
+    pub fn get_led(&mut self, select: UserLed) -> bool {
+        let pin_struct = self.select(select);
 
         pin_struct
             .get_value()
-            .unwrap_or_else(|_| panic!("Error: Get {} LED value", color))
+            .unwrap_or_else(|_| panic!("Error: Get {} LED value", select))
             == 0
     }
 
-    pub fn set_led(&mut self, color: LedColor, state: bool) {
-        let pin_struct = self.select_by_color(color);
+    pub fn set_led(&mut self, select: UserLed, state: bool) {
+        let pin_struct = self.select(select);
 
         pin_struct
             .set_value((!state).into())
-            .unwrap_or_else(|_| panic!("Error: Set {} LED value to {}", color, state));
+            .unwrap_or_else(|_| panic!("Error: Set {} LED value to {}", select, state));
     }
 
-    pub fn led_toggle(&mut self, pin: LedColor) {
-        let state = self.get_led(pin);
+    pub fn led_toggle(&mut self, select: UserLed) {
+        let state = self.get_led(select);
 
-        self.set_led(pin, !state)
+        self.set_led(select, !state)
     }
 
     pub fn all_on(&mut self) {
@@ -598,16 +598,16 @@ impl Navigator {
 
         self.set_pwm_freq_prescale(prescale_clamped_value);
     }
-    /// Gets the navigator LED output state based on it's color. The true state means the LED is on.
+    /// Gets the selected navigator LED output state. The true state means the LED is on.
     ///
     /// # Arguments
     ///
-    /// * `color` - A pin selected by LED's color from [`LedColor`](enum.LedColor.html).
+    /// * `select` - A pin selected from [`UserLed`](enum.UserLed.html).
     ///
     /// # Examples
     ///
     /// ```no_run
-    /// use navigator_rs::{LedColor, Navigator};
+    /// use navigator_rs::{UserLed, Navigator};
     /// use std::thread::sleep;
     /// use std::time::Duration;
     ///
@@ -615,27 +615,27 @@ impl Navigator {
     ///
     /// nav.init();
     /// loop {
-    ///     let logic_value: bool = nav.get_led(LedColor::Blue);
+    ///     let logic_value: bool = nav.get_led(UserLed::Led2);
     ///     println!("Blue LED logic value is {logic_value}.");
-    ///     nav.set_led_toggle(LedColor::Blue);
+    ///     nav.set_led_toggle(UserLed::Led2);
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
-    pub fn get_led(&mut self, color: LedColor) -> bool {
-        self.led.get_led(color)
+    pub fn get_led(&mut self, select: UserLed) -> bool {
+        self.led.get_led(select)
     }
 
-    /// Sets the navigator LED output based on it's color.
+    /// Sets the selected navigator LED output.
     ///
     /// # Arguments
     ///
-    /// * `color` - A pin selected by LED's color from [`LedColor`](enum.LedColor.html).
+    /// * `select` - A pin selected from [`UserLed`](enum.UserLed.html).
     /// * `state` - The value of output, LED is on with a true logic value.
     ///
     /// # Examples
     ///
     /// ```no_run
-    /// use navigator_rs::{LedColor, Navigator};
+    /// use navigator_rs::{UserLed, Navigator};
     /// use std::thread::sleep;
     /// use std::time::Duration;
     ///
@@ -643,26 +643,26 @@ impl Navigator {
     ///
     /// nav.init();
     /// loop {
-    ///     nav.set_led(LedColor::Green, true);
+    ///     nav.set_led(UserLed::Led1, true);
     ///     sleep(Duration::from_millis(1000));
-    ///     nav.set_led(LedColor::Green, false);
+    ///     nav.set_led(UserLed::Led1, false);
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
-    pub fn set_led(&mut self, color: LedColor, state: bool) {
-        self.led.set_led(color, state)
+    pub fn set_led(&mut self, select: UserLed, state: bool) {
+        self.led.set_led(select, state)
     }
 
-    /// Toggle the output of selected LED color.
+    /// Toggle the output of selected LED.
     ///
     /// # Arguments
     ///
-    /// * `color` - A pin selected by LED's color from [`LedColor`](enum.LedColor.html).
+    /// * `select` - A pin selected from [`UserLed`](enum.UserLed.html).
     ///
     /// # Examples
     ///
     /// ```no_run
-    /// use navigator_rs::{LedColor, Navigator};
+    /// use navigator_rs::{UserLed, Navigator};
     /// use std::thread::sleep;
     /// use std::time::Duration;
     ///
@@ -670,12 +670,12 @@ impl Navigator {
     ///
     /// nav.init();
     /// loop {
-    ///     nav.set_led_toggle(LedColor::Green);
+    ///     nav.set_led_toggle(UserLed::Led1);
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
-    pub fn set_led_toggle(&mut self, color: LedColor) {
-        self.led.led_toggle(color)
+    pub fn set_led_toggle(&mut self, select: UserLed) {
+        self.led.led_toggle(select)
     }
 
     /// Set all LEDs on ( Blue, Green and Red ).
