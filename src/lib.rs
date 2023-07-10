@@ -278,10 +278,10 @@ impl Led {
         }
     }
 
-    pub fn all_off(&mut self) {
-        for pin in self.as_mut_array().iter_mut() {
-            pin.set_value(1).expect("Error: Set led value to 1");
-        }
+    pub fn set_led_toggle(&mut self, select: UserLed) {
+        let state = self.get_led(select);
+
+        self.set_led(select, !state)
     }
 }
 
@@ -670,7 +670,7 @@ impl Navigator {
     /// }
     /// ```
     pub fn set_led_toggle(&mut self, select: UserLed) {
-        self.led.led_toggle(select)
+        self.led.set_led_toggle(select)
     }
 
     /// Set all LEDs on desired state ( Blue, Green and Red ).
