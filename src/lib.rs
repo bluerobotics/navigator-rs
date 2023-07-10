@@ -271,15 +271,10 @@ impl Led {
             .unwrap_or_else(|_| panic!("Error: Set {} LED value to {}", select, state));
     }
 
-    pub fn led_toggle(&mut self, select: UserLed) {
-        let state = self.get_led(select);
-
-        self.set_led(select, !state)
-    }
-
-    pub fn all_on(&mut self) {
+    pub fn set_led_all(&mut self, state: bool) {
         for pin in self.as_mut_array().iter_mut() {
-            pin.set_value(0).expect("Error: Set led value to 0");
+            pin.set_value((!state).into())
+                .unwrap_or_else(|_| panic!("Error: Set LED value to {state}"));
         }
     }
 
@@ -387,7 +382,7 @@ impl Navigator {
 
         self.bmp.zero().unwrap();
 
-        self.led.all_off()
+        self.led.set_led_all(false);
     }
 
     pub fn self_test(&mut self) -> bool {
@@ -678,7 +673,11 @@ impl Navigator {
         self.led.led_toggle(select)
     }
 
-    /// Set all LEDs on ( Blue, Green and Red ).
+    /// Set all LEDs on desired state ( Blue, Green and Red ).
+    ///
+    /// # Arguments
+    ///
+    /// * `state` - The value of output, LED is on with a true logic value.
     ///
     /// # Examples
     ///
@@ -691,22 +690,14 @@ impl Navigator {
     ///
     /// nav.init();
     /// loop {
-    ///     nav.set_led_all_on();
+    ///     nav.set_led_all(true);
     ///     sleep(Duration::from_millis(1000));
-    ///     nav.set_led_all_off();
+    ///     nav.set_led_all(false);
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
-    pub fn set_led_all_on(&mut self) {
-        self.led.all_on()
-    }
-
-    /// Set all LEDs Off ( Blue, Green and Red ).
-    ///
-    /// # Examples
-    /// Same as [`set_led_all_on`](struct.Navigator.html#method.set_led_all_on)
-    pub fn set_led_all_off(&mut self) {
-        self.led.all_off()
+    pub fn set_led_all(&mut self, state: bool) {
+        self.led.set_led_all(state)
     }
 
     /// Reads the magnetometer Ak09915 of [`Navigator`].
