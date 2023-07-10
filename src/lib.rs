@@ -399,14 +399,23 @@ impl Navigator {
             .expect("Error : Error on magnetometer during self-test")
     }
 
-    pub fn pwm_enable(&mut self) {
-        self.pwm.enable().unwrap();
-        self.pwm.oe_pin.set_direction(Direction::Low).unwrap();
-    }
-
-    pub fn pwm_disable(&mut self) {
-        self.pwm.disable().unwrap();
-        self.pwm.oe_pin.set_direction(Direction::High).unwrap();
+    /// Sets the PWM IC to be enabled through firmware and OE_pin.
+    ///
+    /// # Arguments
+    ///
+    /// * `state` - The state of PWM output, it's enabled with a true logic value.
+    ///
+    /// # Examples
+    ///
+    /// Please check [`set_pwm_channel_value`](struct.Navigator.html#method.set_pwm_channel_value).
+    pub fn pwm_enable(&mut self, state: bool) {
+        if state {
+            self.pwm.enable().unwrap();
+            self.pwm.oe_pin.set_direction(Direction::Low).unwrap();
+        } else {
+            self.pwm.disable().unwrap();
+            self.pwm.oe_pin.set_direction(Direction::High).unwrap();
+        }
     }
 
     /// Sets the Duty Cycle (high value time) of selected channel.
@@ -424,7 +433,7 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable();
+    /// nav.pwm_enable(true);
     ///
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     /// nav.set_pwm_channel_value(PwmChannel::Ch1, 2048); // sets the duty cycle to 50%
@@ -450,7 +459,7 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable();
+    /// nav.pwm_enable(true);
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
     /// let channels: [PwmChannel; 3] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
@@ -479,7 +488,7 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable();
+    /// nav.pwm_enable(true);
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
     /// let channels: [PwmChannel; 3] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
@@ -528,7 +537,7 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable();
+    /// nav.pwm_enable(true);
     ///
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
@@ -560,7 +569,7 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable();
+    /// nav.pwm_enable(true);
     ///
     /// let mut i: f32 = 10.0;
     ///
