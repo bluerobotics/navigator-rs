@@ -984,6 +984,15 @@
 <a href="#984" id="984">984</a>
 <a href="#985" id="985">985</a>
 <a href="#986" id="986">986</a>
+<a href="#987" id="987">987</a>
+<a href="#988" id="988">988</a>
+<a href="#989" id="989">989</a>
+<a href="#990" id="990">990</a>
+<a href="#991" id="991">991</a>
+<a href="#992" id="992">992</a>
+<a href="#993" id="993">993</a>
+<a href="#994" id="994">994</a>
+<a href="#995" id="995">995</a>
 </pre></div><pre class="rust"><code><span class="attr">#![deny(unsafe_code)]
 #![doc(html_logo_url = <span class="string">&quot;https://upload.wikimedia.org/wikipedia/commons/1/12/Bluerobotics-logo.svg&quot;</span>)]
 
@@ -1385,14 +1394,23 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
             .expect(<span class="string">&quot;Error : Error on magnetometer during self-test&quot;</span>)
     }
 
-    <span class="kw">pub fn </span>pwm_enable(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="self">self</span>.pwm.enable().unwrap();
-        <span class="self">self</span>.pwm.oe_pin.set_direction(Direction::Low).unwrap();
-    }
-
-    <span class="kw">pub fn </span>pwm_disable(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="self">self</span>.pwm.disable().unwrap();
-        <span class="self">self</span>.pwm.oe_pin.set_direction(Direction::High).unwrap();
+    <span class="doccomment">/// Sets the PWM IC to be enabled through firmware and OE_pin.
+    ///
+    /// # Arguments
+    ///
+    /// * `state` - The state of PWM output, it&#39;s enabled with a true logic value.
+    ///
+    /// # Examples
+    ///
+    /// Please check [`set_pwm_channel_value`](struct.Navigator.html#method.set_pwm_channel_value).
+    </span><span class="kw">pub fn </span>pwm_enable(<span class="kw-2">&amp;mut </span><span class="self">self</span>, state: bool) {
+        <span class="kw">if </span>state {
+            <span class="self">self</span>.pwm.enable().unwrap();
+            <span class="self">self</span>.pwm.oe_pin.set_direction(Direction::Low).unwrap();
+        } <span class="kw">else </span>{
+            <span class="self">self</span>.pwm.disable().unwrap();
+            <span class="self">self</span>.pwm.oe_pin.set_direction(Direction::High).unwrap();
+        }
     }
 
     <span class="doccomment">/// Sets the Duty Cycle (high value time) of selected channel.
@@ -1410,7 +1428,7 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable();
+    /// nav.pwm_enable(true);
     ///
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     /// nav.set_pwm_channel_value(PwmChannel::Ch1, 2048); // sets the duty cycle to 50%
@@ -1436,7 +1454,7 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable();
+    /// nav.pwm_enable(true);
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
     /// let channels: [PwmChannel; 3] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
@@ -1465,7 +1483,7 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable();
+    /// nav.pwm_enable(true);
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
     /// let channels: [PwmChannel; 3] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
@@ -1514,7 +1532,7 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable();
+    /// nav.pwm_enable(true);
     ///
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
@@ -1546,7 +1564,7 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable();
+    /// nav.pwm_enable(true);
     ///
     /// let mut i: f32 = 10.0;
     ///

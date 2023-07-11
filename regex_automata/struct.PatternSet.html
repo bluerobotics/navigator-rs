@@ -34,7 +34,7 @@ patterns in a compiled regex object.</p>
 impossible if you use the <code>pattern_len()</code> method as defined on any of
 the regex engines in this crate. Namely, a regex will fail to build by
 returning an error if the number of patterns given to it exceeds the
-limit. Therefore, the number of patterns in a valid regex is alwasys
+limit. Therefore, the number of patterns in a valid regex is always
 a correct capacity to provide here.</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.clear" class="method"><a class="srclink rightside" href="../src/regex_automata/util/search.rs.html#1197-1202">source</a><h4 class="code-header">pub fn <a href="#method.clear" class="fn">clear</a>(&amp;mut self)</h4></section></summary><div class="docblock"><p>Clear this set such that it contains no pattern IDs.</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.contains" class="method"><a class="srclink rightside" href="../src/regex_automata/util/search.rs.html#1205-1207">source</a><h4 class="code-header">pub fn <a href="#method.contains" class="fn">contains</a>(&amp;self, pid: <a class="struct" href="struct.PatternID.html" title="struct regex_automata::PatternID">PatternID</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/1.70.0/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Return true if and only if the given pattern identifier is in this set.</p>

@@ -192,7 +192,7 @@ matches at other positions, configuring the search to be anchored
 requires that it only report a match that begins at the same offset
 as the beginning of the search.</li>
 <li>The regex <code>a</code> is compiled with <code>Anchored::No</code> and searches <code>aba</code>
-startting at position <code>1</code>. Since the search is not anchored and
+starting at position <code>1</code>. Since the search is not anchored and
 the regex does not start with <code>^</code>, the search executes as if there
 is a <code>(?s:.)*?</code> prefix that permits it to match anywhere. Thus, it
 reports a match at <code>[2, 3]</code>.</li>
@@ -457,7 +457,7 @@ falls on a valid UTF-8 encoded codepoint boundary.</p>
 <p>If the haystack is not valid UTF-8, then the behavior of this routine
 is unspecified.</p>
 <h5 id="example-18"><a href="#example-18">Example</a></h5>
-<p>This shows where codepoint bounardies do and don’t exist in valid
+<p>This shows where codepoint boundaries do and don’t exist in valid
 UTF-8.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>regex_automata::Input;

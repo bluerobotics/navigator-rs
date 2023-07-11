@@ -36,7 +36,7 @@ string (e.g., to extract a title from a Matroska file):</p>
 
 <span class="comment">// Notice that despite the `.*` at the end, it will only match valid UTF-8
 // because Unicode mode was enabled with the `u` flag. Without the `u` flag,
-// the `.*` would match the rest of the bytes regardless of whehter they were
+// the `.*` would match the rest of the bytes regardless of whether they were
 // valid UTF-8.
 </span><span class="kw">let </span>(<span class="kw">_</span>, [title]) = re.captures(hay).unwrap().extract();
 <span class="macro">assert_eq!</span>(title, <span class="string">b&quot;\xE2\x98\x83&quot;</span>);

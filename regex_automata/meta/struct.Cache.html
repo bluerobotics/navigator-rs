@@ -4,7 +4,7 @@ mutable state in order to execute a search. This mutable state is
 explicitly separated from the the core regex object (such as a
 <a href="../nfa/thompson/struct.NFA.html" title="struct regex_automata::nfa::thompson::NFA"><code>thompson::NFA</code></a>) so that the read-only regex
 object can be shared across multiple threads simultaneously without any
-synchronization. Conversly, a <code>Cache</code> must either be duplicated if using
+synchronization. Conversely, a <code>Cache</code> must either be duplicated if using
 the same <code>Regex</code> from multiple threads, or else there must be some kind of
 synchronization that guarantees exclusive access while it’s in use by one
 thread.</p>
