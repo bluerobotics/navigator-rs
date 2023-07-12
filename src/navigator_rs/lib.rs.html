@@ -1098,21 +1098,21 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
 
 <span class="doccomment">/// Set of options to control navigator&#39;s LEDs.
 </span><span class="attr">#[derive(Debug, Clone, Copy)]
-</span><span class="kw">pub enum </span>LedColor {
-    <span class="doccomment">/// Attached to LED_1 though GPIO 24.
-    </span>Blue,
-    <span class="doccomment">/// Attached to LED_2 though GPIO 25.
-    </span>Green,
-    <span class="doccomment">/// Attached to LED_3 though GPIO 11.
-    </span>Red,
+</span><span class="kw">pub enum </span>UserLed {
+    <span class="doccomment">/// Attached to green LED through GPIO 24, labelled LED_1.
+    </span>Led1,
+    <span class="doccomment">/// Attached to blue LED through GPIO 25, labelled LED_2.
+    </span>Led2,
+    <span class="doccomment">/// Attached to red LED through GPIO 11, labelled LED_3.
+    </span>Led3,
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>LedColor {
+<span class="kw">impl </span>fmt::Display <span class="kw">for </span>UserLed {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         <span class="kw">match </span><span class="self">self </span>{
-            LedColor::Green =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;green&quot;</span>),
-            LedColor::Blue =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;blue&quot;</span>),
-            LedColor::Red =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;red&quot;</span>),
+            UserLed::Led1 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;LED_1&quot;</span>),
+            UserLed::Led2 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;LED_2&quot;</span>),
+            UserLed::Led3 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;LED_3&quot;</span>),
         }
     }
 }
@@ -1241,35 +1241,35 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
         [<span class="kw-2">&amp;mut </span><span class="self">self</span>.first, <span class="kw-2">&amp;mut </span><span class="self">self</span>.second, <span class="kw-2">&amp;mut </span><span class="self">self</span>.third]
     }
 
-    <span class="kw">pub fn </span>select_by_color(<span class="kw-2">&amp;mut </span><span class="self">self</span>, color: LedColor) -&gt; <span class="kw-2">&amp;mut </span>Pin {
-        <span class="kw">match </span>color {
-            LedColor::Green =&gt; <span class="kw-2">&amp;mut </span><span class="self">self</span>.first,
-            LedColor::Blue =&gt; <span class="kw-2">&amp;mut </span><span class="self">self</span>.second,
-            LedColor::Red =&gt; <span class="kw-2">&amp;mut </span><span class="self">self</span>.third,
+    <span class="kw">pub fn </span>select(<span class="kw-2">&amp;mut </span><span class="self">self</span>, select: UserLed) -&gt; <span class="kw-2">&amp;mut </span>Pin {
+        <span class="kw">match </span>select {
+            UserLed::Led1 =&gt; <span class="kw-2">&amp;mut </span><span class="self">self</span>.first,
+            UserLed::Led2 =&gt; <span class="kw-2">&amp;mut </span><span class="self">self</span>.second,
+            UserLed::Led3 =&gt; <span class="kw-2">&amp;mut </span><span class="self">self</span>.third,
         }
     }
 
-    <span class="kw">pub fn </span>get_led(<span class="kw-2">&amp;mut </span><span class="self">self</span>, color: LedColor) -&gt; bool {
-        <span class="kw">let </span>pin_struct = <span class="self">self</span>.select_by_color(color);
+    <span class="kw">pub fn </span>get_led(<span class="kw-2">&amp;mut </span><span class="self">self</span>, select: UserLed) -&gt; bool {
+        <span class="kw">let </span>pin_struct = <span class="self">self</span>.select(select);
 
         pin_struct
             .get_value()
-            .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">&quot;Error: Get {} LED value&quot;</span>, color))
+            .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">&quot;Error: Get {} LED value&quot;</span>, select))
             == <span class="number">0
     </span>}
 
-    <span class="kw">pub fn </span>set_led(<span class="kw-2">&amp;mut </span><span class="self">self</span>, color: LedColor, state: bool) {
-        <span class="kw">let </span>pin_struct = <span class="self">self</span>.select_by_color(color);
+    <span class="kw">pub fn </span>set_led(<span class="kw-2">&amp;mut </span><span class="self">self</span>, select: UserLed, state: bool) {
+        <span class="kw">let </span>pin_struct = <span class="self">self</span>.select(select);
 
         pin_struct
             .set_value((!state).into())
-            .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">&quot;Error: Set {} LED value to {}&quot;</span>, color, state));
+            .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">&quot;Error: Set {} LED value to {}&quot;</span>, select, state));
     }
 
-    <span class="kw">pub fn </span>led_toggle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, pin: LedColor) {
-        <span class="kw">let </span>state = <span class="self">self</span>.get_led(pin);
+    <span class="kw">pub fn </span>led_toggle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, select: UserLed) {
+        <span class="kw">let </span>state = <span class="self">self</span>.get_led(select);
 
-        <span class="self">self</span>.set_led(pin, !state)
+        <span class="self">self</span>.set_led(select, !state)
     }
 
     <span class="kw">pub fn </span>all_on(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
@@ -1593,16 +1593,16 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
 
         <span class="self">self</span>.set_pwm_freq_prescale(prescale_clamped_value);
     }
-    <span class="doccomment">/// Gets the navigator LED output state based on it&#39;s color. The true state means the LED is on.
+    <span class="doccomment">/// Gets the selected navigator LED output state. The true state means the LED is on.
     ///
     /// # Arguments
     ///
-    /// * `color` - A pin selected by LED&#39;s color from [`LedColor`](enum.LedColor.html).
+    /// * `select` - A pin selected from [`UserLed`](enum.UserLed.html).
     ///
     /// # Examples
     ///
     /// ```no_run
-    /// use navigator_rs::{LedColor, Navigator};
+    /// use navigator_rs::{UserLed, Navigator};
     /// use std::thread::sleep;
     /// use std::time::Duration;
     ///
@@ -1610,27 +1610,27 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
     ///
     /// nav.init();
     /// loop {
-    ///     let logic_value: bool = nav.get_led(LedColor::Blue);
+    ///     let logic_value: bool = nav.get_led(UserLed::Led2);
     ///     println!(&quot;Blue LED logic value is {logic_value}.&quot;);
-    ///     nav.set_led_toggle(LedColor::Blue);
+    ///     nav.set_led_toggle(UserLed::Led2);
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
-    </span><span class="kw">pub fn </span>get_led(<span class="kw-2">&amp;mut </span><span class="self">self</span>, color: LedColor) -&gt; bool {
-        <span class="self">self</span>.led.get_led(color)
+    </span><span class="kw">pub fn </span>get_led(<span class="kw-2">&amp;mut </span><span class="self">self</span>, select: UserLed) -&gt; bool {
+        <span class="self">self</span>.led.get_led(select)
     }
 
-    <span class="doccomment">/// Sets the navigator LED output based on it&#39;s color.
+    <span class="doccomment">/// Sets the selected navigator LED output.
     ///
     /// # Arguments
     ///
-    /// * `color` - A pin selected by LED&#39;s color from [`LedColor`](enum.LedColor.html).
+    /// * `select` - A pin selected from [`UserLed`](enum.UserLed.html).
     /// * `state` - The value of output, LED is on with a true logic value.
     ///
     /// # Examples
     ///
     /// ```no_run
-    /// use navigator_rs::{LedColor, Navigator};
+    /// use navigator_rs::{UserLed, Navigator};
     /// use std::thread::sleep;
     /// use std::time::Duration;
     ///
@@ -1638,26 +1638,26 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
     ///
     /// nav.init();
     /// loop {
-    ///     nav.set_led(LedColor::Green, true);
+    ///     nav.set_led(UserLed::Led1, true);
     ///     sleep(Duration::from_millis(1000));
-    ///     nav.set_led(LedColor::Green, false);
+    ///     nav.set_led(UserLed::Led1, false);
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
-    </span><span class="kw">pub fn </span>set_led(<span class="kw-2">&amp;mut </span><span class="self">self</span>, color: LedColor, state: bool) {
-        <span class="self">self</span>.led.set_led(color, state)
+    </span><span class="kw">pub fn </span>set_led(<span class="kw-2">&amp;mut </span><span class="self">self</span>, select: UserLed, state: bool) {
+        <span class="self">self</span>.led.set_led(select, state)
     }
 
-    <span class="doccomment">/// Toggle the output of selected LED color.
+    <span class="doccomment">/// Toggle the output of selected LED.
     ///
     /// # Arguments
     ///
-    /// * `color` - A pin selected by LED&#39;s color from [`LedColor`](enum.LedColor.html).
+    /// * `select` - A pin selected from [`UserLed`](enum.UserLed.html).
     ///
     /// # Examples
     ///
     /// ```no_run
-    /// use navigator_rs::{LedColor, Navigator};
+    /// use navigator_rs::{UserLed, Navigator};
     /// use std::thread::sleep;
     /// use std::time::Duration;
     ///
@@ -1665,12 +1665,12 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
     ///
     /// nav.init();
     /// loop {
-    ///     nav.set_led_toggle(LedColor::Green);
+    ///     nav.set_led_toggle(UserLed::Led1);
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
-    </span><span class="kw">pub fn </span>set_led_toggle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, color: LedColor) {
-        <span class="self">self</span>.led.led_toggle(color)
+    </span><span class="kw">pub fn </span>set_led_toggle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, select: UserLed) {
+        <span class="self">self</span>.led.led_toggle(select)
     }
 
     <span class="doccomment">/// Set all LEDs on ( Blue, Green and Red ).

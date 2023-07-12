@@ -107,13 +107,13 @@ nav.pwm_enable(<span class="bool-val">true</span>);
     </span>i = i + <span class="number">10.0</span>;
     sleep(Duration::from_millis(<span class="number">1000</span>));
 }</code></pre></div>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.get_led" class="method"><a class="srclink rightside" href="../src/navigator_rs/lib.rs.html#624-626">source</a><h4 class="code-header">pub fn <a href="#method.get_led" class="fn">get_led</a>(&amp;mut self, color: <a class="enum" href="enum.LedColor.html" title="enum navigator_rs::LedColor">LedColor</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/1.70.0/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Gets the navigator LED output state based on it’s color. The true state means the LED is on.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.get_led" class="method"><a class="srclink rightside" href="../src/navigator_rs/lib.rs.html#624-626">source</a><h4 class="code-header">pub fn <a href="#method.get_led" class="fn">get_led</a>(&amp;mut self, select: <a class="enum" href="enum.UserLed.html" title="enum navigator_rs::UserLed">UserLed</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/1.70.0/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Gets the selected navigator LED output state. The true state means the LED is on.</p>
 <h5 id="arguments-1"><a href="#arguments-1">Arguments</a></h5>
 <ul>
-<li><code>color</code> - A pin selected by LED’s color from <a href="enum.LedColor.html"><code>LedColor</code></a>.</li>
+<li><code>select</code> - A pin selected from <a href="enum.UserLed.html"><code>UserLed</code></a>.</li>
 </ul>
 <h5 id="examples-6"><a href="#examples-6">Examples</a></h5>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>navigator_rs::{LedColor, Navigator};
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>navigator_rs::{UserLed, Navigator};
 <span class="kw">use </span>std::thread::sleep;
 <span class="kw">use </span>std::time::Duration;
 
@@ -121,19 +121,19 @@ nav.pwm_enable(<span class="bool-val">true</span>);
 
 nav.init();
 <span class="kw">loop </span>{
-    <span class="kw">let </span>logic_value: bool = nav.get_led(LedColor::Blue);
+    <span class="kw">let </span>logic_value: bool = nav.get_led(UserLed::Led2);
     <span class="macro">println!</span>(<span class="string">&quot;Blue LED logic value is {logic_value}.&quot;</span>);
-    nav.set_led_toggle(LedColor::Blue);
+    nav.set_led_toggle(UserLed::Led2);
     sleep(Duration::from_millis(<span class="number">1000</span>));
 }</code></pre></div>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.set_led" class="method"><a class="srclink rightside" href="../src/navigator_rs/lib.rs.html#652-654">source</a><h4 class="code-header">pub fn <a href="#method.set_led" class="fn">set_led</a>(&amp;mut self, color: <a class="enum" href="enum.LedColor.html" title="enum navigator_rs::LedColor">LedColor</a>, state: <a class="primitive" href="https://doc.rust-lang.org/1.70.0/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets the navigator LED output based on it’s color.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_led" class="method"><a class="srclink rightside" href="../src/navigator_rs/lib.rs.html#652-654">source</a><h4 class="code-header">pub fn <a href="#method.set_led" class="fn">set_led</a>(&amp;mut self, select: <a class="enum" href="enum.UserLed.html" title="enum navigator_rs::UserLed">UserLed</a>, state: <a class="primitive" href="https://doc.rust-lang.org/1.70.0/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets the selected navigator LED output.</p>
 <h5 id="arguments-2"><a href="#arguments-2">Arguments</a></h5>
 <ul>
-<li><code>color</code> - A pin selected by LED’s color from <a href="enum.LedColor.html"><code>LedColor</code></a>.</li>
+<li><code>select</code> - A pin selected from <a href="enum.UserLed.html"><code>UserLed</code></a>.</li>
 <li><code>state</code> - The value of output, LED is on with a true logic value.</li>
 </ul>
 <h5 id="examples-7"><a href="#examples-7">Examples</a></h5>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>navigator_rs::{LedColor, Navigator};
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>navigator_rs::{UserLed, Navigator};
 <span class="kw">use </span>std::thread::sleep;
 <span class="kw">use </span>std::time::Duration;
 
@@ -141,18 +141,18 @@ nav.init();
 
 nav.init();
 <span class="kw">loop </span>{
-    nav.set_led(LedColor::Green, <span class="bool-val">true</span>);
+    nav.set_led(UserLed::Led1, <span class="bool-val">true</span>);
     sleep(Duration::from_millis(<span class="number">1000</span>));
-    nav.set_led(LedColor::Green, <span class="bool-val">false</span>);
+    nav.set_led(UserLed::Led1, <span class="bool-val">false</span>);
     sleep(Duration::from_millis(<span class="number">1000</span>));
 }</code></pre></div>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.set_led_toggle" class="method"><a class="srclink rightside" href="../src/navigator_rs/lib.rs.html#677-679">source</a><h4 class="code-header">pub fn <a href="#method.set_led_toggle" class="fn">set_led_toggle</a>(&amp;mut self, color: <a class="enum" href="enum.LedColor.html" title="enum navigator_rs::LedColor">LedColor</a>)</h4></section></summary><div class="docblock"><p>Toggle the output of selected LED color.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_led_toggle" class="method"><a class="srclink rightside" href="../src/navigator_rs/lib.rs.html#677-679">source</a><h4 class="code-header">pub fn <a href="#method.set_led_toggle" class="fn">set_led_toggle</a>(&amp;mut self, select: <a class="enum" href="enum.UserLed.html" title="enum navigator_rs::UserLed">UserLed</a>)</h4></section></summary><div class="docblock"><p>Toggle the output of selected LED.</p>
 <h5 id="arguments-3"><a href="#arguments-3">Arguments</a></h5>
 <ul>
-<li><code>color</code> - A pin selected by LED’s color from <a href="enum.LedColor.html"><code>LedColor</code></a>.</li>
+<li><code>select</code> - A pin selected from <a href="enum.UserLed.html"><code>UserLed</code></a>.</li>
 </ul>
 <h5 id="examples-8"><a href="#examples-8">Examples</a></h5>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>navigator_rs::{LedColor, Navigator};
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>navigator_rs::{UserLed, Navigator};
 <span class="kw">use </span>std::thread::sleep;
 <span class="kw">use </span>std::time::Duration;
 
@@ -160,7 +160,7 @@ nav.init();
 
 nav.init();
 <span class="kw">loop </span>{
-    nav.set_led_toggle(LedColor::Green);
+    nav.set_led_toggle(UserLed::Led1);
     sleep(Duration::from_millis(<span class="number">1000</span>));
 }</code></pre></div>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.set_led_all_on" class="method"><a class="srclink rightside" href="../src/navigator_rs/lib.rs.html#700-702">source</a><h4 class="code-header">pub fn <a href="#method.set_led_all_on" class="fn">set_led_all_on</a>(&amp;mut self)</h4></section></summary><div class="docblock"><p>Set all LEDs on ( Blue, Green and Red ).</p>
