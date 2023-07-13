@@ -984,15 +984,6 @@
 <a href="#984" id="984">984</a>
 <a href="#985" id="985">985</a>
 <a href="#986" id="986">986</a>
-<a href="#987" id="987">987</a>
-<a href="#988" id="988">988</a>
-<a href="#989" id="989">989</a>
-<a href="#990" id="990">990</a>
-<a href="#991" id="991">991</a>
-<a href="#992" id="992">992</a>
-<a href="#993" id="993">993</a>
-<a href="#994" id="994">994</a>
-<a href="#995" id="995">995</a>
 </pre></div><pre class="rust"><code><span class="attr">#![deny(unsafe_code)]
 #![doc(html_logo_url = <span class="string">&quot;https://upload.wikimedia.org/wikipedia/commons/1/12/Bluerobotics-logo.svg&quot;</span>)]
 
@@ -1266,22 +1257,17 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
             .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">&quot;Error: Set {} LED value to {}&quot;</span>, select, state));
     }
 
-    <span class="kw">pub fn </span>led_toggle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, select: UserLed) {
+    <span class="kw">pub fn </span>set_led_all(<span class="kw-2">&amp;mut </span><span class="self">self</span>, state: bool) {
+        <span class="kw">for </span>pin <span class="kw">in </span><span class="self">self</span>.as_mut_array().iter_mut() {
+            pin.set_value((!state).into())
+                .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">&quot;Error: Set LED value to {state}&quot;</span>));
+        }
+    }
+
+    <span class="kw">pub fn </span>set_led_toggle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, select: UserLed) {
         <span class="kw">let </span>state = <span class="self">self</span>.get_led(select);
 
         <span class="self">self</span>.set_led(select, !state)
-    }
-
-    <span class="kw">pub fn </span>all_on(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">for </span>pin <span class="kw">in </span><span class="self">self</span>.as_mut_array().iter_mut() {
-            pin.set_value(<span class="number">0</span>).expect(<span class="string">&quot;Error: Set led value to 0&quot;</span>);
-        }
-    }
-
-    <span class="kw">pub fn </span>all_off(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">for </span>pin <span class="kw">in </span><span class="self">self</span>.as_mut_array().iter_mut() {
-            pin.set_value(<span class="number">1</span>).expect(<span class="string">&quot;Error: Set led value to 1&quot;</span>);
-        }
     }
 }
 
@@ -1382,7 +1368,7 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
 
         <span class="self">self</span>.bmp.zero().unwrap();
 
-        <span class="self">self</span>.led.all_off()
+        <span class="self">self</span>.led.set_led_all(<span class="bool-val">false</span>);
     }
 
     <span class="kw">pub fn </span>self_test(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; bool {
@@ -1670,10 +1656,14 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
     /// }
     /// ```
     </span><span class="kw">pub fn </span>set_led_toggle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, select: UserLed) {
-        <span class="self">self</span>.led.led_toggle(select)
+        <span class="self">self</span>.led.set_led_toggle(select)
     }
 
-    <span class="doccomment">/// Set all LEDs on ( Blue, Green and Red ).
+    <span class="doccomment">/// Set all LEDs on desired state ( Blue, Green and Red ).
+    ///
+    /// # Arguments
+    ///
+    /// * `state` - The value of output, LED is on with a true logic value.
     ///
     /// # Examples
     ///
@@ -1686,22 +1676,14 @@ The capabilities of the Navigator can be accessed through the Navigator object. 
     ///
     /// nav.init();
     /// loop {
-    ///     nav.set_led_all_on();
+    ///     nav.set_led_all(true);
     ///     sleep(Duration::from_millis(1000));
-    ///     nav.set_led_all_off();
+    ///     nav.set_led_all(false);
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
-    </span><span class="kw">pub fn </span>set_led_all_on(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="self">self</span>.led.all_on()
-    }
-
-    <span class="doccomment">/// Set all LEDs Off ( Blue, Green and Red ).
-    ///
-    /// # Examples
-    /// Same as [`set_led_all_on`](struct.Navigator.html#method.set_led_all_on)
-    </span><span class="kw">pub fn </span>set_led_all_off(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="self">self</span>.led.all_off()
+    </span><span class="kw">pub fn </span>set_led_all(<span class="kw-2">&amp;mut </span><span class="self">self</span>, state: bool) {
+        <span class="self">self</span>.led.set_led_all(state)
     }
 
     <span class="doccomment">/// Reads the magnetometer Ak09915 of [`Navigator`].
