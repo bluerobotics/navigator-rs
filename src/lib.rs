@@ -722,7 +722,12 @@ impl Navigator {
     /// ```
     pub fn read_mag(&mut self) -> AxisData {
         let (x, y, z) = self.mag.read().unwrap();
-        AxisData { x, y, z }
+        // Change the axes to navigator's standard. Right-handed, Z-axis down (aeronautical frame, NED).
+        AxisData {
+            x: y,
+            y: x * -1.0,
+            z,
+        }
     }
 
     /// Reads the temperature using BMP280 of [`Navigator`].
@@ -878,10 +883,13 @@ impl Navigator {
     /// ```
     pub fn read_accel(&mut self) -> AxisData {
         let reading: [f32; 3] = self.imu.get_scaled_accel().unwrap();
+        // Change the axes to navigator's standard. Right-handed, Z-axis down (aeronautical frame, NED).
+        // Obs.: ICM20602 sensor is measuring with inverted directions, not following data-sheet.
+        //       Thus, with IC's placement only Z needs to be inverted.
         AxisData {
             x: reading[0],
             y: reading[1],
-            z: reading[2],
+            z: reading[2] * -1.0,
         }
     }
 
@@ -907,9 +915,10 @@ impl Navigator {
     /// ```
     pub fn read_gyro(&mut self) -> AxisData {
         let reading: [f32; 3] = self.imu.get_scaled_gyro().unwrap();
+        // Change the axes to navigator's standard. Right-handed, Z-axis down (aeronautical frame, NED).
         AxisData {
-            x: reading[0],
-            y: reading[1],
+            x: reading[0] * -1.0,
+            y: reading[1] * -1.0,
             z: reading[2],
         }
     }
