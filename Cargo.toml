@@ -2,8 +2,14 @@
 name = "navigator-rs"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+license = "MIT"
+description = "This crate serves as the entry point for embedding applications using Rust on Blue Robotics's Navigator"
+homepage = "https://bluerobotics.com/store/comm-control-power/control/navigator/"
+documentation = "https://docs.bluerobotics.com/navigator-rs/navigator_rs/"
+repository = "https://github.com/bluerobotics/navigator-rs"
+categories = ["BlueRobotics", "Embedded development", "Science"]
+keywords = ["BlueRobotics", "embedded", "navigator", "robotics", "ROV"]
+readme = "README.md"
 
 [dependencies]
 ads1x1x = "0.2.2"
