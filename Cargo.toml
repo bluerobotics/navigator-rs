@@ -1,6 +1,6 @@
 [package]
 name = "navigator-rs"
-version = "0.1.0"
+version = "0.1.2"
 edition = "2021"
 license = "MIT"
 description = "This crate serves as the entry point for embedding applications using Rust on Blue Robotics's Navigator"
