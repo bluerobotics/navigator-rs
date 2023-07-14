@@ -964,6 +964,34 @@
 <a href="#964" id="964">964</a>
 <a href="#965" id="965">965</a>
 <a href="#966" id="966">966</a>
+<a href="#967" id="967">967</a>
+<a href="#968" id="968">968</a>
+<a href="#969" id="969">969</a>
+<a href="#970" id="970">970</a>
+<a href="#971" id="971">971</a>
+<a href="#972" id="972">972</a>
+<a href="#973" id="973">973</a>
+<a href="#974" id="974">974</a>
+<a href="#975" id="975">975</a>
+<a href="#976" id="976">976</a>
+<a href="#977" id="977">977</a>
+<a href="#978" id="978">978</a>
+<a href="#979" id="979">979</a>
+<a href="#980" id="980">980</a>
+<a href="#981" id="981">981</a>
+<a href="#982" id="982">982</a>
+<a href="#983" id="983">983</a>
+<a href="#984" id="984">984</a>
+<a href="#985" id="985">985</a>
+<a href="#986" id="986">986</a>
+<a href="#987" id="987">987</a>
+<a href="#988" id="988">988</a>
+<a href="#989" id="989">989</a>
+<a href="#990" id="990">990</a>
+<a href="#991" id="991">991</a>
+<a href="#992" id="992">992</a>
+<a href="#993" id="993">993</a>
+<a href="#994" id="994">994</a>
 </pre></div><pre class="rust"><code><span class="attr">#![deny(unsafe_code)]
 #![doc(html_logo_url = <span class="string">&quot;https://upload.wikimedia.org/wikipedia/commons/1/12/Bluerobotics-logo.svg&quot;</span>)]
 #![doc = <span class="macro">include_str!</span>(<span class="string">&quot;../README.md&quot;</span>)]
@@ -984,12 +1012,11 @@
 <span class="kw">use </span>log::{info, warn};
 <span class="kw">use </span>nb::block;
 <span class="kw">use </span>pwm_pca9685::{Address <span class="kw">as </span>pwm_Address, Pca9685};
+<span class="kw">use </span>sk6812_rpi::strip::{Bus, Strip};
 <span class="kw">use </span>std::{
     fmt,
     ops::{Deref, DerefMut},
 };
-
-<span class="kw">use </span>std::fmt::Debug;
 
 <span class="doccomment">/// Navigator&#39;s default crystal clock for PWM, with a value of 24.5760 MHz
 </span><span class="kw">const </span>NAVIGATOR_PWM_XTAL_CLOCK_FREQ: f32 = <span class="number">24_576_000.0</span>;
@@ -1129,6 +1156,7 @@
     imu: ICM20689&lt;SpiInterface&lt;Spidev, Pin&gt;&gt;,
     mag: Ak09915&lt;I2cdev&gt;,
     led: Led,
+    neopixel: Strip,
 }
 
 <span class="kw">impl </span>Deref <span class="kw">for </span>Pwm {
@@ -1250,6 +1278,8 @@
             .expect(<span class="string">&quot;Error: Failed to build BMP280 device&quot;</span>);
         bmp.zero().unwrap();
 
+        <span class="kw">let </span>neopixel = Strip::new(Bus::Spi0, <span class="number">1</span>).unwrap();
+
         <span class="kw">let </span><span class="kw-2">mut </span>spi = Spidev::open(<span class="string">&quot;/dev/spidev1.0&quot;</span>).expect(<span class="string">&quot;Error: Failed during setting up SPI&quot;</span>);
         <span class="kw">let </span>options = SpidevOptions::new()
             .bits_per_word(<span class="number">8</span>)
@@ -1292,6 +1322,7 @@
             mag: (mag),
             imu: (imu),
             led: (led),
+            neopixel: (neopixel),
         }
     }
 
@@ -1637,6 +1668,31 @@
         <span class="self">self</span>.led.set_led_all(state)
     }
 
+    <span class="doccomment">/// Set the values of the neopixel LED array.
+    ///
+    /// # Arguments
+    ///
+    /// * `array` - A 2D array containing RGB values for each LED.
+    /// Each inner array is a [u8; 3] representing the Red, Green and Blue from a LED.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// let mut leds = [[0, 0, 255], [0, 255, 0], [255, 0, 0]];
+    /// nav.set_neopixel(&amp;mut leds);
+    /// ```
+    ///
+    /// This will set the first LED to blue, second to green, and third to red.
+    </span><span class="kw">pub fn </span>set_neopixel(<span class="kw-2">&amp;mut </span><span class="self">self</span>, array: <span class="kw-2">&amp;</span>[[u8; <span class="number">3</span>]]) {
+        <span class="self">self</span>.neopixel.fill(array[<span class="number">0</span>].into());
+        <span class="self">self</span>.neopixel.update().unwrap();
+    }
+
     <span class="doccomment">/// Reads the magnetometer Ak09915 of [`Navigator`].
     ///
     /// Measurements in \[µT\]
@@ -1890,7 +1946,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>fmt_debug(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw">impl </span>Debug {
+    <span class="kw">pub fn </span>fmt_debug(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw">impl </span>fmt::Debug {
         <span class="attr">#[allow(dead_code)]
         #[derive(Debug)]
         </span><span class="kw">struct </span>Bmp {
