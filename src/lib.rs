@@ -18,6 +18,7 @@ use linux_embedded_hal::{Delay, Pin, Spidev};
 use log::{info, warn};
 use nb::block;
 use pwm_pca9685::{Address as pwm_Address, Pca9685};
+use sk6812_rpi::strip::{Bus, Strip};
 use std::{
     fmt,
     ops::{Deref, DerefMut},
@@ -161,6 +162,7 @@ pub struct Navigator {
     imu: ICM20689<SpiInterface<Spidev, Pin>>,
     mag: Ak09915<I2cdev>,
     led: Led,
+    neopixel: Strip,
 }
 
 impl Deref for Pwm {
@@ -282,6 +284,8 @@ impl Navigator {
             .expect("Error: Failed to build BMP280 device");
         bmp.zero().unwrap();
 
+        let neopixel = Strip::new(Bus::Spi0, 1).unwrap();
+
         let mut spi = Spidev::open("/dev/spidev1.0").expect("Error: Failed during setting up SPI");
         let options = SpidevOptions::new()
             .bits_per_word(8)
@@ -324,6 +328,7 @@ impl Navigator {
             mag: (mag),
             imu: (imu),
             led: (led),
+            neopixel: (neopixel),
         }
     }
 
@@ -667,6 +672,31 @@ impl Navigator {
     /// ```
     pub fn set_led_all(&mut self, state: bool) {
         self.led.set_led_all(state)
+    }
+
+    /// Set the values of the neopixel LED array.
+    ///
+    /// # Arguments
+    ///
+    /// * `array` - A 2D array containing RGB values for each LED.
+    /// Each inner array is a [u8; 3] representing the Red, Green and Blue from a LED.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// let mut leds = [[0, 0, 255], [0, 255, 0], [255, 0, 0]];
+    /// nav.set_neopixel(&mut leds);
+    /// ```
+    ///
+    /// This will set the first LED to blue, second to green, and third to red.
+    pub fn set_neopixel(&mut self, array: &[[u8; 3]]) {
+        self.neopixel.fill(array[0].into());
+        self.neopixel.update().unwrap();
     }
 
     /// Reads the magnetometer Ak09915 of [`Navigator`].
