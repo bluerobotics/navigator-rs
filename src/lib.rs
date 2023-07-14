@@ -23,8 +23,6 @@ use std::{
     ops::{Deref, DerefMut},
 };
 
-use std::fmt::Debug;
-
 /// Navigator's default crystal clock for PWM, with a value of 24.5760 MHz
 const NAVIGATOR_PWM_XTAL_CLOCK_FREQ: f32 = 24_576_000.0;
 
@@ -924,7 +922,7 @@ impl Navigator {
         }
     }
 
-    pub fn fmt_debug(&mut self) -> impl Debug {
+    pub fn fmt_debug(&mut self) -> impl fmt::Debug {
         #[allow(dead_code)]
         #[derive(Debug)]
         struct Bmp {
