@@ -18,6 +18,7 @@ use linux_embedded_hal::{Delay, Pin, Spidev};
 use log::{info, warn};
 use nb::block;
 use pwm_pca9685::{Address as pwm_Address, Pca9685};
+use sk6812_rpi::led::Led as StripLed;
 use sk6812_rpi::strip::{Bus, Strip};
 use std::{
     fmt,
@@ -190,6 +191,11 @@ pub struct Pwm {
     oe_pin: Pin,
 }
 
+/// Build pattern structure
+pub struct NavigatorBuilder {
+    rgb_led_strip_size: usize,
+}
+
 impl Default for Led {
     fn default() -> Self {
         Self::new()
@@ -262,8 +268,13 @@ impl Default for Navigator {
     }
 }
 
-impl Navigator {
-    pub fn new() -> Navigator {
+impl NavigatorBuilder {
+    pub fn with_rgb_led_strip_size(mut self, size: usize) -> Self {
+        self.rgb_led_strip_size = size;
+        self
+    }
+
+    pub fn build(self) -> Navigator {
         env_logger::init();
 
         let dev = I2cdev::new("/dev/i2c-4").unwrap();
@@ -284,7 +295,7 @@ impl Navigator {
             .expect("Error: Failed to build BMP280 device");
         bmp.zero().unwrap();
 
-        let neopixel = Strip::new(Bus::Spi0, 1).unwrap();
+        let mut neopixel = Strip::new(Bus::Spi0, self.rgb_led_strip_size).unwrap();
 
         let mut spi = Spidev::open("/dev/spidev1.0").expect("Error: Failed during setting up SPI");
         let options = SpidevOptions::new()
@@ -321,7 +332,7 @@ impl Navigator {
 
         let led = Led::new();
 
-        Self {
+        Navigator {
             adc: (adc),
             bmp: (bmp),
             pwm: Pwm { pca: pwm, oe_pin },
@@ -329,6 +340,18 @@ impl Navigator {
             imu: (imu),
             led: (led),
             neopixel: (neopixel),
+        }
+    }
+}
+
+impl Navigator {
+    pub fn new() -> Navigator {
+        Self::create().build()
+    }
+
+    pub fn create() -> NavigatorBuilder {
+        NavigatorBuilder {
+            rgb_led_strip_size: 1, // There is only a single LED on the board
         }
     }
 
@@ -695,7 +718,9 @@ impl Navigator {
     ///
     /// This will set the first LED to blue, second to green, and third to red.
     pub fn set_neopixel(&mut self, array: &[[u8; 3]]) {
-        self.neopixel.fill(array[0].into());
+        for (index, value) in array.iter().enumerate() {
+            self.neopixel.leds[index] = StripLed::from_rgb(value[0], value[1], value[2]);
+        }
         self.neopixel.update().unwrap();
     }
 
