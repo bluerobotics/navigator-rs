@@ -296,6 +296,8 @@ impl NavigatorBuilder {
         bmp.zero().unwrap();
 
         let mut neopixel = Strip::new(Bus::Spi0, self.rgb_led_strip_size).unwrap();
+        // Clear RGB led strip before starting using it
+        neopixel.clear();
 
         let mut spi = Spidev::open("/dev/spidev1.0").expect("Error: Failed during setting up SPI");
         let options = SpidevOptions::new()
