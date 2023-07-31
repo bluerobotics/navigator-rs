@@ -167,7 +167,7 @@ in the haystack or the termination of a search.</p>
 <p>When a search is anchored (so that’s <a href="enum.Anchored.html#variant.Yes" title="variant regex_automata::Anchored::Yes"><code>Anchored::Yes</code></a> or
 <a href="enum.Anchored.html#variant.Pattern" title="variant regex_automata::Anchored::Pattern"><code>Anchored::Pattern</code></a>), a match must begin at the start of a search.
 When a search is not anchored (that’s <a href="enum.Anchored.html#variant.No" title="variant regex_automata::Anchored::No"><code>Anchored::No</code></a>), regex engines
-will behave as if the pattern started with a <code>(?:s-u.)*?</code>. This prefix
+will behave as if the pattern started with a <code>(?s-u:.)*?</code>. This prefix
 permits a match to appear anywhere.</p>
 <p>By default, the anchored mode is <a href="enum.Anchored.html#variant.No" title="variant regex_automata::Anchored::No"><code>Anchored::No</code></a>.</p>
 <p><strong>WARNING:</strong> this is subtly different than using a <code>^</code> at the start of
