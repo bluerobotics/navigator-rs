@@ -275,8 +275,6 @@ impl NavigatorBuilder {
     }
 
     pub fn build(self) -> Navigator {
-        env_logger::init();
-
         let dev = I2cdev::new("/dev/i2c-4").unwrap();
         let address = pwm_Address::default();
         let pwm = Pca9685::new(dev, address).unwrap();
