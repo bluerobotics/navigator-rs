@@ -378,6 +378,7 @@ impl Navigator {
         self.pwm.reset_internal_driver_state();
         self.pwm.use_external_clock().unwrap();
         self.pwm.set_prescale(100).unwrap();
+        self.pwm.enable().unwrap();
 
         self.bmp.zero().unwrap();
 
@@ -404,10 +405,8 @@ impl Navigator {
     /// Please check [`set_pwm_channel_value`](struct.Navigator.html#method.set_pwm_channel_value).
     pub fn pwm_enable(&mut self, state: bool) {
         if state {
-            self.pwm.enable().unwrap();
             self.pwm.oe_pin.set_direction(Direction::Low).unwrap();
         } else {
-            self.pwm.disable().unwrap();
             self.pwm.oe_pin.set_direction(Direction::High).unwrap();
         }
     }
