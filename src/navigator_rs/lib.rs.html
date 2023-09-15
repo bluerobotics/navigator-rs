@@ -1134,7 +1134,7 @@
 }
 
 <span class="doccomment">/// The `AxisData` struct encapsulate values for the x, y, and z axes.
-</span><span class="attr">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug, Default)]
 </span><span class="kw">pub struct </span>AxisData {
     <span class="kw">pub </span>x: f32,
     <span class="kw">pub </span>y: f32,
@@ -1142,13 +1142,13 @@
 }
 
 <span class="doccomment">/// Encapsulates the value of ADC&#39;s four channels.
-</span><span class="attr">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug, Default)]
 </span><span class="kw">pub struct </span>ADCData {
     <span class="kw">pub </span>channel: [f32; <span class="number">4</span>],
 }
 
 <span class="doccomment">/// Encapsulates the value of all sensors on the board.
-</span><span class="attr">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug, Default)]
 </span><span class="kw">pub struct </span>SensorData {
     <span class="kw">pub </span>adc: ADCData,
     <span class="kw">pub </span>temperature: f32,
