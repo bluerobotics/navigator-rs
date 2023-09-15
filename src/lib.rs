@@ -116,7 +116,7 @@ pub enum PwmChannel {
 }
 
 /// The `AxisData` struct encapsulate values for the x, y, and z axes.
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct AxisData {
     pub x: f32,
     pub y: f32,
@@ -124,13 +124,13 @@ pub struct AxisData {
 }
 
 /// Encapsulates the value of ADC's four channels.
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct ADCData {
     pub channel: [f32; 4],
 }
 
 /// Encapsulates the value of all sensors on the board.
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct SensorData {
     pub adc: ADCData,
     pub temperature: f32,
