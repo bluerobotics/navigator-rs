@@ -22,3 +22,10 @@ log = "0.4.19"
 nb = "1.1.0"
 pwm-pca9685 = "0.3.1"
 sk6812_rpi = "0.1"
+
+[dev-dependencies]
+criterion = { version = "0.5.1", features = ["html_reports"] }
+
+[[bench]]
+name = "bench"
+harness = false
