@@ -372,6 +372,9 @@ impl Navigator {
         self.adc
             .set_full_scale_range(ads1x1x::FullScaleRange::Within4_096V)
             .unwrap();
+        self.adc
+            .set_data_rate(ads1x1x::DataRate16Bit::Sps860)
+            .unwrap();
 
         self.pwm.reset_internal_driver_state();
         self.pwm.use_external_clock().unwrap();
