@@ -1,4 +1,4 @@
-var sourcesIndex = JSON.parse('{\
+var srcIndex = JSON.parse('{\
 "ads1x1x":["",[["devices",[["features",[],["mod.rs","tier1.rs","tier2.rs"]],["mode",[],["continuous.rs","mod.rs","oneshot.rs"]]],["common.rs","mod.rs"]]],["channels.rs","construction.rs","conversion.rs","ic.rs","interface.rs","lib.rs","types.rs"]],\
 "ak09915_rs":["",[],["lib.rs"]],\
 "approx":["",[],["abs_diff_eq.rs","lib.rs","macros.rs","relative_eq.rs","ulps_eq.rs"]],\
@@ -51,4 +51,4 @@ var sourcesIndex = JSON.parse('{\
 "void":["",[],["lib.rs"]],\
 "wyz":["",[],["bidi.rs","comu.rs","fmt.rs","lib.rs","range.rs"]]\
 }');
-createSourceSidebar();
+createSrcSidebar();
