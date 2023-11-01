@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ak09915_rs-0.1.1/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="ak09915_rs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0 (cc66ad468 2023-10-03)" data-channel="1.73.0" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../ak09915_rs/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ak09915_rs-0.2.0/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="ak09915_rs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0 (cc66ad468 2023-10-03)" data-channel="1.73.0" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../ak09915_rs/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -237,6 +237,78 @@
 <a href="#237" id="237">237</a>
 <a href="#238" id="238">238</a>
 <a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>embedded_hal::blocking::i2c::{Write, WriteRead};
 
 <span class="kw">const </span>AK09915_ADDRESS: u8 = <span class="number">0x0C</span>;
@@ -266,6 +338,7 @@
 
 <span class="comment">// AK09915 Mode Settings - Corresponding to Control Register 2
 </span><span class="attr">#[repr(u16)]
+#[derive(Clone, Copy)]
 </span><span class="kw">pub enum </span>Mode {
     PowerDown = <span class="number">0x00</span>,
     Single = <span class="number">0x01</span>,
@@ -281,13 +354,33 @@
 <span class="attr">#[derive(Debug, PartialEq)]
 </span><span class="kw">pub enum </span>Error&lt;E&gt; {
     I2C(E),
-    SensorOverflow,
+    MagneticSensorOverflow,
+    InvalidData,
     DataNotReady,
 }
 
 <span class="kw">impl </span>From&lt;Mode&gt; <span class="kw">for </span>u8 {
     <span class="kw">fn </span>from(mode: Mode) -&gt; <span class="self">Self </span>{
         mode <span class="kw">as </span>u8
+    }
+}
+
+<span class="kw">trait </span>AssociateValue {
+    <span class="comment">// Return a minimum required interval to wait before another attempt. Actually 1/2 sample rate.
+    </span><span class="kw">fn </span>check_interval(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; std::time::Duration;
+}
+
+<span class="kw">impl </span>AssociateValue <span class="kw">for </span>Mode {
+    <span class="kw">fn </span>check_interval(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; std::time::Duration {
+        <span class="kw">match </span><span class="self">self </span>{
+            Mode::Cont10Hz =&gt; std::time::Duration::from_millis(<span class="number">50</span>),
+            Mode::Cont20Hz =&gt; std::time::Duration::from_millis(<span class="number">25</span>),
+            Mode::Cont50Hz =&gt; std::time::Duration::from_millis(<span class="number">10</span>),
+            Mode::Cont100Hz =&gt; std::time::Duration::from_millis(<span class="number">5</span>),
+            Mode::Cont200Hz =&gt; std::time::Duration::from_micros(<span class="number">2500</span>),
+            Mode::Cont1Hz =&gt; std::time::Duration::from_millis(<span class="number">500</span>),
+            <span class="kw">_ </span>=&gt; std::time::Duration::from_micros(<span class="number">2500</span>),
+        }
     }
 }
 
@@ -300,6 +393,7 @@
 <span class="kw">pub struct </span>Ak09915&lt;I2C&gt; {
     <span class="kw">pub </span>i2c: I2C,
     <span class="kw">pub </span>address: u8,
+    <span class="kw">pub </span>mode: Mode,
 }
 
 <span class="kw">impl</span>&lt;I2C, E&gt; Ak09915&lt;I2C&gt;
@@ -310,6 +404,7 @@
         <span class="self">Self </span>{
             i2c,
             address: AK09915_ADDRESS,
+            mode: Mode::PowerDown,
         }
     }
 
@@ -328,9 +423,9 @@
     }
 
     <span class="kw">pub fn </span>init(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&lt;E&gt;&gt; {
-        <span class="comment">// Soft reset device and put on continuous measurement
+        <span class="comment">// Soft reset device and put on continuous measurement mode, with 200 Hz
         </span><span class="self">self</span>.reset()<span class="question-mark">?</span>;
-        <span class="self">self</span>.set_mode(Mode::PowerDown)<span class="question-mark">?</span>;
+        <span class="self">self</span>.set_mode(Mode::Cont200Hz)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(())
     }
 
@@ -344,6 +439,7 @@
         <span class="self">self</span>.write_register(Register::CNTL2, Mode::PowerDown.into())<span class="question-mark">?</span>;
         std::thread::sleep(std::time::Duration::from_micros(<span class="number">100</span>));
         <span class="self">self</span>.write_register(Register::CNTL2, mode.into())<span class="question-mark">?</span>;
+        <span class="self">self</span>.mode = mode;
         <span class="prelude-val">Ok</span>(())
     }
 
@@ -361,7 +457,6 @@
     //     - HX[15:0] bits: -200 ≤ HX ≤ +200
     //     - HY[15:0] bits: -200 ≤ HY ≤ +200
     //     - HZ[15:0] bits: -800 ≤ HZ ≤ -200
-
     </span><span class="kw">pub fn </span>self_test(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;bool, Error&lt;E&gt;&gt; {
         <span class="self">self</span>.set_mode(Mode::SelfTest)<span class="question-mark">?</span>;
         std::thread::sleep(std::time::Duration::from_micros(<span class="number">4000</span>));
@@ -374,26 +469,66 @@
     }
 
     <span class="kw">pub fn </span>check_data_ready(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&lt;E&gt;&gt; {
-        <span class="kw">let </span><span class="kw-2">mut </span>retries = <span class="number">10</span>;
-        <span class="kw">while </span>retries &gt; <span class="number">0 </span>{
+        <span class="kw">let </span>retries = <span class="number">3</span>;
+        <span class="kw">for _ in </span><span class="number">0</span>..retries {
             <span class="kw">let </span>status = <span class="self">self</span>.read_register(Register::ST1)<span class="question-mark">?</span>;
             <span class="kw">if </span>(status &amp; <span class="number">0x01</span>) != <span class="number">0 </span>{
                 <span class="kw">return </span><span class="prelude-val">Ok</span>(()); <span class="comment">// Data ready
             </span>}
-            std::thread::sleep(std::time::Duration::from_millis(<span class="number">100</span>));
-            retries -= <span class="number">1</span>;
+            std::thread::sleep(<span class="self">self</span>.mode.check_interval());
         }
         <span class="prelude-val">Err</span>(Error::DataNotReady)
     }
-    <span class="comment">// 9.4.3.2. Normal Read Sequence:
-    //   1. Check Data Ready or not by any of the following method:
-    //      |ST2| -&gt; | 0 0 0 0 HOFL INV 0 0 |
-    </span><span class="kw">pub fn </span>check_overflow(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&lt;E&gt;&gt; {
-        <span class="kw">let </span>status = <span class="self">self</span>.read_register(Register::ST2)<span class="question-mark">?</span>;
-        <span class="kw">if </span>(status &amp; <span class="number">0x04</span>) != <span class="number">0 </span>{
-            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::SensorOverflow);
+
+    <span class="doccomment">/// Checks the status of the ST2 register based on the provided value.
+    ///
+    /// # Description
+    ///
+    /// The ST2 register (address: 18h) is a read-only register that provides status information about the sensor.
+    /// This function checks the value of the ST2 register and returns an error if any of the error bits are set.
+    ///
+    /// ## ST2 Register Format:
+    ///
+    /// | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |
+    /// |----|----|----|----|----|----|----|----|
+    /// |  0 |  0 |  0 |  0 |HOFL| INV|  0 |  0 |
+    ///
+    /// - `HOFL` bit: Indicates a magnetic sensor overflow.
+    ///   - `0`: Normal
+    ///   - `1`: Magnetic sensor overflow occurred
+    ///
+    /// - `INV` bit: Indicates invalid data.
+    ///   - `0`: Normal
+    ///   - `1`: Data is invalid
+    ///
+    /// # Parameters
+    ///
+    /// - `st2_value`: The value of the ST2 register to check.
+    ///
+    /// # Returns
+    ///
+    /// - `Ok(())`: If the ST2 register value indicates no errors.
+    /// - `Err(Error::MagneticSensorOverflow)`: If the HOFL bit is set.
+    /// - `Err(Error::InvalidData)`: If the INV bit is set.
+    </span><span class="kw">pub fn </span>check_st2_value(st2_value: u8) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&lt;E&gt;&gt; {
+        <span class="kw">const </span>HOFL_BIT: u8 = <span class="number">0b00001000</span>;
+        <span class="kw">const </span>INV_BIT: u8 = <span class="number">0b000000100</span>;
+
+        <span class="kw">if </span>st2_value &amp; HOFL_BIT != <span class="number">0 </span>{
+            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::MagneticSensorOverflow);
         }
+
+        <span class="kw">if </span>st2_value &amp; INV_BIT != <span class="number">0 </span>{
+            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::InvalidData);
+        }
+
         <span class="prelude-val">Ok</span>(())
+    }
+
+    <span class="doccomment">/// Check St2 register value directly
+    </span><span class="kw">pub fn </span>check_st2(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&lt;E&gt;&gt; {
+        <span class="kw">let </span>status = <span class="self">self</span>.read_register(Register::ST2)<span class="question-mark">?</span>;
+        <span class="self">Self</span>::check_st2_value(status)
     }
 
     <span class="comment">// Return the readings in magnetic flux density [uT]
@@ -405,6 +540,13 @@
             raw_data.<span class="number">2 </span><span class="kw">as </span>f32 * AK09915_FLUX_CONSTANT,
         );
         <span class="prelude-val">Ok</span>(scaled_data)
+    }
+
+    <span class="kw">fn </span>buffer_to_xyz(buffer: <span class="kw-2">&amp;</span>[u8; <span class="number">6</span>]) -&gt; (i16, i16, i16) {
+        <span class="kw">let </span>x = i16::from_le_bytes([buffer[<span class="number">0</span>], buffer[<span class="number">1</span>]]);
+        <span class="kw">let </span>y = i16::from_le_bytes([buffer[<span class="number">2</span>], buffer[<span class="number">3</span>]]);
+        <span class="kw">let </span>z = i16::from_le_bytes([buffer[<span class="number">4</span>], buffer[<span class="number">5</span>]]);
+        (x, y, z)
     }
 
     <span class="comment">// 9.4.3.2. Normal Read Sequence:
@@ -427,23 +569,25 @@
     //      Stored measurement data is protected during data reading and data is not updated.
     //      By reading ST2 register, this protection is released. It is required to read
     //      ST2 register after data reading.
-
     </span><span class="kw">pub fn </span>read_raw(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(i16, i16, i16), Error&lt;E&gt;&gt; {
         <span class="self">self</span>.check_data_ready()<span class="question-mark">?</span>;
-        <span class="kw">let </span>res = <span class="self">self</span>.read_unchecked();
-        <span class="self">self</span>.check_overflow()<span class="question-mark">?</span>;
-        res
+
+        <span class="kw">let </span><span class="kw-2">mut </span>buffer: [u8; <span class="number">8</span>] = [<span class="number">0u8</span>; <span class="number">8</span>];
+        <span class="self">self</span>.i2c
+            .write_read(<span class="self">self</span>.address, <span class="kw-2">&amp;</span>[Register::HXL.into()], <span class="kw-2">&amp;mut </span>buffer)
+            .map_err(Error::I2C)<span class="question-mark">?</span>;
+
+        <span class="self">Self</span>::check_st2_value(buffer[<span class="number">7</span>])<span class="question-mark">?</span>;
+
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::buffer_to_xyz(<span class="kw-2">&amp;</span>buffer[..<span class="number">6</span>].try_into().unwrap()))
     }
 
-    <span class="kw">pub fn </span>read_unchecked(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(i16, i16, i16), Error&lt;E&gt;&gt; {
+    <span class="kw">pub fn </span>read_raw_unchecked(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(i16, i16, i16), Error&lt;E&gt;&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>buffer: [u8; <span class="number">6</span>] = [<span class="number">0u8</span>; <span class="number">6</span>];
         <span class="self">self</span>.i2c
             .write_read(<span class="self">self</span>.address, <span class="kw-2">&amp;</span>[Register::HXL.into()], <span class="kw-2">&amp;mut </span>buffer)
             .map_err(Error::I2C)<span class="question-mark">?</span>;
-        <span class="kw">let </span>x = i16::from_le_bytes([buffer[<span class="number">0</span>], buffer[<span class="number">1</span>]]);
-        <span class="kw">let </span>y = i16::from_le_bytes([buffer[<span class="number">2</span>], buffer[<span class="number">3</span>]]);
-        <span class="kw">let </span>z = i16::from_le_bytes([buffer[<span class="number">4</span>], buffer[<span class="number">5</span>]]);
-        <span class="prelude-val">Ok</span>((x, y, z))
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::buffer_to_xyz(<span class="kw-2">&amp;</span>buffer[..<span class="number">6</span>].try_into().unwrap()))
     }
 }
 
@@ -452,12 +596,15 @@
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span>embedded_hal_mock::i2c::{Mock <span class="kw">as </span>I2cMock, Transaction <span class="kw">as </span>I2cTrans};
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>set_mode_and_read_sensor() {
-        <span class="comment">// Define expected I2C transactions for setting mode and reading sensor data
-        </span><span class="kw">let </span>expected_trans = [
-            <span class="comment">// I2cTrans::write(0x0C, vec![0x31, 0x10]), // Set mode to continuous measurement mode 1
-            </span>I2cTrans::write_read(<span class="number">0x0C</span>, <span class="macro">vec!</span>[<span class="number">0x11</span>], <span class="macro">vec!</span>[<span class="number">0x04</span>, <span class="number">0x23</span>, <span class="number">0x05</span>, <span class="number">0x24</span>, <span class="number">0x06</span>, <span class="number">0x25</span>]), <span class="comment">// Read sensor data
-        </span>];
+    </span><span class="kw">fn </span>read_sensor() {
+        <span class="kw">let </span>expected_trans = [
+            I2cTrans::write_read(AK09915_ADDRESS, <span class="macro">vec!</span>[Register::ST1.into()], <span class="macro">vec!</span>[<span class="number">0x01</span>]),
+            I2cTrans::write_read(
+                AK09915_ADDRESS,
+                <span class="macro">vec!</span>[Register::HXL.into()],
+                <span class="macro">vec!</span>[<span class="number">0x04</span>, <span class="number">0x23</span>, <span class="number">0x05</span>, <span class="number">0x24</span>, <span class="number">0x06</span>, <span class="number">0x25</span>, <span class="number">0x00</span>, <span class="number">0x01</span>],
+            ),
+        ];
 
         <span class="comment">// Create a mock I2C device and queue the expected transactions
         </span><span class="kw">let </span>i2c_mock = I2cMock::new(<span class="kw-2">&amp;</span>expected_trans);
@@ -465,10 +612,7 @@
         <span class="comment">// Create an AK09915 instance using the mock I2C device
         </span><span class="kw">let </span><span class="kw-2">mut </span>sensor = Ak09915::new(i2c_mock);
 
-        <span class="comment">// Set the mode to continuous measurement mode 1
-        // sensor.set_mode(Mode::Cont1Hz).unwrap();
-
-        </span><span class="kw">let </span>(x, y, z) = sensor.read_unchecked().expect(<span class="string">&quot;Error reading magnetometer&quot;</span>);
+        <span class="kw">let </span>(x, y, z) = sensor.read_raw().expect(<span class="string">&quot;Error reading magnetometer&quot;</span>);
 
         <span class="comment">// Verify that the magnetometer data matches the expected values
         </span><span class="macro">assert_eq!</span>(x, <span class="number">0x2304</span>);
