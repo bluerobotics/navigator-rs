@@ -69,6 +69,24 @@ jobs:
       with:
         prefix-key: "rust-cache"
         shared-key: "benchmark"
+    - name: Get previous benchmark data
+      run: |
+          echo "Fetching gh-pages branch"
+          git fetch origin gh-pages
+
+          echo "Checking out gh-pages branch"
+          git checkout gh-pages
+
+          if [ ! -d "cache" ]; then
+            echo "Cache folder does not exist, creating it"
+            mkdir cache
+          fi
+
+          echo "Copying data file from gh-pages to cache"
+          cp dev/cache/benchmark-data.json cache/benchmark-data.json || { echo "Failed to copy data file" ; exit 1; }
+
+          echo "Checking out current preivous branch"
+          git checkout -
     - name: Cargo Bench
       run:  cargo bench --jobs 1 --bench bench -- --output-format bencher | tee output.txt
     - name: Compare results & store cached results
