@@ -43,6 +43,52 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./pages
 
+  bench:
+    needs: build
+    runs-on: raspbian-armv7-kernel-5.10.33
+    steps:
+    - uses: actions/checkout@master
+    - uses: dtolnay/rust-toolchain@stable
+    - name: Rust | Cache
+      uses: Swatinem/rust-cache@v2
+      with:
+        prefix-key: "rust-cache"
+        shared-key: "benchmark"
+    - name: Cargo Bench
+      run:  cargo bench --jobs 1 --bench bench -- --output-format bencher | tee output.txt
+    - name: Compare results & store cached results
+      uses: benchmark-action/github-action-benchmark@v1.18.0
+      with:
+        tool: 'cargo'
+        output-file-path: output.txt
+        summary-always: true
+        alert-threshold: "110%"
+        fail-on-alert: true
+        external-data-json-path: ./cache/benchmark-data.json
+        skip-fetch-gh-pages: "true"
+    - name: Update data file
+      if: ${{ github.ref == 'refs/heads/master' }}
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "actions@github.com"
+
+        git fetch origin gh-pages
+
+        git checkout gh-pages
+
+        if [ ! -d "dev/cache" ]; then
+          echo "Cache folder does not exist, creating it"
+          mkdir -p dev/cache
+        fi
+
+        cp cache/benchmark-data.json dev/cache/benchmark-data.json
+
+        tree cache
+
+        git add dev/cache/benchmark-data.json
+        git commit -m "Update benchmark-data file"
+        git push origin gh-pages
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
