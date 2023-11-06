@@ -36,6 +36,20 @@ jobs:
         run: cargo doc
       - name: Move documentation
         run: mkdir -p pages/doc && mv target/doc/* pages/doc/
+      - name: Get previous benchmark data
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: |
+            echo "Fetching gh-pages branch"
+            git fetch origin gh-pages
+
+            echo "Checking out gh-pages branch"
+            git checkout gh-pages
+
+            echo "Copying data file from gh-pages to cache"
+            mkdir -p pages/dev && cp -r dev/* pages/dev/ || { echo "Failed to copy dev folder" ; exit 1; }
+
+            echo "Checking out current previous branch"
+            git checkout -
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/master' }}
