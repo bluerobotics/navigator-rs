@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1699448312947,
+  "lastUpdate": 1699470293350,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -22,115 +22,115 @@
           "tree_id": "8f25a98b2be6b8d010daccef71e6ec6d4ea10fc5",
           "url": "https://github.com/bluerobotics/navigator-rs/commit/49e040709f7ca6e2fb6a442bdc66c8b30ebca090"
         },
-        "date": 1699448312926,
+        "date": 1699470293341,
         "tool": "cargo",
         "benches": [
           {
             "name": "new",
-            "value": 183827750,
-            "range": "± 485433",
+            "value": 183835812,
+            "range": "± 174977",
             "unit": "ns/iter"
           },
           {
             "name": "init",
-            "value": 323433026,
-            "range": "± 554662",
+            "value": 323501186,
+            "range": "± 641188",
             "unit": "ns/iter"
           },
           {
             "name": "read_adc",
-            "value": 1434430,
-            "range": "± 10725",
+            "value": 1466664,
+            "range": "± 18513",
             "unit": "ns/iter"
           },
           {
             "name": "read_adc_all",
-            "value": 5772009,
-            "range": "± 63546",
+            "value": 5888357,
+            "range": "± 62080",
             "unit": "ns/iter"
           },
           {
             "name": "read_accel",
-            "value": 218388,
-            "range": "± 6783",
+            "value": 219984,
+            "range": "± 10383",
             "unit": "ns/iter"
           },
           {
             "name": "read_gyro",
-            "value": 219914,
-            "range": "± 9013",
+            "value": 219438,
+            "range": "± 12970",
             "unit": "ns/iter"
           },
           {
             "name": "read_mag",
-            "value": 5042596,
-            "range": "± 55321",
+            "value": 5048160,
+            "range": "± 116518",
             "unit": "ns/iter"
           },
           {
             "name": "read_pressure",
-            "value": 183005,
-            "range": "± 7773",
+            "value": 183522,
+            "range": "± 11683",
             "unit": "ns/iter"
           },
           {
             "name": "read_temperature",
-            "value": 94042,
-            "range": "± 6697",
+            "value": 93481,
+            "range": "± 7962",
             "unit": "ns/iter"
           },
           {
             "name": "read_all",
-            "value": 7038463,
-            "range": "± 22800",
+            "value": 7014258,
+            "range": "± 21283",
             "unit": "ns/iter"
           },
           {
             "name": "pwm_enable",
-            "value": 40212,
-            "range": "± 3434",
+            "value": 39880,
+            "range": "± 1673",
             "unit": "ns/iter"
           },
           {
             "name": "set_pwm_channel_value",
-            "value": 127551,
-            "range": "± 968",
+            "value": 127128,
+            "range": "± 609",
             "unit": "ns/iter"
           },
           {
             "name": "set_pwm_freq_hz",
-            "value": 135921,
-            "range": "± 6172",
+            "value": 140502,
+            "range": "± 11682",
             "unit": "ns/iter"
           },
           {
             "name": "set_pwm_freq_prescale",
-            "value": 140348,
-            "range": "± 8556",
+            "value": 155863,
+            "range": "± 12032",
             "unit": "ns/iter"
           },
           {
             "name": "set_neopixel",
-            "value": 259387,
-            "range": "± 505",
+            "value": 262814,
+            "range": "± 658",
             "unit": "ns/iter"
           },
           {
             "name": "set_led",
-            "value": 39604,
-            "range": "± 2506",
+            "value": 39954,
+            "range": "± 1869",
             "unit": "ns/iter"
           },
           {
             "name": "set_led_toggle",
-            "value": 85473,
-            "range": "± 5344",
+            "value": 86679,
+            "range": "± 4529",
             "unit": "ns/iter"
           },
           {
             "name": "get_led",
-            "value": 45488,
-            "range": "± 1889",
+            "value": 45533,
+            "range": "± 2038",
             "unit": "ns/iter"
           }
         ]
@@ -154,115 +154,115 @@
           "tree_id": "8f25a98b2be6b8d010daccef71e6ec6d4ea10fc5",
           "url": "https://github.com/bluerobotics/navigator-rs/commit/49e040709f7ca6e2fb6a442bdc66c8b30ebca090"
         },
-        "date": 1699448312926,
+        "date": 1699470293341,
         "tool": "cargo",
         "benches": [
           {
             "name": "new",
-            "value": 183827750,
-            "range": "± 485433",
+            "value": 183835812,
+            "range": "± 174977",
             "unit": "ns/iter"
           },
           {
             "name": "init",
-            "value": 323433026,
-            "range": "± 554662",
+            "value": 323501186,
+            "range": "± 641188",
             "unit": "ns/iter"
           },
           {
             "name": "read_adc",
-            "value": 1434430,
-            "range": "± 10725",
+            "value": 1466664,
+            "range": "± 18513",
             "unit": "ns/iter"
           },
           {
             "name": "read_adc_all",
-            "value": 5772009,
-            "range": "± 63546",
+            "value": 5888357,
+            "range": "± 62080",
             "unit": "ns/iter"
           },
           {
             "name": "read_accel",
-            "value": 218388,
-            "range": "± 6783",
+            "value": 219984,
+            "range": "± 10383",
             "unit": "ns/iter"
           },
           {
             "name": "read_gyro",
-            "value": 219914,
-            "range": "± 9013",
+            "value": 219438,
+            "range": "± 12970",
             "unit": "ns/iter"
           },
           {
             "name": "read_mag",
-            "value": 5042596,
-            "range": "± 55321",
+            "value": 5048160,
+            "range": "± 116518",
             "unit": "ns/iter"
           },
           {
             "name": "read_pressure",
-            "value": 183005,
-            "range": "± 7773",
+            "value": 183522,
+            "range": "± 11683",
             "unit": "ns/iter"
           },
           {
             "name": "read_temperature",
-            "value": 94042,
-            "range": "± 6697",
+            "value": 93481,
+            "range": "± 7962",
             "unit": "ns/iter"
           },
           {
             "name": "read_all",
-            "value": 7038463,
-            "range": "± 22800",
+            "value": 7014258,
+            "range": "± 21283",
             "unit": "ns/iter"
           },
           {
             "name": "pwm_enable",
-            "value": 40212,
-            "range": "± 3434",
+            "value": 39880,
+            "range": "± 1673",
             "unit": "ns/iter"
           },
           {
             "name": "set_pwm_channel_value",
-            "value": 127551,
-            "range": "± 968",
+            "value": 127128,
+            "range": "± 609",
             "unit": "ns/iter"
           },
           {
             "name": "set_pwm_freq_hz",
-            "value": 135921,
-            "range": "± 6172",
+            "value": 140502,
+            "range": "± 11682",
             "unit": "ns/iter"
           },
           {
             "name": "set_pwm_freq_prescale",
-            "value": 140348,
-            "range": "± 8556",
+            "value": 155863,
+            "range": "± 12032",
             "unit": "ns/iter"
           },
           {
             "name": "set_neopixel",
-            "value": 259387,
-            "range": "± 505",
+            "value": 262814,
+            "range": "± 658",
             "unit": "ns/iter"
           },
           {
             "name": "set_led",
-            "value": 39604,
-            "range": "± 2506",
+            "value": 39954,
+            "range": "± 1869",
             "unit": "ns/iter"
           },
           {
             "name": "set_led_toggle",
-            "value": 85473,
-            "range": "± 5344",
+            "value": 86679,
+            "range": "± 4529",
             "unit": "ns/iter"
           },
           {
             "name": "get_led",
-            "value": 45488,
-            "range": "± 1889",
+            "value": 45533,
+            "range": "± 2038",
             "unit": "ns/iter"
           }
         ]
