@@ -45,6 +45,7 @@ jobs:
 
   bench:
     needs: build
+    if: ${{ github.repository_owner == 'bluerobotics' }}
     runs-on: raspbian-armv7-kernel-5.10.33
     steps:
     - uses: actions/checkout@master
