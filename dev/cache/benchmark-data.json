@@ -1,0 +1,272 @@
+{
+  "lastUpdate": 1699448312947,
+  "repoUrl": "https://github.com/bluerobotics/navigator-rs",
+  "entries": {
+    "Benchmark": [
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "49e040709f7ca6e2fb6a442bdc66c8b30ebca090",
+          "message": "github: action: Execute bench only at owner repo",
+          "timestamp": "2023-11-08T07:02:03-03:00",
+          "tree_id": "8f25a98b2be6b8d010daccef71e6ec6d4ea10fc5",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/49e040709f7ca6e2fb6a442bdc66c8b30ebca090"
+        },
+        "date": 1699448312926,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183827750,
+            "range": "± 485433",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 323433026,
+            "range": "± 554662",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1434430,
+            "range": "± 10725",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5772009,
+            "range": "± 63546",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 218388,
+            "range": "± 6783",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 219914,
+            "range": "± 9013",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5042596,
+            "range": "± 55321",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 183005,
+            "range": "± 7773",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94042,
+            "range": "± 6697",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7038463,
+            "range": "± 22800",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "pwm_enable",
+            "value": 40212,
+            "range": "± 3434",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 127551,
+            "range": "± 968",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 135921,
+            "range": "± 6172",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 140348,
+            "range": "± 8556",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 259387,
+            "range": "± 505",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39604,
+            "range": "± 2506",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85473,
+            "range": "± 5344",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45488,
+            "range": "± 1889",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "49e040709f7ca6e2fb6a442bdc66c8b30ebca090",
+          "message": "github: action: Execute bench only at owner repo",
+          "timestamp": "2023-11-08T07:02:03-03:00",
+          "tree_id": "8f25a98b2be6b8d010daccef71e6ec6d4ea10fc5",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/49e040709f7ca6e2fb6a442bdc66c8b30ebca090"
+        },
+        "date": 1699448312926,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183827750,
+            "range": "± 485433",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 323433026,
+            "range": "± 554662",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1434430,
+            "range": "± 10725",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5772009,
+            "range": "± 63546",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 218388,
+            "range": "± 6783",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 219914,
+            "range": "± 9013",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5042596,
+            "range": "± 55321",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 183005,
+            "range": "± 7773",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94042,
+            "range": "± 6697",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7038463,
+            "range": "± 22800",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "pwm_enable",
+            "value": 40212,
+            "range": "± 3434",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 127551,
+            "range": "± 968",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 135921,
+            "range": "± 6172",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 140348,
+            "range": "± 8556",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 259387,
+            "range": "± 505",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39604,
+            "range": "± 2506",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85473,
+            "range": "± 5344",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45488,
+            "range": "± 1889",
+            "unit": "ns/iter"
+          }
+        ]
+      }
+    ]
+  }
+}
