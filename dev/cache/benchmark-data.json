@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1699470293350,
+  "lastUpdate": 1699630177475,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -263,6 +263,270 @@
             "name": "get_led",
             "value": 45533,
             "range": "± 2038",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "6fa52ec3131e17e571ab4880ec745fa80ad04943",
+          "message": "github: action: Increase threashhold to 130",
+          "timestamp": "2023-11-10T12:05:25-03:00",
+          "tree_id": "184935e6a68fa9f11a3bd94166e262480130dfd8",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/6fa52ec3131e17e571ab4880ec745fa80ad04943"
+        },
+        "date": 1699630177463,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 182374819,
+            "range": "± 1395580",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 323025451,
+            "range": "± 2260841",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1443040,
+            "range": "± 66149",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5785801,
+            "range": "± 153418",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 219828,
+            "range": "± 21365",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 218405,
+            "range": "± 8636",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 4951963,
+            "range": "± 111617",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 188119,
+            "range": "± 10586",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94608,
+            "range": "± 4895",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 6676104,
+            "range": "± 248564",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "pwm_enable",
+            "value": 39970,
+            "range": "± 1921",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 112013,
+            "range": "± 10048",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 141617,
+            "range": "± 8025",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 140254,
+            "range": "± 8309",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 261393,
+            "range": "± 18676",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39220,
+            "range": "± 5315",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85930,
+            "range": "± 4826",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45457,
+            "range": "± 2436",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "6fa52ec3131e17e571ab4880ec745fa80ad04943",
+          "message": "github: action: Increase threashhold to 130",
+          "timestamp": "2023-11-10T12:05:25-03:00",
+          "tree_id": "184935e6a68fa9f11a3bd94166e262480130dfd8",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/6fa52ec3131e17e571ab4880ec745fa80ad04943"
+        },
+        "date": 1699630177463,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 182374819,
+            "range": "± 1395580",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 323025451,
+            "range": "± 2260841",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1443040,
+            "range": "± 66149",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5785801,
+            "range": "± 153418",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 219828,
+            "range": "± 21365",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 218405,
+            "range": "± 8636",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 4951963,
+            "range": "± 111617",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 188119,
+            "range": "± 10586",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94608,
+            "range": "± 4895",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 6676104,
+            "range": "± 248564",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "pwm_enable",
+            "value": 39970,
+            "range": "± 1921",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 112013,
+            "range": "± 10048",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 141617,
+            "range": "± 8025",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 140254,
+            "range": "± 8309",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 261393,
+            "range": "± 18676",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39220,
+            "range": "± 5315",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85930,
+            "range": "± 4826",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45457,
+            "range": "± 2436",
             "unit": "ns/iter"
           }
         ]
