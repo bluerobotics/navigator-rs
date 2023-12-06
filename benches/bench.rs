@@ -29,7 +29,8 @@ fn navigator_benchmark(c: &mut Criterion) {
     bench!(read_all());
 
     // Benchmark Outputs
-    bench!(pwm_enable(false));
+    bench!(set_pwm_enable(false));
+    bench!(get_pwm_enable());
     bench!(set_pwm_channel_value(PwmChannel::Ch1, 100));
     bench!(set_pwm_freq_hz(60.0));
     bench!(set_pwm_freq_prescale(100));
