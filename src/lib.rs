@@ -412,6 +412,10 @@ impl Navigator {
         }
     }
 
+    pub fn get_pwm_enable(&mut self) -> bool {
+        self.pwm.oe_pin.get_value().expect("Error: Get PWM value") == 1
+    }
+
     /// Sets the Duty Cycle (high value time) of selected channel.
     ///
     /// On PCA9685, this function sets the `OFF` counter and uses ON value as 0.
