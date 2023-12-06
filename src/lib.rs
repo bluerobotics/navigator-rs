@@ -395,7 +395,7 @@ impl Navigator {
             .expect("Error : Error on magnetometer during self-test")
     }
 
-    /// Sets the PWM IC to be enabled through firmware and OE_pin.
+    /// Sets the PWM IC to be enabled through OE_pin.
     ///
     /// # Arguments
     ///
@@ -412,6 +412,29 @@ impl Navigator {
         }
     }
 
+    /// Get the PWM IC enabling value through OE_pin.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// loop {
+    ///     let previous = nav.get_pwm_enable();
+    ///     println!("Enable pin logic value is {previous}.");
+    ///
+    ///     nav.set_pwm_enable(!previous);
+    ///
+    ///     println!("Enable pin logic value is {}.", nav.get_pwm_enable());
+    ///
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
     pub fn get_pwm_enable(&mut self) -> bool {
         self.pwm.oe_pin.get_value().expect("Error: Get PWM value") == 1
     }
