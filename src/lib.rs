@@ -404,7 +404,7 @@ impl Navigator {
     /// # Examples
     ///
     /// Please check [`set_pwm_channel_value`](struct.Navigator.html#method.set_pwm_channel_value).
-    pub fn pwm_enable(&mut self, state: bool) {
+    pub fn set_pwm_enable(&mut self, state: bool) {
         if state {
             self.pwm.oe_pin.set_direction(Direction::Low).unwrap();
         } else {
