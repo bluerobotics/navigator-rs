@@ -431,7 +431,7 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable(true);
+    /// nav.set_pwm_enable(true);
     ///
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     /// nav.set_pwm_channel_value(PwmChannel::Ch1, 2048); // sets the duty cycle to 50%
@@ -457,7 +457,7 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable(true);
+    /// nav.set_pwm_enable(true);
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
     /// let channels: [PwmChannel; 3] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
@@ -486,7 +486,7 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable(true);
+    /// nav.set_pwm_enable(true);
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
     /// let channels: [PwmChannel; 3] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
@@ -535,7 +535,7 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable(true);
+    /// nav.set_pwm_enable(true);
     ///
     /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
     ///
@@ -567,7 +567,7 @@ impl Navigator {
     /// let mut nav = Navigator::new();
     ///
     /// nav.init();
-    /// nav.pwm_enable(true);
+    /// nav.set_pwm_enable(true);
     ///
     /// let mut i: f32 = 10.0;
     ///
