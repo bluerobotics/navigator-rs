@@ -9,7 +9,7 @@ use ads1x1x::{
 };
 use ak09915_rs::{Ak09915, Mode as mag_Mode};
 use bmp280::{Bmp280, Bmp280Builder};
-use embedded_hal::prelude::_embedded_hal_blocking_delay_DelayMs;
+use embedded_hal::{digital::v2::InputPin, prelude::_embedded_hal_blocking_delay_DelayMs};
 use icm20689::{self, AccelRange, Builder as imu_Builder, GyroRange, SpiInterface, ICM20689};
 use linux_embedded_hal::spidev::{self, SpidevOptions};
 use linux_embedded_hal::sysfs_gpio::Direction;
@@ -138,6 +138,7 @@ pub struct SensorData {
     pub accelerometer: AxisData,
     pub magnetometer: AxisData,
     pub gyro: AxisData,
+    pub leak: bool,
 }
 
 /// The `Led` struct represents the 3 LEDs on navigator board.
@@ -164,6 +165,7 @@ pub struct Navigator {
     mag: Ak09915<I2cdev>,
     led: Led,
     neopixel: Strip,
+    leak: Pin,
 }
 
 impl Deref for Pwm {
@@ -332,6 +334,8 @@ impl NavigatorBuilder {
 
         let led = Led::new();
 
+        let leak = Pin::new(27);
+
         Navigator {
             adc: (adc),
             bmp: (bmp),
@@ -340,6 +344,7 @@ impl NavigatorBuilder {
             imu: (imu),
             led: (led),
             neopixel: (neopixel),
+            leak: (leak),
         }
     }
 }
@@ -384,6 +389,13 @@ impl Navigator {
         self.bmp.zero().unwrap();
 
         self.led.set_led_all(false);
+
+        self.leak
+            .export()
+            .expect("Error: Failed to export leak pin");
+        self.leak
+            .set_direction(Direction::In)
+            .expect("Error: Failed to set leak pin as input");
     }
 
     pub fn self_test(&mut self) -> bool {
@@ -976,6 +988,31 @@ impl Navigator {
         }
     }
 
+    /// Reads the state of leak detector pin from [`Navigator`].
+    ///
+    /// The value is true when a leak is detected.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     println!("Leak: {}", nav.read_leak());
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
+    pub fn read_leak(&self) -> bool {
+        self.leak
+            .is_high()
+            .expect("Failed to read state of leak pin")
+    }
+
     /// Reads all sensors and stores on a single structure.
     ///
     /// # Examples
@@ -1003,6 +1040,7 @@ impl Navigator {
             accelerometer: self.read_accel(),
             magnetometer: self.read_mag(),
             gyro: self.read_gyro(),
+            leak: self.read_leak(),
         }
     }
 
@@ -1029,6 +1067,7 @@ impl Navigator {
             bmp: Bmp,
             imu: Imu,
             mag: AxisData,
+            leak: bool,
         }
 
         Navigator {
@@ -1043,6 +1082,7 @@ impl Navigator {
                 gyroscope: self.read_gyro(),
             },
             mag: self.read_mag(),
+            leak: self.read_leak(),
         }
     }
 }
