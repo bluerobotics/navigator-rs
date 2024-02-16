@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rppal-0.13.1/src/spi.rs`."><title>spi.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="rppal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../rppal/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rppal-0.13.1/src/spi.rs`."><title>spi.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="rppal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -716,7 +717,7 @@
 </pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2017-2021 Rene van der Meer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the &quot;Software&quot;),
+// copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation
 // the rights to use, copy, modify, merge, publish, distribute, sublicense,
 // and/or sell copies of the Software, and to permit persons to whom the
@@ -725,7 +726,7 @@
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
 //
-// THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -742,7 +743,7 @@
 //!
 //! ## SPI buses
 //!
-//! The Raspberry Pi&#39;s GPIO header exposes several SPI buses. SPI0 is available
+//! The Raspberry Pi's GPIO header exposes several SPI buses. SPI0 is available
 //! on all Raspberry Pi models. SPI1 is available on models with a 40-pin
 //! header. SPI2 is only available on the Compute and Compute 3. SPI3 through SPI6
 //! are only available on the Raspberry Pi 4 B and 400.
@@ -760,10 +761,10 @@
 //!
 //! ### SPI1
 //!
-//! SPI1 is an auxiliary peripheral that&#39;s referred to as mini SPI. According
+//! SPI1 is an auxiliary peripheral that's referred to as mini SPI. According
 //! to the BCM2835 documentation, using higher clock speeds on SPI1 requires
 //! additional CPU time compared to SPI0, caused by smaller FIFOs and no DMA
-//! support. It doesn&#39;t support [`Mode1`] or [`Mode3`]. SPI1 can be enabled by
+//! support. It doesn't support [`Mode1`] or [`Mode3`]. SPI1 can be enabled by
 //! adding `dtoverlay=spi1-1cs` to `/boot/config.txt`. Replace `1cs` with
 //! either `2cs` or `3cs` if you require 2 or 3 Slave Select pins.
 //! The associated pins are listed below.
@@ -825,7 +826,7 @@
 //! * SCLK: BCM GPIO 21 (physical pin 40)
 //! * SS: [`Ss0`] BCM GPIO 18 (physical pin 12), [`Ss1`] BCM GPIO 27 (physical pin 13)
 //!
-//! SPI6 is tied to the same GPIO pins as SPI1. It&#39;s not possible to enable both
+//! SPI6 is tied to the same GPIO pins as SPI1. It's not possible to enable both
 //! buses at the same time.
 //!
 //! ### Alternative pins
@@ -844,7 +845,7 @@
 //!
 //! ## Not supported
 //!
-//! Some features exposed by the generic `spidev` interface aren&#39;t fully
+//! Some features exposed by the generic `spidev` interface aren't fully
 //! supported by the underlying driver or the BCM283x SoC: `SPI_LSB_FIRST` (LSB
 //! first bit order), `SPI_3WIRE` (bidirectional mode), `SPI_LOOP` (loopback mode),
 //! `SPI_NO_CS` (no Slave Select), `SPI_READY` (slave ready signal),
@@ -877,7 +878,7 @@
 <span class="kw">use </span>std::os::unix::io::AsRawFd;
 <span class="kw">use </span>std::result;
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;hal&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"hal"</span>)]
 </span><span class="kw">mod </span>hal;
 <span class="kw">mod </span>ioctl;
 <span class="kw">mod </span>segment;
@@ -915,21 +916,21 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Error {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Error::Io(<span class="kw-2">ref </span>err) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;I/O error: {}&quot;</span>, err),
+            Error::Io(<span class="kw-2">ref </span>err) =&gt; <span class="macro">write!</span>(f, <span class="string">"I/O error: {}"</span>, err),
             Error::BitsPerWordNotSupported(bits_per_word) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">&quot;Bits per word value not supported: {}&quot;</span>, bits_per_word)
+                <span class="macro">write!</span>(f, <span class="string">"Bits per word value not supported: {}"</span>, bits_per_word)
             }
             Error::BitOrderNotSupported(bit_order) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">&quot;Bit order value not supported: {:?}&quot;</span>, bit_order)
+                <span class="macro">write!</span>(f, <span class="string">"Bit order value not supported: {:?}"</span>, bit_order)
             }
             Error::ClockSpeedNotSupported(clock_speed) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">&quot;Clock speed value not supported: {}&quot;</span>, clock_speed)
+                <span class="macro">write!</span>(f, <span class="string">"Clock speed value not supported: {}"</span>, clock_speed)
             }
-            Error::ModeNotSupported(mode) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Mode value not supported: {:?}&quot;</span>, mode),
+            Error::ModeNotSupported(mode) =&gt; <span class="macro">write!</span>(f, <span class="string">"Mode value not supported: {:?}"</span>, mode),
             Error::PolarityNotSupported(polarity) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">&quot;Polarity value not supported: {:?}&quot;</span>, polarity)
+                <span class="macro">write!</span>(f, <span class="string">"Polarity value not supported: {:?}"</span>, polarity)
             }
         }
     }
@@ -975,15 +976,15 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Bus {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Bus::Spi0 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Spi0&quot;</span>),
-            Bus::Spi1 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Spi1&quot;</span>),
-            Bus::Spi2 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Spi2&quot;</span>),
-            Bus::Spi3 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Spi3&quot;</span>),
-            Bus::Spi4 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Spi4&quot;</span>),
-            Bus::Spi5 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Spi5&quot;</span>),
-            Bus::Spi6 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Spi6&quot;</span>),
+            Bus::Spi0 =&gt; <span class="macro">write!</span>(f, <span class="string">"Spi0"</span>),
+            Bus::Spi1 =&gt; <span class="macro">write!</span>(f, <span class="string">"Spi1"</span>),
+            Bus::Spi2 =&gt; <span class="macro">write!</span>(f, <span class="string">"Spi2"</span>),
+            Bus::Spi3 =&gt; <span class="macro">write!</span>(f, <span class="string">"Spi3"</span>),
+            Bus::Spi4 =&gt; <span class="macro">write!</span>(f, <span class="string">"Spi4"</span>),
+            Bus::Spi5 =&gt; <span class="macro">write!</span>(f, <span class="string">"Spi5"</span>),
+            Bus::Spi6 =&gt; <span class="macro">write!</span>(f, <span class="string">"Spi6"</span>),
         }
     }
 }
@@ -992,8 +993,8 @@
 ///
 /// Slave Select is used to signal which slave device should pay attention to
 /// the SPI bus. Slave Select (SS) is the more commonly used name, but
-/// it&#39;s also known as Chip Select (CS) or Chip Enable (CE). Throughout the Raspberry
-/// Pi&#39;s documentation, config files and BCM2835 datasheet, multiple different names
+/// it's also known as Chip Select (CS) or Chip Enable (CE). Throughout the Raspberry
+/// Pi's documentation, config files and BCM2835 datasheet, multiple different names
 /// are used. Any pins referred to as CE0, CE1, and CE2 or CS0, CS1, and CS2 are equivalent
 /// to `Ss0`, `Ss1`, and `Ss2`.
 ///
@@ -1023,24 +1024,24 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>SlaveSelect {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            SlaveSelect::Ss0 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss0&quot;</span>),
-            SlaveSelect::Ss1 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss1&quot;</span>),
-            SlaveSelect::Ss2 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss2&quot;</span>),
-            SlaveSelect::Ss3 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss3&quot;</span>),
-            SlaveSelect::Ss4 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss4&quot;</span>),
-            SlaveSelect::Ss5 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss5&quot;</span>),
-            SlaveSelect::Ss6 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss6&quot;</span>),
-            SlaveSelect::Ss7 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss7&quot;</span>),
-            SlaveSelect::Ss8 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss8&quot;</span>),
-            SlaveSelect::Ss9 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss9&quot;</span>),
-            SlaveSelect::Ss10 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss10&quot;</span>),
-            SlaveSelect::Ss11 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss11&quot;</span>),
-            SlaveSelect::Ss12 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss12&quot;</span>),
-            SlaveSelect::Ss13 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss13&quot;</span>),
-            SlaveSelect::Ss14 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss14&quot;</span>),
-            SlaveSelect::Ss15 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Ss15&quot;</span>),
+            SlaveSelect::Ss0 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss0"</span>),
+            SlaveSelect::Ss1 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss1"</span>),
+            SlaveSelect::Ss2 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss2"</span>),
+            SlaveSelect::Ss3 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss3"</span>),
+            SlaveSelect::Ss4 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss4"</span>),
+            SlaveSelect::Ss5 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss5"</span>),
+            SlaveSelect::Ss6 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss6"</span>),
+            SlaveSelect::Ss7 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss7"</span>),
+            SlaveSelect::Ss8 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss8"</span>),
+            SlaveSelect::Ss9 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss9"</span>),
+            SlaveSelect::Ss10 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss10"</span>),
+            SlaveSelect::Ss11 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss11"</span>),
+            SlaveSelect::Ss12 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss12"</span>),
+            SlaveSelect::Ss13 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss13"</span>),
+            SlaveSelect::Ss14 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss14"</span>),
+            SlaveSelect::Ss15 =&gt; <span class="macro">write!</span>(f, <span class="string">"Ss15"</span>),
         }
     }
 }
@@ -1053,10 +1054,10 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Polarity {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Polarity::ActiveLow =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;ActiveLow&quot;</span>),
-            Polarity::ActiveHigh =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;ActiveHigh&quot;</span>),
+            Polarity::ActiveLow =&gt; <span class="macro">write!</span>(f, <span class="string">"ActiveLow"</span>),
+            Polarity::ActiveHigh =&gt; <span class="macro">write!</span>(f, <span class="string">"ActiveHigh"</span>),
         }
     }
 }
@@ -1089,12 +1090,12 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Mode {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Mode::Mode0 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Mode0&quot;</span>),
-            Mode::Mode1 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Mode1&quot;</span>),
-            Mode::Mode2 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Mode2&quot;</span>),
-            Mode::Mode3 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Mode3&quot;</span>),
+            Mode::Mode0 =&gt; <span class="macro">write!</span>(f, <span class="string">"Mode0"</span>),
+            Mode::Mode1 =&gt; <span class="macro">write!</span>(f, <span class="string">"Mode1"</span>),
+            Mode::Mode2 =&gt; <span class="macro">write!</span>(f, <span class="string">"Mode2"</span>),
+            Mode::Mode3 =&gt; <span class="macro">write!</span>(f, <span class="string">"Mode3"</span>),
         }
     }
 }
@@ -1102,7 +1103,7 @@
 <span class="doccomment">/// Bit orders.
 ///
 /// The bit order determines in what order data is shifted out and shifted in.
-/// Select the bit order that&#39;s appropriate for the device you&#39;re
+/// Select the bit order that's appropriate for the device you're
 /// communicating with.
 ///
 /// `MsbFirst` will transfer the most-significant bit first. `LsbFirst` will
@@ -1122,15 +1123,15 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>BitOrder {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            BitOrder::MsbFirst =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;MsbFirst&quot;</span>),
-            BitOrder::LsbFirst =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;LsbFirst&quot;</span>),
+            BitOrder::MsbFirst =&gt; <span class="macro">write!</span>(f, <span class="string">"MsbFirst"</span>),
+            BitOrder::LsbFirst =&gt; <span class="macro">write!</span>(f, <span class="string">"LsbFirst"</span>),
         }
     }
 }
 
-<span class="doccomment">/// Provides access to the Raspberry Pi&#39;s SPI peripherals.
+<span class="doccomment">/// Provides access to the Raspberry Pi's SPI peripherals.
 ///
 /// Before using `Spi`, make sure your Raspberry Pi has the necessary SPI buses
 /// and Slave Select pins enabled. More information can be found [here].
@@ -1147,9 +1148,9 @@
 </span><span class="kw">pub struct </span>Spi {
     spidev: File,
     <span class="comment">// Stores the last read value. Used for embedded_hal::spi::FullDuplex.
-    </span><span class="attr">#[cfg(feature = <span class="string">&quot;hal&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">"hal"</span>)]
     </span>last_read: <span class="prelude-ty">Option</span>&lt;u8&gt;,
-    <span class="comment">// The not_sync field is a workaround to force !Sync. Spi isn&#39;t safe for
+    <span class="comment">// The not_sync field is a workaround to force !Sync. Spi isn't safe for
     // Sync because of ioctl() and the underlying drivers. This avoids needing
     // #![feature(optin_builtin_traits)] to manually add impl !Sync for Spi.
     </span>not_sync: PhantomData&lt;<span class="kw-2">*const </span>()&gt;,
@@ -1166,7 +1167,7 @@
     ///
     /// `mode` selects the clock polarity and phase.
     </span><span class="kw">pub fn </span>new(bus: Bus, slave_select: SlaveSelect, clock_speed: u32, mode: Mode) -&gt; <span class="prelude-ty">Result</span>&lt;Spi&gt; {
-        <span class="comment">// The following options currently aren&#39;t supported by spidev in Raspbian Stretch on the Pi:
+        <span class="comment">// The following options currently aren't supported by spidev in Raspbian Stretch on the Pi:
         //
         // LSB_FIRST - ioctl() returns EINVAL when set
         // 3WIRE - neither MOSI nor MISO show any outgoing data in half-duplex mode
@@ -1179,7 +1180,7 @@
         </span><span class="kw">let </span>spidev = OpenOptions::new()
             .read(<span class="bool-val">true</span>)
             .write(<span class="bool-val">true</span>)
-            .open(<span class="macro">format!</span>(<span class="string">&quot;/dev/spidev{}.{}&quot;</span>, bus <span class="kw">as </span>u8, slave_select <span class="kw">as </span>u8))<span class="question-mark">?</span>;
+            .open(<span class="macro">format!</span>(<span class="string">"/dev/spidev{}.{}"</span>, bus <span class="kw">as </span>u8, slave_select <span class="kw">as </span>u8))<span class="question-mark">?</span>;
 
         <span class="comment">// Reset all mode flags
         </span><span class="kw">if let </span><span class="prelude-val">Err</span>(e) = ioctl::set_mode32(spidev.as_raw_fd(), mode <span class="kw">as </span>u32) {
@@ -1192,7 +1193,7 @@
 
         <span class="kw">let </span>spi = Spi {
             spidev,
-            <span class="attr">#[cfg(feature = <span class="string">&quot;hal&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">"hal"</span>)]
             </span>last_read: <span class="prelude-val">None</span>,
             not_sync: PhantomData,
         };
@@ -1298,7 +1299,7 @@
     <span class="doccomment">/// Sets the SPI mode.
     ///
     /// The SPI mode indicates the serial clock polarity and phase. Some modes
-    /// may not be available depending on the SPI bus that&#39;s used.
+    /// may not be available depending on the SPI bus that's used.
     </span><span class="kw">pub fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: Mode) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>new_mode: u8 = <span class="number">0</span>;
         ioctl::mode(<span class="self">self</span>.spidev.as_raw_fd(), <span class="kw-2">&amp;mut </span>new_mode)<span class="question-mark">?</span>;
@@ -1351,7 +1352,7 @@
 
     <span class="doccomment">/// Receives incoming data from the slave device and writes it to `buffer`.
     ///
-    /// The SPI protocol doesn&#39;t indicate how much incoming data is waiting,
+    /// The SPI protocol doesn't indicate how much incoming data is waiting,
     /// so the total number of bytes read depends on the length of `buffer`.
     ///
     /// During the read, the MOSI line is kept in a state that results in a
@@ -1412,20 +1413,20 @@
     ///
     /// [`Segment`]: struct.Segment.html
     /// [`Segment::set_ss_change`]: struct.Segment.html#method.set_ss_change
-    </span><span class="kw">pub fn </span>transfer_segments(<span class="kw-2">&amp;</span><span class="self">self</span>, segments: <span class="kw-2">&amp;</span>[Segment&lt;<span class="lifetime">&#39;_</span>, <span class="lifetime">&#39;_</span>&gt;]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+    </span><span class="kw">pub fn </span>transfer_segments(<span class="kw-2">&amp;</span><span class="self">self</span>, segments: <span class="kw-2">&amp;</span>[Segment&lt;<span class="lifetime">'_</span>, <span class="lifetime">'_</span>&gt;]) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         ioctl::transfer(<span class="self">self</span>.spidev.as_raw_fd(), segments)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
     }
 }
 
-<span class="comment">// Send is safe for Spi, but we&#39;re marked !Send because of the dummy pointer that&#39;s
+<span class="comment">// Send is safe for Spi, but we're marked !Send because of the dummy pointer that's
 // needed to force !Sync.
 </span><span class="kw">unsafe impl </span>Send <span class="kw">for </span>Spi {}
 
 <span class="kw">impl </span>fmt::Debug <span class="kw">for </span>Spi {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        f.debug_struct(<span class="string">&quot;Spi&quot;</span>).field(<span class="string">&quot;spidev&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.spidev).finish()
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
+        f.debug_struct(<span class="string">"Spi"</span>).field(<span class="string">"spidev"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.spidev).finish()
     }
 }
 </code></pre></div></section></main></body></html>

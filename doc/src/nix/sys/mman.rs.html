@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nix-0.23.2/src/sys/mman.rs`."><title>mman.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../nix/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nix-0.23.2/src/sys/mman.rs`."><title>mman.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -490,13 +491,13 @@
 </pre></div><pre class="rust"><code><span class="doccomment">//! Memory management declarations.
 
 </span><span class="kw">use </span><span class="kw">crate</span>::Result;
-<span class="attr">#[cfg(not(target_os = <span class="string">&quot;android&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">"android"</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::NixPath;
 <span class="kw">use </span><span class="kw">crate</span>::errno::Errno;
-<span class="attr">#[cfg(not(target_os = <span class="string">&quot;android&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">"android"</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::fcntl::OFlag;
 <span class="kw">use </span>libc::{<span class="self">self</span>, c_int, c_void, size_t, off_t};
-<span class="attr">#[cfg(not(target_os = <span class="string">&quot;android&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">"android"</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::sys::stat::Mode;
 <span class="kw">use </span>std::os::unix::io::RawFd;
 
@@ -512,10 +513,10 @@
         <span class="doccomment">/// Pages can be executed
         </span>PROT_EXEC;
         <span class="doccomment">/// Apply protection up to the end of a mapping that grows upwards.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>PROT_GROWSDOWN;
         <span class="doccomment">/// Apply protection down to the beginning of a mapping that grows downwards.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>PROT_GROWSUP;
     }
 }
@@ -533,128 +534,128 @@
         </span>MAP_FIXED;
         <span class="doccomment">/// To be used with `MAP_FIXED`, to forbid the system
         /// to select a different address than the one specified.
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;freebsd&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"freebsd"</span>)]
         </span>MAP_EXCL;
         <span class="doccomment">/// Synonym for `MAP_ANONYMOUS`.
         </span>MAP_ANON;
         <span class="doccomment">/// The mapping is not backed by any file.
         </span>MAP_ANONYMOUS;
         <span class="doccomment">/// Put the mapping into the first 2GB of the process address space.
-        </span><span class="attr">#[cfg(any(all(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>),
-                      any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)),
-                  all(target_os = <span class="string">&quot;linux&quot;</span>, target_env = <span class="string">&quot;musl&quot;</span>, any(target_arch = <span class="string">&quot;x86&quot;</span>, target_arch = <span class="string">&quot;x86_64&quot;</span>)),
-                  all(target_os = <span class="string">&quot;freebsd&quot;</span>, target_pointer_width = <span class="string">&quot;64&quot;</span>)))]
+        </span><span class="attr">#[cfg(any(all(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>),
+                      any(target_arch = <span class="string">"x86"</span>, target_arch = <span class="string">"x86_64"</span>)),
+                  all(target_os = <span class="string">"linux"</span>, target_env = <span class="string">"musl"</span>, any(target_arch = <span class="string">"x86"</span>, target_arch = <span class="string">"x86_64"</span>)),
+                  all(target_os = <span class="string">"freebsd"</span>, target_pointer_width = <span class="string">"64"</span>)))]
         </span>MAP_32BIT;
         <span class="doccomment">/// Used for stacks; indicates to the kernel that the mapping should extend downward in memory.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MAP_GROWSDOWN;
         <span class="doccomment">/// Compatibility flag. Ignored.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MAP_DENYWRITE;
         <span class="doccomment">/// Compatibility flag. Ignored.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MAP_EXECUTABLE;
         <span class="doccomment">/// Mark the mmaped region to be locked in the same way as `mlock(2)`.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MAP_LOCKED;
         <span class="doccomment">/// Do not reserve swap space for this mapping.
         ///
         /// This was removed in FreeBSD 11 and is unused in DragonFlyBSD.
-        </span><span class="attr">#[cfg(not(any(target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>)))]
+        </span><span class="attr">#[cfg(not(any(target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>)))]
         </span>MAP_NORESERVE;
         <span class="doccomment">/// Populate page tables for a mapping.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MAP_POPULATE;
-        <span class="doccomment">/// Only meaningful when used with `MAP_POPULATE`. Don&#39;t perform read-ahead.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        <span class="doccomment">/// Only meaningful when used with `MAP_POPULATE`. Don't perform read-ahead.
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MAP_NONBLOCK;
-        <span class="doccomment">/// Allocate the mapping using &quot;huge pages.&quot;
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        <span class="doccomment">/// Allocate the mapping using "huge pages."
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MAP_HUGETLB;
         <span class="doccomment">/// Make use of 64KB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_64KB;
         <span class="doccomment">/// Make use of 512KB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_512KB;
         <span class="doccomment">/// Make use of 1MB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_1MB;
         <span class="doccomment">/// Make use of 2MB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_2MB;
         <span class="doccomment">/// Make use of 8MB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_8MB;
         <span class="doccomment">/// Make use of 16MB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_16MB;
         <span class="doccomment">/// Make use of 32MB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_32MB;
         <span class="doccomment">/// Make use of 256MB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_256MB;
         <span class="doccomment">/// Make use of 512MB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_512MB;
         <span class="doccomment">/// Make use of 1GB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_1GB;
         <span class="doccomment">/// Make use of 2GB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_2GB;
         <span class="doccomment">/// Make use of 16GB huge page (must be supported by the system)
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MAP_HUGE_16GB;
 
         <span class="doccomment">/// Lock the mapped region into memory as with `mlock(2)`.
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;netbsd&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"netbsd"</span>)]
         </span>MAP_WIRED;
         <span class="doccomment">/// Causes dirtied data in the specified range to be flushed to disk only when necessary.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>))]
         </span>MAP_NOSYNC;
         <span class="doccomment">/// Rename private pages to a file.
         ///
         /// This was removed in FreeBSD 11 and is unused in DragonFlyBSD.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;netbsd&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"netbsd"</span>, target_os = <span class="string">"openbsd"</span>))]
         </span>MAP_RENAME;
         <span class="doccomment">/// Region may contain semaphores.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;netbsd&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>, target_os = <span class="string">"netbsd"</span>, target_os = <span class="string">"openbsd"</span>))]
         </span>MAP_HASSEMAPHORE;
         <span class="doccomment">/// Region grows down, like a stack.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>, target_os = <span class="string">"linux"</span>, target_os = <span class="string">"openbsd"</span>))]
         </span>MAP_STACK;
-        <span class="doccomment">/// Pages in this mapping are not retained in the kernel&#39;s memory cache.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="doccomment">/// Pages in this mapping are not retained in the kernel's memory cache.
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"ios"</span>, target_os = <span class="string">"macos"</span>))]
         </span>MAP_NOCACHE;
-        <span class="doccomment">/// Allows the W/X bit on the page, it&#39;s necessary on aarch64 architecture.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="doccomment">/// Allows the W/X bit on the page, it's necessary on aarch64 architecture.
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"ios"</span>, target_os = <span class="string">"macos"</span>))]
         </span>MAP_JIT;
         <span class="doccomment">/// Allows to use large pages, underlying alignment based on size.
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;freebsd&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"freebsd"</span>)]
         </span>MAP_ALIGNED_SUPER;
         <span class="doccomment">/// Pages will be discarded in the core dumps.
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;openbsd&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"openbsd"</span>)]
         </span>MAP_CONCEAL;
     }
 }
 
-<span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;netbsd&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">"linux"</span>, target_os = <span class="string">"netbsd"</span>))]
 </span><span class="macro">libc_bitflags!</span>{
     <span class="doccomment">/// Options for [`mremap`].
     </span><span class="kw">pub struct </span>MRemapFlags: c_int {
         <span class="doccomment">/// Permit the kernel to relocate the mapping to a new virtual address, if necessary.
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MREMAP_MAYMOVE;
         <span class="doccomment">/// Place the mapping at exactly the address specified in `new_address`.
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>MREMAP_FIXED;
         <span class="doccomment">/// Permits to use the old and new address as hints to relocate the mapping.
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;netbsd&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"netbsd"</span>)]
         </span>MAP_FIXED;
         <span class="doccomment">/// Allows to duplicate the mapping to be able to apply different flags on the copy.
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;netbsd&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"netbsd"</span>)]
         </span>MAP_REMAPDUP;
     }
 }
@@ -677,79 +678,79 @@
         <span class="doccomment">/// Do not expect access in the near future.
         </span>MADV_DONTNEED,
         <span class="doccomment">/// Free up a given range of pages and its associated backing store.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MADV_REMOVE,
         <span class="doccomment">/// Do not make pages in this range available to the child after a `fork(2)`.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MADV_DONTFORK,
         <span class="doccomment">/// Undo the effect of `MADV_DONTFORK`.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MADV_DOFORK,
         <span class="doccomment">/// Poison the given pages.
         ///
         /// Subsequent references to those pages are treated like hardware memory corruption.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MADV_HWPOISON,
         <span class="doccomment">/// Enable Kernel Samepage Merging (KSM) for the given pages.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MADV_MERGEABLE,
         <span class="doccomment">/// Undo the effect of `MADV_MERGEABLE`
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MADV_UNMERGEABLE,
         <span class="doccomment">/// Preserve the memory of each page but offline the original page.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-            all(target_os = <span class="string">&quot;linux&quot;</span>, any(
-                target_arch = <span class="string">&quot;aarch64&quot;</span>,
-                target_arch = <span class="string">&quot;arm&quot;</span>,
-                target_arch = <span class="string">&quot;powerpc&quot;</span>,
-                target_arch = <span class="string">&quot;powerpc64&quot;</span>,
-                target_arch = <span class="string">&quot;s390x&quot;</span>,
-                target_arch = <span class="string">&quot;x86&quot;</span>,
-                target_arch = <span class="string">&quot;x86_64&quot;</span>,
-                target_arch = <span class="string">&quot;sparc64&quot;</span>))))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+            all(target_os = <span class="string">"linux"</span>, any(
+                target_arch = <span class="string">"aarch64"</span>,
+                target_arch = <span class="string">"arm"</span>,
+                target_arch = <span class="string">"powerpc"</span>,
+                target_arch = <span class="string">"powerpc64"</span>,
+                target_arch = <span class="string">"s390x"</span>,
+                target_arch = <span class="string">"x86"</span>,
+                target_arch = <span class="string">"x86_64"</span>,
+                target_arch = <span class="string">"sparc64"</span>))))]
         </span>MADV_SOFT_OFFLINE,
         <span class="doccomment">/// Enable Transparent Huge Pages (THP) for pages in the given range.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MADV_HUGEPAGE,
         <span class="doccomment">/// Undo the effect of `MADV_HUGEPAGE`.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MADV_NOHUGEPAGE,
         <span class="doccomment">/// Exclude the given range from a core dump.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MADV_DONTDUMP,
         <span class="doccomment">/// Undo the effect of an earlier `MADV_DONTDUMP`.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>MADV_DODUMP,
         <span class="doccomment">/// Specify that the application no longer needs the pages in the given range.
         </span>MADV_FREE,
         <span class="doccomment">/// Request that the system not flush the current range to disk unless it needs to.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>))]
         </span>MADV_NOSYNC,
         <span class="doccomment">/// Undoes the effects of `MADV_NOSYNC` for any future pages dirtied within the given range.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>))]
         </span>MADV_AUTOSYNC,
         <span class="doccomment">/// Region is not included in a core file.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>))]
         </span>MADV_NOCORE,
         <span class="doccomment">/// Include region in a core file
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>))]
         </span>MADV_CORE,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"freebsd"</span>))]
         </span>MADV_PROTECT,
         <span class="doccomment">/// Invalidate the hardware page table for the given region.
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;dragonfly&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"dragonfly"</span>)]
         </span>MADV_INVAL,
         <span class="doccomment">/// Set the offset of the page directory page to `value` for the virtual page table.
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;dragonfly&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"dragonfly"</span>)]
         </span>MADV_SETMAP,
         <span class="doccomment">/// Indicates that the application will not need the data in the given range.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"ios"</span>, target_os = <span class="string">"macos"</span>))]
         </span>MADV_ZERO_WIRED_PAGES,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"ios"</span>, target_os = <span class="string">"macos"</span>))]
         </span>MADV_FREE_REUSABLE,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"ios"</span>, target_os = <span class="string">"macos"</span>))]
         </span>MADV_FREE_REUSE,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"ios"</span>, target_os = <span class="string">"macos"</span>))]
         </span>MADV_CAN_REUSE,
     }
 }
@@ -762,10 +763,10 @@
         <span class="doccomment">/// Invalidate all cached data.
         </span>MS_INVALIDATE;
         <span class="doccomment">/// Invalidate pages, but leave them mapped.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"ios"</span>, target_os = <span class="string">"macos"</span>))]
         </span>MS_KILLPAGES;
         <span class="doccomment">/// Deactivate pages, but leave them mapped.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"ios"</span>, target_os = <span class="string">"macos"</span>))]
         </span>MS_DEACTIVATE;
         <span class="doccomment">/// Perform an update and wait for it to complete.
         </span>MS_SYNC;
@@ -809,7 +810,7 @@
     Errno::result(libc::munlock(addr, length)).map(drop)
 }
 
-<span class="doccomment">/// Locks all memory pages mapped into this process&#39; address space.
+<span class="doccomment">/// Locks all memory pages mapped into this process' address space.
 ///
 /// Locked pages never move to the swap area. For more information, see [`mlockall(2)`].
 ///
@@ -818,7 +819,7 @@
     <span class="kw">unsafe </span>{ Errno::result(libc::mlockall(flags.bits())) }.map(drop)
 }
 
-<span class="doccomment">/// Unlocks all memory pages mapped into this process&#39; address space.
+<span class="doccomment">/// Unlocks all memory pages mapped into this process' address space.
 ///
 /// For more information, see [`munlockall(2)`].
 ///
@@ -851,7 +852,7 @@
 ///
 /// See the `mremap(2)` [man page](https://man7.org/linux/man-pages/man2/mremap.2.html) for
 /// detailed requirements.
-</span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;netbsd&quot;</span>))]
+</span><span class="attr">#[cfg(any(target_os = <span class="string">"linux"</span>, target_os = <span class="string">"netbsd"</span>))]
 </span><span class="kw">pub unsafe fn </span>mremap(
     addr: <span class="kw-2">*mut </span>c_void,
     old_size: size_t,
@@ -859,9 +860,9 @@
     flags: MRemapFlags,
     new_address: <span class="prelude-ty">Option</span>&lt;* <span class="kw-2">mut </span>c_void&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw-2">*mut </span>c_void&gt; {
-    <span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+    <span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
     </span><span class="kw">let </span>ret = libc::mremap(addr, old_size, new_size, flags.bits(), new_address.unwrap_or(std::ptr::null_mut()));
-    <span class="attr">#[cfg(target_os = <span class="string">&quot;netbsd&quot;</span>)]
+    <span class="attr">#[cfg(target_os = <span class="string">"netbsd"</span>)]
     </span><span class="kw">let </span>ret = libc::mremap(
         addr,
         old_size,
@@ -947,14 +948,14 @@
 /// For more information, see [`shm_open(3)`].
 ///
 /// [`shm_open(3)`]: https://man7.org/linux/man-pages/man3/shm_open.3.html
-</span><span class="attr">#[cfg(not(target_os = <span class="string">&quot;android&quot;</span>))]
+</span><span class="attr">#[cfg(not(target_os = <span class="string">"android"</span>))]
 </span><span class="kw">pub fn </span>shm_open&lt;P: <span class="question-mark">?</span>Sized + NixPath&gt;(name: <span class="kw-2">&amp;</span>P, flag: OFlag, mode: Mode) -&gt; <span class="prelude-ty">Result</span>&lt;RawFd&gt; {
     <span class="kw">let </span>ret = name.with_nix_path(|cstr| {
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"macos"</span>, target_os = <span class="string">"ios"</span>))]
         </span><span class="kw">unsafe </span>{
             libc::shm_open(cstr.as_ptr(), flag.bits(), mode.bits() <span class="kw">as </span>libc::c_uint)
         }
-        <span class="attr">#[cfg(not(any(target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>)))]
+        <span class="attr">#[cfg(not(any(target_os = <span class="string">"macos"</span>, target_os = <span class="string">"ios"</span>)))]
         </span><span class="kw">unsafe </span>{
             libc::shm_open(cstr.as_ptr(), flag.bits(), mode.bits() <span class="kw">as </span>libc::mode_t)
         }
@@ -968,7 +969,7 @@
 /// For more information, see [`shm_unlink(3)`].
 ///
 /// [`shm_unlink(3)`]: https://man7.org/linux/man-pages/man3/shm_unlink.3.html
-</span><span class="attr">#[cfg(not(target_os = <span class="string">&quot;android&quot;</span>))]
+</span><span class="attr">#[cfg(not(target_os = <span class="string">"android"</span>))]
 </span><span class="kw">pub fn </span>shm_unlink&lt;P: <span class="question-mark">?</span>Sized + NixPath&gt;(name: <span class="kw-2">&amp;</span>P) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
     <span class="kw">let </span>ret = name.with_nix_path(|cstr| {
         <span class="kw">unsafe </span>{ libc::shm_unlink(cstr.as_ptr()) }

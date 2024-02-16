@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="navigator_rs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../navigator_rs/index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Bluerobotics-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="navigator_rs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><a class="sub-logo-container" href="../../navigator_rs/index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Bluerobotics-logo.svg" alt="navigator_rs"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1046,9 +1047,49 @@
 <a href="#1046" id="1046">1046</a>
 <a href="#1047" id="1047">1047</a>
 <a href="#1048" id="1048">1048</a>
+<a href="#1049" id="1049">1049</a>
+<a href="#1050" id="1050">1050</a>
+<a href="#1051" id="1051">1051</a>
+<a href="#1052" id="1052">1052</a>
+<a href="#1053" id="1053">1053</a>
+<a href="#1054" id="1054">1054</a>
+<a href="#1055" id="1055">1055</a>
+<a href="#1056" id="1056">1056</a>
+<a href="#1057" id="1057">1057</a>
+<a href="#1058" id="1058">1058</a>
+<a href="#1059" id="1059">1059</a>
+<a href="#1060" id="1060">1060</a>
+<a href="#1061" id="1061">1061</a>
+<a href="#1062" id="1062">1062</a>
+<a href="#1063" id="1063">1063</a>
+<a href="#1064" id="1064">1064</a>
+<a href="#1065" id="1065">1065</a>
+<a href="#1066" id="1066">1066</a>
+<a href="#1067" id="1067">1067</a>
+<a href="#1068" id="1068">1068</a>
+<a href="#1069" id="1069">1069</a>
+<a href="#1070" id="1070">1070</a>
+<a href="#1071" id="1071">1071</a>
+<a href="#1072" id="1072">1072</a>
+<a href="#1073" id="1073">1073</a>
+<a href="#1074" id="1074">1074</a>
+<a href="#1075" id="1075">1075</a>
+<a href="#1076" id="1076">1076</a>
+<a href="#1077" id="1077">1077</a>
+<a href="#1078" id="1078">1078</a>
+<a href="#1079" id="1079">1079</a>
+<a href="#1080" id="1080">1080</a>
+<a href="#1081" id="1081">1081</a>
+<a href="#1082" id="1082">1082</a>
+<a href="#1083" id="1083">1083</a>
+<a href="#1084" id="1084">1084</a>
+<a href="#1085" id="1085">1085</a>
+<a href="#1086" id="1086">1086</a>
+<a href="#1087" id="1087">1087</a>
+<a href="#1088" id="1088">1088</a>
 </pre></div><pre class="rust"><code><span class="attr">#![deny(unsafe_code)]
-#![doc(html_logo_url = <span class="string">&quot;https://upload.wikimedia.org/wikipedia/commons/1/12/Bluerobotics-logo.svg&quot;</span>)]
-#![doc = <span class="macro">include_str!</span>(<span class="string">&quot;../README.md&quot;</span>)]
+#![doc(html_logo_url = <span class="string">"https://upload.wikimedia.org/wikipedia/commons/1/12/Bluerobotics-logo.svg"</span>)]
+#![doc = <span class="macro">include_str!</span>(<span class="string">"../README.md"</span>)]
 
 </span><span class="kw">use </span>ads1x1x::{
     ic::{Ads1115, Resolution16Bit},
@@ -1057,7 +1098,7 @@
 };
 <span class="kw">use </span>ak09915_rs::{Ak09915, Mode <span class="kw">as </span>mag_Mode};
 <span class="kw">use </span>bmp280::{Bmp280, Bmp280Builder};
-<span class="kw">use </span>embedded_hal::prelude::_embedded_hal_blocking_delay_DelayMs;
+<span class="kw">use </span>embedded_hal::{digital::v2::InputPin, prelude::_embedded_hal_blocking_delay_DelayMs};
 <span class="kw">use </span>icm20689::{<span class="self">self</span>, AccelRange, Builder <span class="kw">as </span>imu_Builder, GyroRange, SpiInterface, ICM20689};
 <span class="kw">use </span>linux_embedded_hal::spidev::{<span class="self">self</span>, SpidevOptions};
 <span class="kw">use </span>linux_embedded_hal::sysfs_gpio::Direction;
@@ -1073,7 +1114,7 @@
     ops::{Deref, DerefMut},
 };
 
-<span class="doccomment">/// Navigator&#39;s default crystal clock for PWM, with a value of 24.5760 MHz
+<span class="doccomment">/// Navigator's default crystal clock for PWM, with a value of 24.5760 MHz
 </span><span class="kw">const </span>NAVIGATOR_PWM_XTAL_CLOCK_FREQ: f32 = <span class="number">24_576_000.0</span>;
 
 <span class="kw">impl </span>From&lt;AdcChannel&gt; <span class="kw">for </span>ads1x1x::ChannelSelection {
@@ -1111,7 +1152,7 @@
     }
 }
 
-<span class="doccomment">/// Set of available options to select ADC&#39;s channel.
+<span class="doccomment">/// Set of available options to select ADC's channel.
 </span><span class="attr">#[derive(Debug, Clone, Copy)]
 </span><span class="kw">pub enum </span>AdcChannel {
     Ch0,
@@ -1120,7 +1161,7 @@
     Ch3,
 }
 
-<span class="doccomment">/// Set of options to control navigator&#39;s LEDs.
+<span class="doccomment">/// Set of options to control navigator's LEDs.
 </span><span class="attr">#[derive(Debug, Clone, Copy)]
 </span><span class="kw">pub enum </span>UserLed {
     <span class="doccomment">/// Attached to green LED through GPIO 24, labelled LED_1.
@@ -1134,14 +1175,14 @@
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>UserLed {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         <span class="kw">match </span><span class="self">self </span>{
-            UserLed::Led1 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;LED_1&quot;</span>),
-            UserLed::Led2 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;LED_2&quot;</span>),
-            UserLed::Led3 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;LED_3&quot;</span>),
+            UserLed::Led1 =&gt; <span class="macro">write!</span>(f, <span class="string">"LED_1"</span>),
+            UserLed::Led2 =&gt; <span class="macro">write!</span>(f, <span class="string">"LED_2"</span>),
+            UserLed::Led3 =&gt; <span class="macro">write!</span>(f, <span class="string">"LED_3"</span>),
         }
     }
 }
 
-<span class="doccomment">/// Set of available options to select PWM&#39;s channel.
+<span class="doccomment">/// Set of available options to select PWM's channel.
 </span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq)]
 </span><span class="kw">pub enum </span>PwmChannel {
     Ch1,
@@ -1171,7 +1212,7 @@
     <span class="kw">pub </span>z: f32,
 }
 
-<span class="doccomment">/// Encapsulates the value of ADC&#39;s four channels.
+<span class="doccomment">/// Encapsulates the value of ADC's four channels.
 </span><span class="attr">#[derive(Debug, Default, Clone, Copy)]
 </span><span class="kw">pub struct </span>ADCData {
     <span class="kw">pub </span>channel: [f32; <span class="number">4</span>],
@@ -1186,6 +1227,7 @@
     <span class="kw">pub </span>accelerometer: AxisData,
     <span class="kw">pub </span>magnetometer: AxisData,
     <span class="kw">pub </span>gyro: AxisData,
+    <span class="kw">pub </span>leak: bool,
 }
 
 <span class="doccomment">/// The `Led` struct represents the 3 LEDs on navigator board.
@@ -1203,7 +1245,7 @@
 ///
 /// All this components were integrated and abstracted to be used directly from navigator module.
 ///
-/// Please check [`Implementations`](struct.Navigator.html#implementations) and it&#39;s examples, then start to coding your applications!
+/// Please check [`Implementations`](struct.Navigator.html#implementations) and it's examples, then start to coding your applications!
 </span><span class="kw">pub struct </span>Navigator {
     pwm: Pwm,
     bmp: Bmp280,
@@ -1212,6 +1254,7 @@
     mag: Ak09915&lt;I2cdev&gt;,
     led: Led,
     neopixel: Strip,
+    leak: Pin,
 }
 
 <span class="kw">impl </span>Deref <span class="kw">for </span>Pwm {
@@ -1228,14 +1271,14 @@
     }
 }
 
-<span class="doccomment">/// The `Pwm` struct represents a PWM (Pulse Width Modulation) controller with a PCA9685 chip and it&#39;s
+<span class="doccomment">/// The `Pwm` struct represents a PWM (Pulse Width Modulation) controller with a PCA9685 chip and it's
 /// output enable pin.
 ///
 </span><span class="kw">pub struct </span>Pwm {
     pca: Pca9685&lt;I2cdev&gt;,
     <span class="doccomment">/// * `oe_pin`: The `oe_pin` component is a pin that is used to enable or disable the output of the PWM
     /// signal. It is connected to the Output Enable (OE) pin of the PCA9685 PWM controller.
-    /// The default initialization of the navigator sets oe_pin to a digital high state, which disables the PCA9685&#39;s PWM.
+    /// The default initialization of the navigator sets oe_pin to a digital high state, which disables the PCA9685's PWM.
     </span>oe_pin: Pin,
 }
 
@@ -1259,10 +1302,10 @@
         };
 
         <span class="kw">for </span>pin <span class="kw">in </span>led.as_mut_array().iter_mut() {
-            pin.export().expect(<span class="string">&quot;Error: Error during led pins export&quot;</span>);
+            pin.export().expect(<span class="string">"Error: Error during led pins export"</span>);
             Delay {}.delay_ms(<span class="number">30_u16</span>);
             pin.set_direction(Direction::High)
-                .expect(<span class="string">&quot;Error: Setting led pins as output&quot;</span>);
+                .expect(<span class="string">"Error: Setting led pins as output"</span>);
         }
         led
     }
@@ -1284,7 +1327,7 @@
 
         pin_struct
             .get_value()
-            .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">&quot;Error: Get {} LED value&quot;</span>, select))
+            .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">"Error: Get {} LED value"</span>, select))
             == <span class="number">0
     </span>}
 
@@ -1293,13 +1336,13 @@
 
         pin_struct
             .set_value((!state).into())
-            .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">&quot;Error: Set {} LED value to {}&quot;</span>, select, state));
+            .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">"Error: Set {} LED value to {}"</span>, select, state));
     }
 
     <span class="kw">pub fn </span>set_led_all(<span class="kw-2">&amp;mut </span><span class="self">self</span>, state: bool) {
         <span class="kw">for </span>pin <span class="kw">in </span><span class="self">self</span>.as_mut_array().iter_mut() {
             pin.set_value((!state).into())
-                .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">&quot;Error: Set LED value to {state}&quot;</span>));
+                .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">panic!</span>(<span class="string">"Error: Set LED value to {state}"</span>));
         }
     }
 
@@ -1323,62 +1366,64 @@
     </span>}
 
     <span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; Navigator {
-        <span class="kw">let </span>dev = I2cdev::new(<span class="string">&quot;/dev/i2c-4&quot;</span>).unwrap();
+        <span class="kw">let </span>dev = I2cdev::new(<span class="string">"/dev/i2c-4"</span>).unwrap();
         <span class="kw">let </span>address = pwm_Address::default();
         <span class="kw">let </span>pwm = Pca9685::new(dev, address).unwrap();
 
-        <span class="kw">let </span>dev = I2cdev::new(<span class="string">&quot;/dev/i2c-1&quot;</span>).unwrap();
+        <span class="kw">let </span>dev = I2cdev::new(<span class="string">"/dev/i2c-1"</span>).unwrap();
         <span class="kw">let </span>mag = Ak09915::new(dev);
 
-        <span class="kw">let </span>dev = I2cdev::new(<span class="string">&quot;/dev/i2c-1&quot;</span>).unwrap();
+        <span class="kw">let </span>dev = I2cdev::new(<span class="string">"/dev/i2c-1"</span>).unwrap();
         <span class="kw">let </span>address = adc_Address::default();
         <span class="kw">let </span>adc = Ads1x1x::new_ads1115(dev, address);
 
         <span class="kw">let </span><span class="kw-2">mut </span>bmp = Bmp280Builder::new()
-            .path(<span class="string">&quot;/dev/i2c-1&quot;</span>)
+            .path(<span class="string">"/dev/i2c-1"</span>)
             .address(<span class="number">0x76</span>)
             .build()
-            .expect(<span class="string">&quot;Error: Failed to build BMP280 device&quot;</span>);
+            .expect(<span class="string">"Error: Failed to build BMP280 device"</span>);
         bmp.zero().unwrap();
 
         <span class="kw">let </span><span class="kw-2">mut </span>neopixel = Strip::new(Bus::Spi0, <span class="self">self</span>.rgb_led_strip_size).unwrap();
         <span class="comment">// Clear RGB led strip before starting using it
         </span>neopixel.clear();
 
-        <span class="kw">let </span><span class="kw-2">mut </span>spi = Spidev::open(<span class="string">&quot;/dev/spidev1.0&quot;</span>).expect(<span class="string">&quot;Error: Failed during setting up SPI&quot;</span>);
+        <span class="kw">let </span><span class="kw-2">mut </span>spi = Spidev::open(<span class="string">"/dev/spidev1.0"</span>).expect(<span class="string">"Error: Failed during setting up SPI"</span>);
         <span class="kw">let </span>options = SpidevOptions::new()
             .bits_per_word(<span class="number">8</span>)
             .max_speed_hz(<span class="number">10_000_000</span>)
             .mode(spidev::SpiModeFlags::SPI_MODE_0)
             .build();
         spi.configure(<span class="kw-2">&amp;</span>options)
-            .expect(<span class="string">&quot;Error: Failed to configure SPI&quot;</span>);
+            .expect(<span class="string">"Error: Failed to configure SPI"</span>);
 
         <span class="comment">//Define CS2 pin ICM-20602
         </span><span class="kw">let </span>cs_2 = Pin::new(<span class="number">16</span>);
-        cs_2.export().expect(<span class="string">&quot;Error: Error during CS2 export&quot;</span>);
+        cs_2.export().expect(<span class="string">"Error: Error during CS2 export"</span>);
         Delay {}.delay_ms(<span class="number">30_u16</span>);
         cs_2.set_direction(Direction::High)
-            .expect(<span class="string">&quot;Error: Setting CS2 pin as output&quot;</span>);
+            .expect(<span class="string">"Error: Setting CS2 pin as output"</span>);
 
         <span class="comment">//not using yet, define CS1 pin for MMC5983
         </span><span class="kw">let </span>cs_1 = Pin::new(<span class="number">17</span>);
-        cs_1.export().expect(<span class="string">&quot;Error: Error during CS1 export&quot;</span>);
+        cs_1.export().expect(<span class="string">"Error: Error during CS1 export"</span>);
         Delay {}.delay_ms(<span class="number">30_u16</span>);
         cs_1.set_direction(Direction::High)
-            .expect(<span class="string">&quot;Error: Setting CS2 pin as output&quot;</span>);
+            .expect(<span class="string">"Error: Setting CS2 pin as output"</span>);
 
         <span class="comment">//Define pwm OE_Pin - PWM initialize disabled
         </span><span class="kw">let </span>oe_pin = Pin::new(<span class="number">26</span>);
-        oe_pin.export().expect(<span class="string">&quot;Error: Error during oe_pin export&quot;</span>);
+        oe_pin.export().expect(<span class="string">"Error: Error during oe_pin export"</span>);
         Delay {}.delay_ms(<span class="number">30_u16</span>);
         oe_pin
             .set_direction(Direction::High)
-            .expect(<span class="string">&quot;Error: Setting oe_pin pin as output&quot;</span>);
+            .expect(<span class="string">"Error: Setting oe_pin pin as output"</span>);
 
         <span class="kw">let </span>imu = imu_Builder::new_spi(spi, cs_2);
 
         <span class="kw">let </span>led = Led::new();
+
+        <span class="kw">let </span>leak = Pin::new(<span class="number">27</span>);
 
         Navigator {
             adc: (adc),
@@ -1388,6 +1433,7 @@
             imu: (imu),
             led: (led),
             neopixel: (neopixel),
+            leak: (leak),
         }
     }
 }
@@ -1405,14 +1451,14 @@
 
     <span class="kw">pub fn </span>init(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.self_test();
-        <span class="comment">//Initialize devices on navigator&#39;s default settings,
+        <span class="comment">//Initialize devices on navigator's default settings,
         //read more on ./navigator-api.pdf
         </span><span class="self">self</span>.mag.init().unwrap();
         <span class="self">self</span>.mag.set_mode(mag_Mode::Cont200Hz).unwrap();
 
         <span class="self">self</span>.imu
             .setup(<span class="kw-2">&amp;mut </span>Delay {})
-            .expect(<span class="string">&quot;Error: Failed on IMU setup&quot;</span>);
+            .expect(<span class="string">"Error: Failed on IMU setup"</span>);
         <span class="self">self</span>.imu.set_accel_range(AccelRange::Range_2g).unwrap();
         <span class="self">self</span>.imu.set_gyro_range(GyroRange::Range_250dps).unwrap();
 
@@ -1432,22 +1478,29 @@
         <span class="self">self</span>.bmp.zero().unwrap();
 
         <span class="self">self</span>.led.set_led_all(<span class="bool-val">false</span>);
+
+        <span class="self">self</span>.leak
+            .export()
+            .expect(<span class="string">"Error: Failed to export leak pin"</span>);
+        <span class="self">self</span>.leak
+            .set_direction(Direction::In)
+            .expect(<span class="string">"Error: Failed to set leak pin as input"</span>);
     }
 
     <span class="kw">pub fn </span>self_test(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; bool {
-        <span class="comment">//Check if the sensors are attached by it&#39;s IDs,
+        <span class="comment">//Check if the sensors are attached by it's IDs,
         //run self-test if they have.
         </span><span class="self">self</span>.imu.check_identity(<span class="kw-2">&amp;mut </span>Delay {}).unwrap();
         <span class="self">self</span>.mag
             .self_test()
-            .expect(<span class="string">&quot;Error : Error on magnetometer during self-test&quot;</span>)
+            .expect(<span class="string">"Error : Error on magnetometer during self-test"</span>)
     }
 
     <span class="doccomment">/// Sets the PWM IC to be enabled through OE_pin.
     ///
     /// # Arguments
     ///
-    /// * `state` - The state of PWM output, it&#39;s enabled with a true logic value.
+    /// * `state` - The state of PWM output, it's enabled with a true logic value.
     ///
     /// # Examples
     ///
@@ -1474,17 +1527,17 @@
     /// nav.init();
     /// loop {
     ///     let previous = nav.get_pwm_enable();
-    ///     println!(&quot;Enable pin logic value is {previous}.&quot;);
+    ///     println!("Enable pin logic value is {previous}.");
     ///
     ///     nav.set_pwm_enable(!previous);
     ///
-    ///     println!(&quot;Enable pin logic value is {}.&quot;, nav.get_pwm_enable());
+    ///     println!("Enable pin logic value is {}.", nav.get_pwm_enable());
     ///
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
     </span><span class="kw">pub fn </span>get_pwm_enable(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; bool {
-        <span class="self">self</span>.pwm.oe_pin.get_value().expect(<span class="string">&quot;Error: Get PWM value&quot;</span>) == <span class="number">1
+        <span class="self">self</span>.pwm.oe_pin.get_value().expect(<span class="string">"Error: Get PWM value"</span>) == <span class="number">1
     </span>}
 
     <span class="doccomment">/// Sets the Duty Cycle (high value time) of selected channel.
@@ -1510,7 +1563,7 @@
     </span><span class="kw">pub fn </span>set_pwm_channel_value(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel: PwmChannel, <span class="kw-2">mut </span>value: u16) {
         <span class="kw">let </span>max_value = <span class="number">4095</span>;
         <span class="kw">if </span>value &gt; max_value {
-            <span class="macro">warn!</span>(<span class="string">&quot;Invalid value. Value must be less than or equal {max_value}.&quot;</span>);
+            <span class="macro">warn!</span>(<span class="string">"Invalid value. Value must be less than or equal {max_value}."</span>);
             value = max_value;
         }
         <span class="self">self</span>.pwm.set_channel_on(channel.into(), <span class="number">0</span>).unwrap();
@@ -1615,13 +1668,13 @@
     </span><span class="kw">pub fn </span>set_pwm_freq_prescale(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw-2">mut </span>value: u8) {
         <span class="kw">let </span>min_prescale = <span class="number">3</span>;
         <span class="kw">if </span>value &lt; min_prescale {
-            <span class="macro">warn!</span>(<span class="string">&quot;Invalid value. Value must be greater than {min_prescale}.&quot;</span>);
+            <span class="macro">warn!</span>(<span class="string">"Invalid value. Value must be greater than {min_prescale}."</span>);
             value = min_prescale;
         }
         <span class="self">self</span>.pwm.set_prescale(value).unwrap();
 
         <span class="kw">let </span>clamped_freq = NAVIGATOR_PWM_XTAL_CLOCK_FREQ / (<span class="number">4_096.0 </span>* (value <span class="kw">as </span>f32 + <span class="number">1.0</span>));
-        <span class="macro">info!</span>(<span class="string">&quot;PWM frequency set to {clamped_freq:.2} Hz. Prescaler value: {value}&quot;</span>);
+        <span class="macro">info!</span>(<span class="string">"PWM frequency set to {clamped_freq:.2} Hz. Prescaler value: {value}"</span>);
     }
 
     <span class="doccomment">/// Sets the pwm frequency in Hertz of [`Navigator`].
@@ -1652,13 +1705,13 @@
     </span><span class="kw">pub fn </span>set_pwm_freq_hz(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw-2">mut </span>freq: f32) {
         <span class="kw">let </span>min_freq = <span class="number">24.0</span>;
         <span class="kw">if </span>freq &lt; min_freq {
-            <span class="macro">warn!</span>(<span class="string">&quot;Invalid value. Value must be greater than or equal to {min_freq}.&quot;</span>);
+            <span class="macro">warn!</span>(<span class="string">"Invalid value. Value must be greater than or equal to {min_freq}."</span>);
             freq = min_freq;
         }
 
         <span class="kw">let </span>max_freq = <span class="number">1526.0</span>;
         <span class="kw">if </span>freq &gt; max_freq {
-            <span class="macro">warn!</span>(<span class="string">&quot;Invalid value. Value must be less than or equal to {max_freq}.&quot;</span>);
+            <span class="macro">warn!</span>(<span class="string">"Invalid value. Value must be less than or equal to {max_freq}."</span>);
             freq = max_freq;
         }
 
@@ -1685,7 +1738,7 @@
     /// nav.init();
     /// loop {
     ///     let logic_value: bool = nav.get_led(UserLed::Led2);
-    ///     println!(&quot;Blue LED logic value is {logic_value}.&quot;);
+    ///     println!("Blue LED logic value is {logic_value}.");
     ///     nav.set_led_toggle(UserLed::Led2);
     ///     sleep(Duration::from_millis(1000));
     /// }
@@ -1817,13 +1870,13 @@
     ///
     /// loop {
     ///     let mag = nav.read_mag();
-    ///     println!(&quot;mag values: X={}, Y={}, Z={} [µT]&quot;, mag.x, mag.y, mag.z);
+    ///     println!("mag values: X={}, Y={}, Z={} [µT]", mag.x, mag.y, mag.z);
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
     </span><span class="kw">pub fn </span>read_mag(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; AxisData {
         <span class="kw">let </span>(x, y, z) = <span class="self">self</span>.mag.read().unwrap();
-        <span class="comment">// Change the axes to navigator&#39;s standard. Right-handed, Z-axis down (aeronautical frame, NED).
+        <span class="comment">// Change the axes to navigator's standard. Right-handed, Z-axis down (aeronautical frame, NED).
         </span>AxisData {
             x: y,
             y: x * -<span class="number">1.0</span>,
@@ -1847,7 +1900,7 @@
     ///
     /// loop {
     ///     let temperature = nav.read_temperature();
-    ///     println!(&quot;temperature value: {temperature} [˚C]&quot;);
+    ///     println!("temperature value: {temperature} [˚C]");
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
@@ -1871,7 +1924,7 @@
     ///
     /// loop {
     ///     let altitude = nav.read_altitude();
-    ///     println!(&quot;altitude value: {altitude} [m]&quot;);
+    ///     println!("altitude value: {altitude} [m]");
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
@@ -1895,7 +1948,7 @@
     ///
     /// loop {
     ///     let pressure = nav.read_pressure();
-    ///     println!(&quot;pressure value: {pressure} [kPa]&quot;);
+    ///     println!("pressure value: {pressure} [kPa]");
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
@@ -1922,7 +1975,7 @@
     /// loop {
     ///     let adc_data = nav.read_adc_all();
     ///     println!(
-    ///         &quot;adc values per channel: 1: {}, 2: {}, 3: {}, 4: {}&quot;,
+    ///         "adc values per channel: 1: {}, 2: {}, 3: {}, 4: {}",
     ///         adc_data.channel[0], adc_data.channel[1], adc_data.channel[2], adc_data.channel[3]
     ///     );
     ///     sleep(Duration::from_millis(1000));
@@ -1954,11 +2007,11 @@
     /// nav.init();
     ///
     /// loop {
-    ///     println!(&quot;ADC channel 1 value: {} [V]&quot;, nav.read_adc(AdcChannel::Ch1));
+    ///     println!("ADC channel 1 value: {} [V]", nav.read_adc(AdcChannel::Ch1));
     ///     sleep(Duration::from_millis(1000));
     /// }
     </span><span class="kw">pub fn </span>read_adc(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel: AdcChannel) -&gt; f32 {
-        <span class="kw">let </span>conversion_volts: f32 = <span class="number">0.000_125</span>; <span class="comment">// According to data-sheet, LSB = 125 μV for ±4.096 scale register, navigator&#39;s default
+        <span class="kw">let </span>conversion_volts: f32 = <span class="number">0.000_125</span>; <span class="comment">// According to data-sheet, LSB = 125 μV for ±4.096 scale register, navigator's default
         </span><span class="macro">block!</span>(<span class="self">self</span>.adc.read(channel.into())).unwrap() <span class="kw">as </span>f32 * conversion_volts
     }
 
@@ -1978,15 +2031,15 @@
     ///
     /// loop {
     ///     let accel = nav.read_accel();
-    ///     println!(&quot;accel values: X={}, Y={}, Z={} [m/s²]&quot;, accel.x, accel.y, accel.z);
+    ///     println!("accel values: X={}, Y={}, Z={} [m/s²]", accel.x, accel.y, accel.z);
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
     </span><span class="kw">pub fn </span>read_accel(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; AxisData {
         <span class="kw">let </span>reading: [f32; <span class="number">3</span>] = <span class="self">self</span>.imu.get_scaled_accel().unwrap();
-        <span class="comment">// Change the axes to navigator&#39;s standard. Right-handed, Z-axis down (aeronautical frame, NED).
+        <span class="comment">// Change the axes to navigator's standard. Right-handed, Z-axis down (aeronautical frame, NED).
         // Obs.: ICM20602 sensor is measuring with inverted directions, not following data-sheet.
-        //       Thus, with IC&#39;s placement only Z needs to be inverted.
+        //       Thus, with IC's placement only Z needs to be inverted.
         </span>AxisData {
             x: reading[<span class="number">0</span>],
             y: reading[<span class="number">1</span>],
@@ -2010,18 +2063,43 @@
     ///
     /// loop {
     ///     let gyro = nav.read_gyro();
-    ///     println!(&quot;accel values: X={}, Y={}, Z={} [rad/s]&quot;, gyro.x, gyro.y, gyro.z);
+    ///     println!("accel values: X={}, Y={}, Z={} [rad/s]", gyro.x, gyro.y, gyro.z);
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
     </span><span class="kw">pub fn </span>read_gyro(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; AxisData {
         <span class="kw">let </span>reading: [f32; <span class="number">3</span>] = <span class="self">self</span>.imu.get_scaled_gyro().unwrap();
-        <span class="comment">// Change the axes to navigator&#39;s standard. Right-handed, Z-axis down (aeronautical frame, NED).
+        <span class="comment">// Change the axes to navigator's standard. Right-handed, Z-axis down (aeronautical frame, NED).
         </span>AxisData {
             x: reading[<span class="number">0</span>] * -<span class="number">1.0</span>,
             y: reading[<span class="number">1</span>] * -<span class="number">1.0</span>,
             z: reading[<span class="number">2</span>],
         }
+    }
+
+    <span class="doccomment">/// Reads the state of leak detector pin from [`Navigator`].
+    ///
+    /// The value is true when a leak is detected.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    /// use std::thread::sleep;
+    /// use std::time::Duration;
+    ///
+    /// let mut nav = Navigator::new();
+    /// nav.init();
+    ///
+    /// loop {
+    ///     println!("Leak: {}", nav.read_leak());
+    ///     sleep(Duration::from_millis(1000));
+    /// }
+    /// ```
+    </span><span class="kw">pub fn </span>read_leak(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.leak
+            .is_high()
+            .expect(<span class="string">"Failed to read state of leak pin"</span>)
     }
 
     <span class="doccomment">/// Reads all sensors and stores on a single structure.
@@ -2037,9 +2115,9 @@
     /// nav.init();
     ///
     /// loop {
-    ///     println!(&quot;---------------reading---------------&quot;);
+    ///     println!("---------------reading---------------");
     ///     let sensors_data = nav.read_all();
-    ///     println!(&quot;{sensors_data:#?}&quot;);
+    ///     println!("{sensors_data:#?}");
     ///     sleep(Duration::from_millis(1000));
     /// }
     /// ```
@@ -2051,6 +2129,7 @@
             accelerometer: <span class="self">self</span>.read_accel(),
             magnetometer: <span class="self">self</span>.read_mag(),
             gyro: <span class="self">self</span>.read_gyro(),
+            leak: <span class="self">self</span>.read_leak(),
         }
     }
 
@@ -2077,6 +2156,7 @@
             bmp: Bmp,
             imu: Imu,
             mag: AxisData,
+            leak: bool,
         }
 
         Navigator {
@@ -2091,6 +2171,7 @@
                 gyroscope: <span class="self">self</span>.read_gyro(),
             },
             mag: <span class="self">self</span>.read_mag(),
+            leak: <span class="self">self</span>.read_leak(),
         }
     }
 }

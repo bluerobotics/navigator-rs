@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/find-crate-0.6.3/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="find_crate" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../find_crate/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/find-crate-0.6.3/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="find_crate" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -447,7 +448,7 @@
 //! use quote::quote;
 //!
 //! fn import() -&gt; TokenStream {
-//!     let name = find_crate(|s| s == &quot;foo&quot;).unwrap().name;
+//!     let name = find_crate(|s| s == "foo").unwrap().name;
 //!     let name = Ident::new(&amp;name, Span::call_site());
 //!     // If your proc-macro crate is 2018 edition, use `quote!(use #name as _foo;)` instead.
 //!     quote!(extern crate #name as _foo;)
@@ -463,7 +464,7 @@
 //! use quote::quote;
 //!
 //! fn import() -&gt; TokenStream {
-//!     let name = find_crate(|s| s == &quot;foo&quot; || s == &quot;foo-core&quot;).unwrap().name;
+//!     let name = find_crate(|s| s == "foo" || s == "foo-core").unwrap().name;
 //!     let name = Ident::new(&amp;name, Span::call_site());
 //!     // If your proc-macro crate is 2018 edition, use `quote!(use #name as _foo;)` instead.
 //!     quote!(extern crate #name as _foo;)
@@ -479,9 +480,9 @@
 //! use quote::{format_ident, quote};
 //!
 //! const CRATE_NAMES: &amp;[&amp;[&amp;str]] = &amp;[
-//!     &amp;[&quot;foo&quot;, &quot;foo-core&quot;],
-//!     &amp;[&quot;bar&quot;, &quot;bar-util&quot;, &quot;bar-core&quot;],
-//!     &amp;[&quot;baz&quot;],
+//!     &amp;["foo", "foo-core"],
+//!     &amp;["bar", "bar-util", "bar-core"],
+//!     &amp;["baz"],
 //! ];
 //!
 //! fn imports() -&gt; TokenStream {
@@ -491,7 +492,7 @@
 //!     for names in CRATE_NAMES {
 //!         let name = manifest.find(|s| names.iter().any(|x| s == *x)).unwrap().name;
 //!         let name = Ident::new(&amp;name, Span::call_site());
-//!         let import_name = format_ident!(&quot;_{}&quot;, names[0]);
+//!         let import_name = format_ident!("_{}", names[0]);
 //!         // If your proc-macro crate is 2018 edition, use `quote!(use #name as #import_name;)` instead.
 //!         tts.extend(quote!(extern crate #name as #import_name;));
 //!     }
@@ -546,7 +547,7 @@
 <span class="doccomment">/// The [`CARGO_MANIFEST_DIR`] environment variable.
 ///
 /// [`CARGO_MANIFEST_DIR`]: https://doc.rust-lang.org/cargo/reference/environment-variables.html#environment-variables-cargo-sets-for-crates
-</span><span class="kw">const </span>MANIFEST_DIR: <span class="kw-2">&amp;</span>str = <span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>;
+</span><span class="kw">const </span>MANIFEST_DIR: <span class="kw-2">&amp;</span>str = <span class="string">"CARGO_MANIFEST_DIR"</span>;
 
 <span class="doccomment">/// Find the crate name from the current `Cargo.toml`.
 ///
@@ -562,7 +563,7 @@
 /// use quote::quote;
 ///
 /// fn import() -&gt; TokenStream {
-///     let name = find_crate(|s| s == &quot;foo&quot; || s == &quot;foo-core&quot;).unwrap().name;
+///     let name = find_crate(|s| s == "foo" || s == "foo-core").unwrap().name;
 ///     let name = Ident::new(&amp;name, Span::call_site());
 ///     // If your proc-macro crate is 2018 edition, use `quote!(use #name as _foo;)` instead.
 ///     quote!(extern crate #name as _foo;)
@@ -593,13 +594,13 @@
 }
 
 <span class="kw">impl </span>Dependencies {
-    <span class="kw">fn </span>as_slice(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str] {
+    <span class="kw">fn </span>as_slice(<span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">'static </span>[<span class="kw-2">&amp;</span><span class="lifetime">'static </span>str] {
         <span class="kw">match </span><span class="self">self </span>{
-            Dependencies::Default =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;dependencies&quot;</span>, <span class="string">&quot;dev-dependencies&quot;</span>],
-            Dependencies::Release =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;dependencies&quot;</span>],
-            Dependencies::Dev =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;dev-dependencies&quot;</span>],
-            Dependencies::Build =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;build-dependencies&quot;</span>],
-            Dependencies::All =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;dependencies&quot;</span>, <span class="string">&quot;dev-dependencies&quot;</span>, <span class="string">&quot;build-dependencies&quot;</span>],
+            Dependencies::Default =&gt; <span class="kw-2">&amp;</span>[<span class="string">"dependencies"</span>, <span class="string">"dev-dependencies"</span>],
+            Dependencies::Release =&gt; <span class="kw-2">&amp;</span>[<span class="string">"dependencies"</span>],
+            Dependencies::Dev =&gt; <span class="kw-2">&amp;</span>[<span class="string">"dev-dependencies"</span>],
+            Dependencies::Build =&gt; <span class="kw-2">&amp;</span>[<span class="string">"build-dependencies"</span>],
+            Dependencies::All =&gt; <span class="kw-2">&amp;</span>[<span class="string">"dependencies"</span>, <span class="string">"dev-dependencies"</span>, <span class="string">"build-dependencies"</span>],
         }
     }
 }
@@ -617,7 +618,7 @@
     <span class="doccomment">/// The key of this dependency in the manifest.
     </span>key: String,
 
-    <span class="comment">// The key or the value of &#39;package&#39; key.
+    <span class="comment">// The key or the value of 'package' key.
     // If this is `None`, the value of `key` field is the original name.
     </span>package: <span class="prelude-ty">Option</span>&lt;String&gt;,
 
@@ -693,7 +694,7 @@
     ///
     /// fn import() -&gt; TokenStream {
     ///     let manifest = Manifest::new().unwrap();
-    ///     let name = manifest.find(|s| s == &quot;foo&quot; || s == &quot;foo-core&quot;).unwrap().name;
+    ///     let name = manifest.find(|s| s == "foo" || s == "foo-core").unwrap().name;
     ///     let name = Ident::new(&amp;name, Span::call_site());
     ///     // If your proc-macro crate is 2018 edition, use `quote!(use #name as _foo;)` instead.
     ///     quote!(extern crate #name as _foo;)
@@ -725,10 +726,10 @@
     /// }
     ///
     /// fn import() -&gt; TokenStream {
-    ///     let version = Version::parse(&quot;0.3.0&quot;).unwrap();
+    ///     let version = Version::parse("0.3.0").unwrap();
     ///     let manifest = Manifest::new().unwrap();
     ///     let name = manifest
-    ///         .find2(|name, req| name == &quot;foo&quot; &amp;&amp; check_version(req, &amp;version))
+    ///         .find2(|name, req| name == "foo" &amp;&amp; check_version(req, &amp;version))
     ///         .unwrap()
     ///         .name;
     ///     let name = Ident::new(&amp;name, Span::call_site());
@@ -763,29 +764,29 @@
     </span><span class="kw">pub fn </span>crate_package(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Package&gt; {
         <span class="kw">let </span>package_section = <span class="self">self
             </span>.manifest
-            .get(<span class="string">&quot;package&quot;</span>)
-            .ok_or_else(|| Error::InvalidManifest(<span class="string">&quot;[package] section is missing&quot;</span>.to_string()))<span class="question-mark">?</span>;
+            .get(<span class="string">"package"</span>)
+            .ok_or_else(|| Error::InvalidManifest(<span class="string">"[package] section is missing"</span>.to_string()))<span class="question-mark">?</span>;
 
-        <span class="kw">let </span>package_key_value = package_section.get(<span class="string">&quot;name&quot;</span>).ok_or_else(|| {
-            Error::InvalidManifest(<span class="string">&quot;[package] section is missing `name`&quot;</span>.to_string())
+        <span class="kw">let </span>package_key_value = package_section.get(<span class="string">"name"</span>).ok_or_else(|| {
+            Error::InvalidManifest(<span class="string">"[package] section is missing `name`"</span>.to_string())
         })<span class="question-mark">?</span>;
 
         <span class="kw">let </span>package_key = package_key_value.as_str().ok_or_else(|| {
-            Error::InvalidManifest(<span class="string">&quot;`name` in [package] section is not a string&quot;</span>.to_string())
+            Error::InvalidManifest(<span class="string">"`name` in [package] section is not a string"</span>.to_string())
         })<span class="question-mark">?</span>;
 
-        <span class="kw">let </span>package_version_value = package_section.get(<span class="string">&quot;version&quot;</span>).ok_or_else(|| {
-            Error::InvalidManifest(<span class="string">&quot;[package] section is missing `version`&quot;</span>.to_string())
+        <span class="kw">let </span>package_version_value = package_section.get(<span class="string">"version"</span>).ok_or_else(|| {
+            Error::InvalidManifest(<span class="string">"[package] section is missing `version`"</span>.to_string())
         })<span class="question-mark">?</span>;
 
         <span class="kw">let </span>package_version = package_version_value.as_str().ok_or_else(|| {
-            Error::InvalidManifest(<span class="string">&quot;`version` in [package] section is not a string&quot;</span>.to_string())
+            Error::InvalidManifest(<span class="string">"`version` in [package] section is not a string"</span>.to_string())
         })<span class="question-mark">?</span>;
 
         <span class="kw">let </span>package = Package {
             key: package_key.to_string(),
             package: <span class="prelude-val">None</span>,
-            name: package_key.replace(<span class="string">&quot;-&quot;</span>, <span class="string">&quot;_&quot;</span>),
+            name: package_key.replace(<span class="string">"-"</span>, <span class="string">"_"</span>),
             version: package_version.to_string(),
         };
 
@@ -796,7 +797,7 @@
 <span class="kw">fn </span>manifest_path() -&gt; <span class="prelude-ty">Result</span>&lt;PathBuf&gt; {
     env::var_os(MANIFEST_DIR).ok_or(Error::NotFoundManifestDir).map(PathBuf::from).map(
         |<span class="kw-2">mut </span>path| {
-            path.push(<span class="string">&quot;Cargo.toml&quot;</span>);
+            path.push(<span class="string">"Cargo.toml"</span>);
             path
         },
     )
@@ -820,7 +821,7 @@
         .or_else(|| {
             dependencies.as_slice().iter().find_map(|dependencies| {
                 manifest
-                    .get(<span class="string">&quot;target&quot;</span>)<span class="question-mark">?
+                    .get(<span class="string">"target"</span>)<span class="question-mark">?
                     </span>.as_table()<span class="question-mark">?
                     </span>.values()
                     .find_map(|table| find_inner(table.as_table()<span class="question-mark">?</span>, dependencies, <span class="kw-2">&amp;mut </span>predicate))
@@ -838,22 +839,22 @@
     {
         value
             .as_table()<span class="question-mark">?
-            </span>.get(<span class="string">&quot;package&quot;</span>)<span class="question-mark">?
+            </span>.get(<span class="string">"package"</span>)<span class="question-mark">?
             </span>.as_str()
             .and_then(|s| <span class="kw">if </span>predicate(s, version) { <span class="prelude-val">Some</span>(s.to_string()) } <span class="kw">else </span>{ <span class="prelude-val">None </span>})
     }
 
     <span class="kw">fn </span>version(value: <span class="kw-2">&amp;</span>Value) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt; {
-        value.as_str().or_else(|| value.as_table()<span class="question-mark">?</span>.get(<span class="string">&quot;version&quot;</span>)<span class="question-mark">?</span>.as_str())
+        value.as_str().or_else(|| value.as_table()<span class="question-mark">?</span>.get(<span class="string">"version"</span>)<span class="question-mark">?</span>.as_str())
     }
 
     table.iter().find_map(|(key, value)| {
-        <span class="kw">let </span>version = version(value).unwrap_or(<span class="string">&quot;*&quot;</span>);
+        <span class="kw">let </span>version = version(value).unwrap_or(<span class="string">"*"</span>);
         <span class="kw">let </span>package = package(value, version, <span class="kw-2">&amp;mut </span>predicate);
         <span class="kw">if </span>package.is_some() || predicate(key, version) {
             <span class="prelude-val">Some</span>(Package {
                 key: key.clone(),
-                name: key.replace(<span class="string">&quot;-&quot;</span>, <span class="string">&quot;_&quot;</span>),
+                name: key.replace(<span class="string">"-"</span>, <span class="string">"_"</span>),
                 version: version.to_string(),
                 package,
             })

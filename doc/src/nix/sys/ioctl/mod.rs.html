@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nix-0.23.2/src/sys/ioctl/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="nix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../../nix/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nix-0.23.2/src/sys/ioctl/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="nix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -783,9 +784,9 @@
 //! What is an `ioctl`?
 //! ===================
 //!
-//! The `ioctl` syscall is the grab-bag syscall on POSIX systems. Don&#39;t want to add a new
+//! The `ioctl` syscall is the grab-bag syscall on POSIX systems. Don't want to add a new
 //! syscall? Make it an `ioctl`! `ioctl` refers to both the syscall, and the commands that can be
-//! sent with it. `ioctl` stands for &quot;IO control&quot;, and the commands are always sent to a file
+//! sent with it. `ioctl` stands for "IO control", and the commands are always sent to a file
 //! descriptor.
 //!
 //! It is common to see `ioctl`s used for the following purposes:
@@ -812,28 +813,28 @@
 //!   * Number: The actual ioctl ID
 //!   * Type: A grouping of ioctls for a common purpose or driver
 //!   * Size: The size in bytes of the data that will be transferred
-//!   * Direction: Whether there is any data and if it&#39;s read, write, or both
+//!   * Direction: Whether there is any data and if it's read, write, or both
 //!
 //! Newer drivers should not generate complete integer identifiers for their `ioctl`s instead
 //! preferring to use the 4 components above to generate the final ioctl identifier. Because of
 //! how old `ioctl`s are, however, there are many hard-coded `ioctl` identifiers. These are
-//! commonly referred to as &quot;bad&quot; in `ioctl` documentation.
+//! commonly referred to as "bad" in `ioctl` documentation.
 //!
 //! Defining `ioctl`s
 //! =================
 //!
 //! This library provides several `ioctl_*!` macros for binding `ioctl`s. These generate public
 //! unsafe functions that can then be used for calling the ioctl. This macro has a few different
-//! ways it can be used depending on the specific ioctl you&#39;re working with.
+//! ways it can be used depending on the specific ioctl you're working with.
 //!
 //! A simple `ioctl` is `SPI_IOC_RD_MODE`. This ioctl works with the SPI interface on Linux. This
-//! specific `ioctl` reads the mode of the SPI device as a `u8`. It&#39;s declared in
+//! specific `ioctl` reads the mode of the SPI device as a `u8`. It's declared in
 //! `/include/uapi/linux/spi/spidev.h` as `_IOR(SPI_IOC_MAGIC, 1, __u8)`. Since it uses the `_IOR`
-//! macro, we know it&#39;s a `read` ioctl and can use the `ioctl_read!` macro as follows:
+//! macro, we know it's a `read` ioctl and can use the `ioctl_read!` macro as follows:
 //!
 //! ```
 //! # #[macro_use] extern crate nix;
-//! const SPI_IOC_MAGIC: u8 = b&#39;k&#39;; // Defined in linux/spi/spidev.h
+//! const SPI_IOC_MAGIC: u8 = b'k'; // Defined in linux/spi/spidev.h
 //! const SPI_IOC_TYPE_MODE: u8 = 1;
 //! ioctl_read!(spi_read_mode, SPI_IOC_MAGIC, SPI_IOC_TYPE_MODE, u8);
 //! # fn main() {}
@@ -847,7 +848,7 @@
 //! # use nix::{libc, Result};
 //! # use nix::errno::Errno;
 //! # use nix::libc::c_int as c_int;
-//! # const SPI_IOC_MAGIC: u8 = b&#39;k&#39;; // Defined in linux/spi/spidev.h
+//! # const SPI_IOC_MAGIC: u8 = b'k'; // Defined in linux/spi/spidev.h
 //! # const SPI_IOC_TYPE_MODE: u8 = 1;
 //! pub unsafe fn spi_read_mode(fd: c_int, data: *mut u8) -&gt; Result&lt;c_int&gt; {
 //!     let res = libc::ioctl(fd, request_code_read!(SPI_IOC_MAGIC, SPI_IOC_TYPE_MODE, mem::size_of::&lt;u8&gt;()), data);
@@ -859,7 +860,7 @@
 //! The return value for the wrapper functions generated by the `ioctl_*!` macros are `nix::Error`s.
 //! These are generated by assuming the return value of the ioctl is `-1` on error and everything
 //! else is a valid return value. If this is not the case, `Result::map` can be used to map some
-//! of the range of &quot;good&quot; values (-Inf..-2, 0..Inf) into a smaller range in a helper function.
+//! of the range of "good" values (-Inf..-2, 0..Inf) into a smaller range in a helper function.
 //!
 //! Writing `ioctl`s generally use pointers as their data source and these should use the
 //! `ioctl_write_ptr!`. But in some cases an `int` is passed directly. For these `ioctl`s use the
@@ -867,43 +868,43 @@
 //!
 //! ```
 //! # #[macro_use] extern crate nix;
-//! const HCI_IOC_MAGIC: u8 = b&#39;k&#39;;
+//! const HCI_IOC_MAGIC: u8 = b'k';
 //! const HCI_IOC_HCIDEVUP: u8 = 1;
 //! ioctl_write_int!(hci_dev_up, HCI_IOC_MAGIC, HCI_IOC_HCIDEVUP);
 //! # fn main() {}
 //! ```
 //!
-//! Some `ioctl`s don&#39;t transfer any data, and those should use `ioctl_none!`. This macro
-//! doesn&#39;t take a type and so it is declared similar to the `write_int` variant shown above.
+//! Some `ioctl`s don't transfer any data, and those should use `ioctl_none!`. This macro
+//! doesn't take a type and so it is declared similar to the `write_int` variant shown above.
 //!
 //! The mode for a given `ioctl` should be clear from the documentation if it has good
 //! documentation. Otherwise it will be clear based on the macro used to generate the `ioctl`
-//! number where `_IO`, `_IOR`, `_IOW`, and `_IOWR` map to &quot;none&quot;, &quot;read&quot;, &quot;write_*&quot;, and &quot;readwrite&quot;
-//! respectively. To determine the specific `write_` variant to use you&#39;ll need to find
-//! what the argument type is supposed to be. If it&#39;s an `int`, then `write_int` should be used,
+//! number where `_IO`, `_IOR`, `_IOW`, and `_IOWR` map to "none", "read", "write_*", and "readwrite"
+//! respectively. To determine the specific `write_` variant to use you'll need to find
+//! what the argument type is supposed to be. If it's an `int`, then `write_int` should be used,
 //! otherwise it should be a pointer and `write_ptr` should be used. On Linux the
 //! [`ioctl_list` man page](https://man7.org/linux/man-pages/man2/ioctl_list.2.html) describes a
 //! large number of `ioctl`s and describes their argument data type.
 //!
-//! Using &quot;bad&quot; `ioctl`s
+//! Using "bad" `ioctl`s
 //! --------------------
 //!
 //! As mentioned earlier, there are many old `ioctl`s that do not use the newer method of
 //! generating `ioctl` numbers and instead use hardcoded values. These can be used with the
 //! `ioctl_*_bad!` macros. This naming comes from the Linux kernel which refers to these
-//! `ioctl`s as &quot;bad&quot;. These are a different variant as they bypass calling the macro that generates
+//! `ioctl`s as "bad". These are a different variant as they bypass calling the macro that generates
 //! the ioctl number and instead use the defined value directly.
 //!
 //! For example the `TCGETS` `ioctl` reads a `termios` data structure for a given file descriptor.
-//! It&#39;s defined as `0x5401` in `ioctls.h` on Linux and can be implemented as:
+//! It's defined as `0x5401` in `ioctls.h` on Linux and can be implemented as:
 //!
 //! ```
 //! # #[macro_use] extern crate nix;
-//! # #[cfg(any(target_os = &quot;android&quot;, target_os = &quot;linux&quot;))]
+//! # #[cfg(any(target_os = "android", target_os = "linux"))]
 //! # use nix::libc::TCGETS as TCGETS;
-//! # #[cfg(any(target_os = &quot;android&quot;, target_os = &quot;linux&quot;))]
+//! # #[cfg(any(target_os = "android", target_os = "linux"))]
 //! # use nix::libc::termios as termios;
-//! # #[cfg(any(target_os = &quot;android&quot;, target_os = &quot;linux&quot;))]
+//! # #[cfg(any(target_os = "android", target_os = "linux"))]
 //! ioctl_read_bad!(tcgets, TCGETS, termios);
 //! # fn main() {}
 //! ```
@@ -919,7 +920,7 @@
 //!
 //! Some `ioctl`s work with entire arrays of elements. These are supported by the `ioctl_*_buf`
 //! family of macros: `ioctl_read_buf`, `ioctl_write_buf`, and `ioctl_readwrite_buf`. Note that
-//! there are no &quot;bad&quot; versions for working with buffers. The generated functions include a `len`
+//! there are no "bad" versions for working with buffers. The generated functions include a `len`
 //! argument to specify the number of elements (where the type of each element is specified in the
 //! macro).
 //!
@@ -928,17 +929,17 @@
 //! `linux/spi/spidev.h` defines a macro to calculate the `ioctl` number like:
 //!
 //! ```C
-//! #define SPI_IOC_MAGIC &#39;k&#39;
+//! #define SPI_IOC_MAGIC 'k'
 //! #define SPI_MSGSIZE(N) ...
 //! #define SPI_IOC_MESSAGE(N) _IOW(SPI_IOC_MAGIC, 0, char[SPI_MSGSIZE(N)])
 //! ```
 //!
-//! The `SPI_MSGSIZE(N)` calculation is already handled by the `ioctl_*!` macros, so all that&#39;s
+//! The `SPI_MSGSIZE(N)` calculation is already handled by the `ioctl_*!` macros, so all that's
 //! needed to define this `ioctl` is:
 //!
 //! ```
 //! # #[macro_use] extern crate nix;
-//! const SPI_IOC_MAGIC: u8 = b&#39;k&#39;; // Defined in linux/spi/spidev.h
+//! const SPI_IOC_MAGIC: u8 = b'k'; // Defined in linux/spi/spidev.h
 //! const SPI_IOC_TYPE_MESSAGE: u8 = 0;
 //! # pub struct spi_ioc_transfer(u64);
 //! ioctl_write_buf!(spi_transfer, SPI_IOC_MAGIC, SPI_IOC_TYPE_MESSAGE, spi_ioc_transfer);
@@ -953,7 +954,7 @@
 //! # use nix::{libc, Result};
 //! # use nix::errno::Errno;
 //! # use nix::libc::c_int as c_int;
-//! # const SPI_IOC_MAGIC: u8 = b&#39;k&#39;;
+//! # const SPI_IOC_MAGIC: u8 = b'k';
 //! # const SPI_IOC_TYPE_MESSAGE: u8 = 0;
 //! # pub struct spi_ioc_transfer(u64);
 //! pub unsafe fn spi_message(fd: c_int, data: &amp;mut [spi_ioc_transfer]) -&gt; Result&lt;c_int&gt; {
@@ -968,10 +969,10 @@
 //! Finding `ioctl` Documentation
 //! -----------------------------
 //!
-//! For Linux, look at your system&#39;s headers. For example, `/usr/include/linux/input.h` has a lot
+//! For Linux, look at your system's headers. For example, `/usr/include/linux/input.h` has a lot
 //! of lines defining macros which use `_IO`, `_IOR`, `_IOW`, `_IOC`, and `_IOWR`. Some `ioctl`s are
 //! documented directly in the headers defining their constants, but others have more extensive
-//! documentation in man pages (like termios&#39; `ioctl`s which are in `tty_ioctl(4)`).
+//! documentation in man pages (like termios' `ioctl`s which are in `tty_ioctl(4)`).
 //!
 //! Documenting the Generated Functions
 //! ===================================
@@ -994,37 +995,37 @@
 //!     /// ioctl will fail with **EPERM**, unless the caller is root (more precisely: has the
 //!     /// **CAP_SYS_ADMIN** capability) and arg equals 1, in which case the terminal is stolen
 //!     /// and all processes that had it as controlling terminal lose it.
-//!     tiocsctty, b&#39;t&#39;, 19, c_int
+//!     tiocsctty, b't', 19, c_int
 //! }
 //!
 //! # fn main() {}
 //! ```
 </span><span class="kw">use </span>cfg_if::cfg_if;
 
-<span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;redox&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>, target_os = <span class="string">"redox"</span>))]
 #[macro_use]
 </span><span class="kw">mod </span>linux;
 
-<span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;redox&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>, target_os = <span class="string">"redox"</span>))]
 </span><span class="kw">pub use </span><span class="self">self</span>::linux::<span class="kw-2">*</span>;
 
-<span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-          target_os = <span class="string">&quot;freebsd&quot;</span>,
-          target_os = <span class="string">&quot;illumos&quot;</span>,
-          target_os = <span class="string">&quot;ios&quot;</span>,
-          target_os = <span class="string">&quot;macos&quot;</span>,
-          target_os = <span class="string">&quot;netbsd&quot;</span>,
-          target_os = <span class="string">&quot;openbsd&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+          target_os = <span class="string">"freebsd"</span>,
+          target_os = <span class="string">"illumos"</span>,
+          target_os = <span class="string">"ios"</span>,
+          target_os = <span class="string">"macos"</span>,
+          target_os = <span class="string">"netbsd"</span>,
+          target_os = <span class="string">"openbsd"</span>))]
 #[macro_use]
 </span><span class="kw">mod </span>bsd;
 
-<span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-          target_os = <span class="string">&quot;freebsd&quot;</span>,
-          target_os = <span class="string">&quot;illumos&quot;</span>,
-          target_os = <span class="string">&quot;ios&quot;</span>,
-          target_os = <span class="string">&quot;macos&quot;</span>,
-          target_os = <span class="string">&quot;netbsd&quot;</span>,
-          target_os = <span class="string">&quot;openbsd&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+          target_os = <span class="string">"freebsd"</span>,
+          target_os = <span class="string">"illumos"</span>,
+          target_os = <span class="string">"ios"</span>,
+          target_os = <span class="string">"macos"</span>,
+          target_os = <span class="string">"netbsd"</span>,
+          target_os = <span class="string">"openbsd"</span>))]
 </span><span class="kw">pub use </span><span class="self">self</span>::bsd::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Convert raw ioctl return value to a Nix result
@@ -1059,14 +1060,14 @@
 /// The `videodev2` driver on Linux defines the `log_status` `ioctl` as:
 ///
 /// ```C
-/// #define VIDIOC_LOG_STATUS         _IO(&#39;V&#39;, 70)
+/// #define VIDIOC_LOG_STATUS         _IO('V', 70)
 /// ```
 ///
 /// This can be implemented in Rust like:
 ///
 /// ```no_run
 /// # #[macro_use] extern crate nix;
-/// ioctl_none!(log_status, b&#39;V&#39;, 70);
+/// ioctl_none!(log_status, b'V', 70);
 /// fn main() {}
 /// ```
 </span><span class="attr">#[macro_export(local_inner_macros)]
@@ -1080,7 +1081,7 @@
     )
 }
 
-<span class="doccomment">/// Generates a wrapper function for a &quot;bad&quot; ioctl that passes no data to the kernel.
+<span class="doccomment">/// Generates a wrapper function for a "bad" ioctl that passes no data to the kernel.
 ///
 /// The arguments to this macro are:
 ///
@@ -1104,7 +1105,7 @@
 /// # use std::os::unix::io::AsRawFd;
 /// ioctl_none_bad!(tiocnxcl, TIOCNXCL);
 /// fn main() {
-///     let file = File::open(&quot;/dev/ttyUSB0&quot;).unwrap();
+///     let file = File::open("/dev/ttyUSB0").unwrap();
 ///     unsafe { tiocnxcl(file.as_raw_fd()) }.unwrap();
 /// }
 /// ```
@@ -1141,7 +1142,7 @@
 ///
 /// ```
 /// # #[macro_use] extern crate nix;
-/// const SPI_IOC_MAGIC: u8 = b&#39;k&#39;; // Defined in linux/spi/spidev.h
+/// const SPI_IOC_MAGIC: u8 = b'k'; // Defined in linux/spi/spidev.h
 /// const SPI_IOC_TYPE_MODE: u8 = 1;
 /// ioctl_read!(spi_read_mode, SPI_IOC_MAGIC, SPI_IOC_TYPE_MODE, u8);
 /// # fn main() {}
@@ -1158,7 +1159,7 @@
     )
 }
 
-<span class="doccomment">/// Generates a wrapper function for a &quot;bad&quot; ioctl that reads data from the kernel.
+<span class="doccomment">/// Generates a wrapper function for a "bad" ioctl that reads data from the kernel.
 ///
 /// The arguments to this macro are:
 ///
@@ -1178,7 +1179,7 @@
 ///
 /// ```
 /// # #[macro_use] extern crate nix;
-/// # #[cfg(any(target_os = &quot;android&quot;, target_os = &quot;linux&quot;))]
+/// # #[cfg(any(target_os = "android", target_os = "linux"))]
 /// ioctl_read_bad!(tcgets, libc::TCGETS, libc::termios);
 /// # fn main() {}
 /// ```
@@ -1216,7 +1217,7 @@
 /// ```
 /// # #[macro_use] extern crate nix;
 /// # pub struct v4l2_audio {}
-/// ioctl_write_ptr!(s_audio, b&#39;V&#39;, 34, v4l2_audio);
+/// ioctl_write_ptr!(s_audio, b'V', 34, v4l2_audio);
 /// # fn main() {}
 /// ```
 </span><span class="attr">#[macro_export(local_inner_macros)]
@@ -1231,7 +1232,7 @@
     )
 }
 
-<span class="doccomment">/// Generates a wrapper function for a &quot;bad&quot; ioctl that writes data through a pointer to the kernel.
+<span class="doccomment">/// Generates a wrapper function for a "bad" ioctl that writes data through a pointer to the kernel.
 ///
 /// The arguments to this macro are:
 ///
@@ -1251,7 +1252,7 @@
 ///
 /// ```
 /// # #[macro_use] extern crate nix;
-/// # #[cfg(any(target_os = &quot;android&quot;, target_os = &quot;linux&quot;))]
+/// # #[cfg(any(target_os = "android", target_os = "linux"))]
 /// ioctl_write_ptr_bad!(tcsets, libc::TCSETS, libc::termios);
 /// # fn main() {}
 /// ```
@@ -1268,7 +1269,7 @@
 }
 
 <span class="macro">cfg_if!</span>{
-    <span class="kw">if </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>))] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>))] </span>{
         <span class="doccomment">/// Generates a wrapper function for a ioctl that writes an integer to the kernel.
         ///
         /// The arguments to this macro are:
@@ -1293,7 +1294,7 @@
         ///
         /// ```
         /// # #[macro_use] extern crate nix;
-        /// ioctl_write_int!(vt_activate, b&#39;v&#39;, 4);
+        /// ioctl_write_int!(vt_activate, b'v', 4);
         /// # fn main() {}
         /// ```
         </span><span class="attr">#[macro_export(local_inner_macros)]
@@ -1332,7 +1333,7 @@
         ///
         /// ```
         /// # #[macro_use] extern crate nix;
-        /// const HCI_IOC_MAGIC: u8 = b&#39;k&#39;;
+        /// const HCI_IOC_MAGIC: u8 = b'k';
         /// const HCI_IOC_HCIDEVUP: u8 = 1;
         /// ioctl_write_int!(hci_dev_up, HCI_IOC_MAGIC, HCI_IOC_HCIDEVUP);
         /// # fn main() {}
@@ -1351,7 +1352,7 @@
     }
 }
 
-<span class="doccomment">/// Generates a wrapper function for a &quot;bad&quot; ioctl that writes an integer to the kernel.
+<span class="doccomment">/// Generates a wrapper function for a "bad" ioctl that writes an integer to the kernel.
 ///
 /// The arguments to this macro are:
 ///
@@ -1370,7 +1371,7 @@
 ///
 /// ```
 /// # #[macro_use] extern crate nix;
-/// # #[cfg(any(target_os = &quot;android&quot;, target_os = &quot;linux&quot;))]
+/// # #[cfg(any(target_os = "android", target_os = "linux"))]
 /// ioctl_write_int_bad!(tcsbrk, libc::TCSBRK);
 /// # fn main() {}
 /// ```
@@ -1415,7 +1416,7 @@
 /// ```
 /// # #[macro_use] extern crate nix;
 /// # pub struct v4l2_audio {}
-/// ioctl_readwrite!(enum_audio, b&#39;V&#39;, 65, v4l2_audio);
+/// ioctl_readwrite!(enum_audio, b'V', 65, v4l2_audio);
 /// # fn main() {}
 /// ```
 </span><span class="attr">#[macro_export(local_inner_macros)]
@@ -1430,7 +1431,7 @@
     )
 }
 
-<span class="doccomment">/// Generates a wrapper function for a &quot;bad&quot; ioctl that reads and writes data to the kernel.
+<span class="doccomment">/// Generates a wrapper function for a "bad" ioctl that reads and writes data to the kernel.
 ///
 /// The arguments to this macro are:
 ///
@@ -1508,7 +1509,7 @@
 ///
 /// ```
 /// # #[macro_use] extern crate nix;
-/// const SPI_IOC_MAGIC: u8 = b&#39;k&#39;; // Defined in linux/spi/spidev.h
+/// const SPI_IOC_MAGIC: u8 = b'k'; // Defined in linux/spi/spidev.h
 /// const SPI_IOC_TYPE_MESSAGE: u8 = 0;
 /// # pub struct spi_ioc_transfer(u64);
 /// ioctl_write_buf!(spi_transfer, SPI_IOC_MAGIC, SPI_IOC_TYPE_MESSAGE, spi_ioc_transfer);

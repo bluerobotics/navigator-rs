@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rppal-0.13.1/src/gpio.rs`."><title>gpio.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="rppal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../rppal/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rppal-0.13.1/src/gpio.rs`."><title>gpio.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="rppal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -467,7 +468,7 @@
 </pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2017-2021 Rene van der Meer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the &quot;Software&quot;),
+// copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation
 // the rights to use, copy, modify, merge, publish, distribute, sublicense,
 // and/or sell copies of the Software, and to permit persons to whom the
@@ -476,7 +477,7 @@
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
 //
-// THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -493,13 +494,13 @@
 //! ## Pins
 //!
 //! GPIO pins are retrieved from a [`Gpio`] instance by their BCM GPIO pin number by calling
-//! [`Gpio::get`]. The returned unconfigured [`Pin`] can be used to read the pin&#39;s
+//! [`Gpio::get`]. The returned unconfigured [`Pin`] can be used to read the pin's
 //! mode and logic level. Converting the [`Pin`] to an [`InputPin`], [`OutputPin`] or
 //! [`IoPin`] through the various `into_` methods available on [`Pin`] configures the
 //! appropriate mode, and provides access to additional methods relevant to the selected pin mode.
 //!
 //! Retrieving a GPIO pin with [`Gpio::get`] grants access to the pin through an owned [`Pin`]
-//! instance. If the pin is already in use, or the GPIO peripheral doesn&#39;t expose a pin with
+//! instance. If the pin is already in use, or the GPIO peripheral doesn't expose a pin with
 //! the specified number, [`Gpio::get`] returns `Err(`[`Error::PinNotAvailable`]`)`. After a [`Pin`]
 //! (or a derived [`InputPin`], [`OutputPin`] or [`IoPin`]) goes out of scope, it can be
 //! retrieved again through another [`Gpio::get`] call.
@@ -507,8 +508,8 @@
 //! By default, pins are reset to their original state when they go out of scope.
 //! Use [`InputPin::set_reset_on_drop(false)`], [`OutputPin::set_reset_on_drop(false)`]
 //! or [`IoPin::set_reset_on_drop(false)`], respectively, to disable this behavior.
-//! Note that `drop` methods aren&#39;t called when a process is abnormally terminated (for
-//! instance when a `SIGINT` signal isn&#39;t caught).
+//! Note that `drop` methods aren't called when a process is abnormally terminated (for
+//! instance when a `SIGINT` signal isn't caught).
 //!
 //! ## Interrupts
 //!
@@ -526,7 +527,7 @@
 //! ## Software-based PWM
 //!
 //! [`OutputPin`] and [`IoPin`] feature a software-based PWM implementation. The PWM signal is
-//! emulated by toggling the pin&#39;s output state on a separate thread, combined with sleep and
+//! emulated by toggling the pin's output state on a separate thread, combined with sleep and
 //! busy-waiting.
 //!
 //! Software-based PWM is inherently inaccurate on a multi-threaded OS due to scheduling/preemption.
@@ -568,14 +569,14 @@
 //! `gpio` group (like the default `pi` user) can access `/dev/gpiomem` and
 //! `/dev/gpiochipN` (N = 0-2) without needing additional permissions. If you encounter any
 //! [`PermissionDenied`] errors when constructing a new [`Gpio`] instance, either the current
-//! user isn&#39;t a member of the `gpio` group, or your Raspberry Pi OS distribution isn&#39;t
-//! up-to-date and doesn&#39;t automatically configure permissions for the above-mentioned
+//! user isn't a member of the `gpio` group, or your Raspberry Pi OS distribution isn't
+//! up-to-date and doesn't automatically configure permissions for the above-mentioned
 //! files. Updating Raspberry Pi OS to the latest release should fix any permission issues.
 //! Alternatively, although not recommended, you can run your application with superuser
 //! privileges by using `sudo`.
 //!
-//! If you&#39;re unable to update Raspberry Pi OS and its packages (namely `raspberrypi-sys-mods`) to
-//! the latest available release, or updating hasn&#39;t fixed the issue, you might be able to
+//! If you're unable to update Raspberry Pi OS and its packages (namely `raspberrypi-sys-mods`) to
+//! the latest available release, or updating hasn't fixed the issue, you might be able to
 //! manually update your `udev` rules to set the appropriate permissions. More information
 //! can be found at [raspberrypi/linux#1225] and [raspberrypi/linux#2289].
 //!
@@ -611,9 +612,9 @@
 <span class="kw">use </span>lazy_static::lazy_static;
 
 <span class="kw">mod </span>epoll;
-<span class="attr">#[cfg(feature = <span class="string">&quot;hal&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"hal"</span>)]
 </span><span class="kw">mod </span>hal;
-<span class="attr">#[cfg(feature = <span class="string">&quot;hal-unproven&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"hal-unproven"</span>)]
 </span><span class="kw">mod </span>hal_unproven;
 <span class="kw">mod </span>interrupt;
 <span class="kw">mod </span>ioctl;
@@ -630,19 +631,19 @@
 </span><span class="kw">pub enum </span>Error {
     <span class="doccomment">/// Unknown model.
     ///
-    /// The Raspberry Pi model or SoC can&#39;t be identified. Support for
+    /// The Raspberry Pi model or SoC can't be identified. Support for
     /// new models is usually added shortly after they are officially
-    /// announced and available to the public. Make sure you&#39;re using
+    /// announced and available to the public. Make sure you're using
     /// the latest release of RPPAL.
     ///
     /// You may also encounter this error if your Linux distribution
-    /// doesn&#39;t provide any of the common user-accessible system files
+    /// doesn't provide any of the common user-accessible system files
     /// that are used to identify the model and SoC.
     </span>UnknownModel,
     <span class="doccomment">/// Pin is not available.
     ///
     /// The pin is already in use elsewhere in your application, or the GPIO peripheral
-    /// doesn&#39;t expose a pin with the specified number. If the pin is currently in use, you
+    /// doesn't expose a pin with the specified number. If the pin is currently in use, you
     /// can retrieve it again after the [`Pin`] (or a derived [`InputPin`], [`OutputPin`] or
     /// [`IoPin`]) instance goes out of scope.
     ///
@@ -665,13 +666,13 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Error {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Error::UnknownModel =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Unknown Raspberry Pi model&quot;</span>),
-            Error::PinNotAvailable(pin) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Pin {} is not available&quot;</span>, pin),
-            Error::PermissionDenied(<span class="kw-2">ref </span>path) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Permission denied: {}&quot;</span>, path),
-            Error::Io(<span class="kw-2">ref </span>err) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;I/O error: {}&quot;</span>, err),
-            Error::ThreadPanic =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Thread panicked&quot;</span>),
+            Error::UnknownModel =&gt; <span class="macro">write!</span>(f, <span class="string">"Unknown Raspberry Pi model"</span>),
+            Error::PinNotAvailable(pin) =&gt; <span class="macro">write!</span>(f, <span class="string">"Pin {} is not available"</span>, pin),
+            Error::PermissionDenied(<span class="kw-2">ref </span>path) =&gt; <span class="macro">write!</span>(f, <span class="string">"Permission denied: {}"</span>, path),
+            Error::Io(<span class="kw-2">ref </span>err) =&gt; <span class="macro">write!</span>(f, <span class="string">"I/O error: {}"</span>, err),
+            Error::ThreadPanic =&gt; <span class="macro">write!</span>(f, <span class="string">"Thread panicked"</span>),
         }
     }
 }
@@ -708,16 +709,16 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Mode {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Mode::Input =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;In&quot;</span>),
-            Mode::Output =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Out&quot;</span>),
-            Mode::Alt0 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Alt0&quot;</span>),
-            Mode::Alt1 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Alt1&quot;</span>),
-            Mode::Alt2 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Alt2&quot;</span>),
-            Mode::Alt3 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Alt3&quot;</span>),
-            Mode::Alt4 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Alt4&quot;</span>),
-            Mode::Alt5 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Alt5&quot;</span>),
+            Mode::Input =&gt; <span class="macro">write!</span>(f, <span class="string">"In"</span>),
+            Mode::Output =&gt; <span class="macro">write!</span>(f, <span class="string">"Out"</span>),
+            Mode::Alt0 =&gt; <span class="macro">write!</span>(f, <span class="string">"Alt0"</span>),
+            Mode::Alt1 =&gt; <span class="macro">write!</span>(f, <span class="string">"Alt1"</span>),
+            Mode::Alt2 =&gt; <span class="macro">write!</span>(f, <span class="string">"Alt2"</span>),
+            Mode::Alt3 =&gt; <span class="macro">write!</span>(f, <span class="string">"Alt3"</span>),
+            Mode::Alt4 =&gt; <span class="macro">write!</span>(f, <span class="string">"Alt4"</span>),
+            Mode::Alt5 =&gt; <span class="macro">write!</span>(f, <span class="string">"Alt5"</span>),
         }
     }
 }
@@ -731,10 +732,10 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Level {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Level::Low =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Low&quot;</span>),
-            Level::High =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;High&quot;</span>),
+            Level::Low =&gt; <span class="macro">write!</span>(f, <span class="string">"Low"</span>),
+            Level::High =&gt; <span class="macro">write!</span>(f, <span class="string">"High"</span>),
         }
     }
 }
@@ -769,11 +770,11 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>PullUpDown {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            PullUpDown::Off =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Off&quot;</span>),
-            PullUpDown::PullDown =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;PullDown&quot;</span>),
-            PullUpDown::PullUp =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;PullUp&quot;</span>),
+            PullUpDown::Off =&gt; <span class="macro">write!</span>(f, <span class="string">"Off"</span>),
+            PullUpDown::PullDown =&gt; <span class="macro">write!</span>(f, <span class="string">"PullDown"</span>),
+            PullUpDown::PullUp =&gt; <span class="macro">write!</span>(f, <span class="string">"PullUp"</span>),
         }
     }
 }
@@ -788,17 +789,17 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Trigger {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Trigger::Disabled =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Disabled&quot;</span>),
-            Trigger::RisingEdge =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;RisingEdge&quot;</span>),
-            Trigger::FallingEdge =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;FallingEdge&quot;</span>),
-            Trigger::Both =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Both&quot;</span>),
+            Trigger::Disabled =&gt; <span class="macro">write!</span>(f, <span class="string">"Disabled"</span>),
+            Trigger::RisingEdge =&gt; <span class="macro">write!</span>(f, <span class="string">"RisingEdge"</span>),
+            Trigger::FallingEdge =&gt; <span class="macro">write!</span>(f, <span class="string">"FallingEdge"</span>),
+            Trigger::Both =&gt; <span class="macro">write!</span>(f, <span class="string">"Both"</span>),
         }
     }
 }
 
-<span class="comment">// Store Gpio&#39;s state separately, so we can conveniently share it through
+<span class="comment">// Store Gpio's state separately, so we can conveniently share it through
 // a cloned Arc.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>GpioState {
     gpio_mem: mem::GpioMem,
@@ -808,24 +809,24 @@
 }
 
 <span class="kw">impl </span>fmt::Debug <span class="kw">for </span>GpioState {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        f.debug_struct(<span class="string">&quot;EventLoop&quot;</span>)
-            .field(<span class="string">&quot;gpio_mem&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.gpio_mem)
-            .field(<span class="string">&quot;cdev&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.cdev)
-            .field(<span class="string">&quot;sync_interrupts&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.sync_interrupts)
-            .field(<span class="string">&quot;pins_taken&quot;</span>, <span class="kw-2">&amp;</span><span class="macro">format_args!</span>(<span class="string">&quot;{{ .. }}&quot;</span>))
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
+        f.debug_struct(<span class="string">"EventLoop"</span>)
+            .field(<span class="string">"gpio_mem"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.gpio_mem)
+            .field(<span class="string">"cdev"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.cdev)
+            .field(<span class="string">"sync_interrupts"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.sync_interrupts)
+            .field(<span class="string">"pins_taken"</span>, <span class="kw-2">&amp;</span><span class="macro">format_args!</span>(<span class="string">"{{ .. }}"</span>))
             .finish()
     }
 }
 
 <span class="comment">// Share state between Gpio and Pin instances. GpioState is dropped after
-// all Gpio and Pin instances go out of scope, guaranteeing we won&#39;t have
+// all Gpio and Pin instances go out of scope, guaranteeing we won't have
 // any pins simultaneously using different EventLoop or GpioMem instances.
 </span><span class="macro">lazy_static! </span>{
     <span class="kw">static </span><span class="kw-2">ref </span>GPIO_STATE: Mutex&lt;Weak&lt;GpioState&gt;&gt; = Mutex::new(Weak::new());
 }
 
-<span class="doccomment">/// Provides access to the Raspberry Pi&#39;s GPIO peripheral.
+<span class="doccomment">/// Provides access to the Raspberry Pi's GPIO peripheral.
 </span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Gpio {
     inner: Arc&lt;GpioState&gt;,
@@ -867,7 +868,7 @@
     <span class="doccomment">/// Returns a [`Pin`] for the specified BCM GPIO pin number.
     ///
     /// Retrieving a GPIO pin grants access to the pin through an owned [`Pin`] instance.
-    /// If the pin is already in use, or the GPIO peripheral doesn&#39;t expose a pin with the
+    /// If the pin is already in use, or the GPIO peripheral doesn't expose a pin with the
     /// specified number, `get` returns `Err(`[`Error::PinNotAvailable`]`)`. After a [`Pin`]
     /// (or a derived [`InputPin`], [`OutputPin`] or [`IoPin`]) goes out of scope, it
     /// can be retrieved again through another `get` call.
@@ -921,12 +922,12 @@
     /// [`InputPin::set_async_interrupt`]: struct.InputPin.html#method.set_async_interrupt
     /// [`InputPin`]: struct.InputPin.html
     /// [`Level`]: enum.Level.html
-    </span><span class="kw">pub fn </span>poll_interrupts&lt;<span class="lifetime">&#39;a</span>&gt;(
+    </span><span class="kw">pub fn </span>poll_interrupts&lt;<span class="lifetime">'a</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        pins: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>InputPin],
+        pins: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="lifetime">'a </span>InputPin],
         reset: bool,
         timeout: <span class="prelude-ty">Option</span>&lt;Duration&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>InputPin, Level)&gt;&gt; {
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span>InputPin, Level)&gt;&gt; {
         (<span class="kw-2">*</span><span class="self">self</span>.inner.sync_interrupts.lock().unwrap()).poll(pins, reset, timeout)
     }
 }

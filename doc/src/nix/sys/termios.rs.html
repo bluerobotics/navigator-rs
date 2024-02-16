@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nix-0.23.2/src/sys/termios.rs`."><title>termios.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../nix/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nix-0.23.2/src/sys/termios.rs`."><title>termios.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1105,12 +1106,12 @@
 //!
 //! On non-BSDs, `cfgetispeed()` and `cfgetospeed()` both return a `BaudRate`:
 //!
-</span><span class="attr">#![cfg_attr(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>,
-                target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;netbsd&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>),
-            doc = <span class="string">&quot; ```rust,ignore&quot;</span>)]
-#![cfg_attr(not(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>,
-                    target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;netbsd&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>)),
-            doc = <span class="string">&quot; ```rust&quot;</span>)]
+</span><span class="attr">#![cfg_attr(any(target_os = <span class="string">"freebsd"</span>, target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"ios"</span>,
+                target_os = <span class="string">"macos"</span>, target_os = <span class="string">"netbsd"</span>, target_os = <span class="string">"openbsd"</span>),
+            doc = <span class="string">" ```rust,ignore"</span>)]
+#![cfg_attr(not(any(target_os = <span class="string">"freebsd"</span>, target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"ios"</span>,
+                    target_os = <span class="string">"macos"</span>, target_os = <span class="string">"netbsd"</span>, target_os = <span class="string">"openbsd"</span>)),
+            doc = <span class="string">" ```rust"</span>)]
 </span><span class="doccomment">//! # use nix::sys::termios::{BaudRate, cfgetispeed, cfgetospeed, cfsetspeed, Termios};
 //! # fn main() {
 //! # let mut t: Termios = unsafe { std::mem::zeroed() };
@@ -1122,12 +1123,12 @@
 //!
 //! But on the BSDs, `cfgetispeed()` and `cfgetospeed()` both return `u32`s:
 //!
-</span><span class="attr">#![cfg_attr(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>,
-                target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;netbsd&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>),
-            doc = <span class="string">&quot; ```rust&quot;</span>)]
-#![cfg_attr(not(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>,
-                    target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;netbsd&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>)),
-            doc = <span class="string">&quot; ```rust,ignore&quot;</span>)]
+</span><span class="attr">#![cfg_attr(any(target_os = <span class="string">"freebsd"</span>, target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"ios"</span>,
+                target_os = <span class="string">"macos"</span>, target_os = <span class="string">"netbsd"</span>, target_os = <span class="string">"openbsd"</span>),
+            doc = <span class="string">" ```rust"</span>)]
+#![cfg_attr(not(any(target_os = <span class="string">"freebsd"</span>, target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"ios"</span>,
+                    target_os = <span class="string">"macos"</span>, target_os = <span class="string">"netbsd"</span>, target_os = <span class="string">"openbsd"</span>)),
+            doc = <span class="string">" ```rust,ignore"</span>)]
 </span><span class="doccomment">//! # use nix::sys::termios::{BaudRate, cfgetispeed, cfgetospeed, cfsetspeed, Termios};
 //! # fn main() {
 //! # let mut t: Termios = unsafe { std::mem::zeroed() };
@@ -1137,14 +1138,14 @@
 //! # }
 //! ```
 //!
-//! It&#39;s trivial to convert from a `BaudRate` to a `u32` on BSDs:
+//! It's trivial to convert from a `BaudRate` to a `u32` on BSDs:
 //!
-</span><span class="attr">#![cfg_attr(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>,
-                target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;netbsd&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>),
-            doc = <span class="string">&quot; ```rust&quot;</span>)]
-#![cfg_attr(not(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>,
-                    target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;netbsd&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>)),
-            doc = <span class="string">&quot; ```rust,ignore&quot;</span>)]
+</span><span class="attr">#![cfg_attr(any(target_os = <span class="string">"freebsd"</span>, target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"ios"</span>,
+                target_os = <span class="string">"macos"</span>, target_os = <span class="string">"netbsd"</span>, target_os = <span class="string">"openbsd"</span>),
+            doc = <span class="string">" ```rust"</span>)]
+#![cfg_attr(not(any(target_os = <span class="string">"freebsd"</span>, target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"ios"</span>,
+                    target_os = <span class="string">"macos"</span>, target_os = <span class="string">"netbsd"</span>, target_os = <span class="string">"openbsd"</span>)),
+            doc = <span class="string">" ```rust,ignore"</span>)]
 </span><span class="doccomment">//! # use nix::sys::termios::{BaudRate, cfgetispeed, cfsetspeed, Termios};
 //! # fn main() {
 //! # let mut t: Termios = unsafe { std::mem::zeroed() };
@@ -1157,12 +1158,12 @@
 //! And on BSDs you can specify arbitrary baud rates (**note** this depends on hardware support)
 //! by specifying baud rates directly using `u32`s:
 //!
-</span><span class="attr">#![cfg_attr(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>,
-                target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;netbsd&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>),
-            doc = <span class="string">&quot; ```rust&quot;</span>)]
-#![cfg_attr(not(any(target_os = <span class="string">&quot;freebsd&quot;</span>, target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;ios&quot;</span>,
-                    target_os = <span class="string">&quot;macos&quot;</span>, target_os = <span class="string">&quot;netbsd&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>)),
-            doc = <span class="string">&quot; ```rust,ignore&quot;</span>)]
+</span><span class="attr">#![cfg_attr(any(target_os = <span class="string">"freebsd"</span>, target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"ios"</span>,
+                target_os = <span class="string">"macos"</span>, target_os = <span class="string">"netbsd"</span>, target_os = <span class="string">"openbsd"</span>),
+            doc = <span class="string">" ```rust"</span>)]
+#![cfg_attr(not(any(target_os = <span class="string">"freebsd"</span>, target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"ios"</span>,
+                    target_os = <span class="string">"macos"</span>, target_os = <span class="string">"netbsd"</span>, target_os = <span class="string">"openbsd"</span>)),
+            doc = <span class="string">" ```rust,ignore"</span>)]
 </span><span class="doccomment">//! # use nix::sys::termios::{cfsetispeed, cfsetospeed, cfsetspeed, Termios};
 //! # fn main() {
 //! # let mut t: Termios = unsafe { std::mem::zeroed() };
@@ -1205,7 +1206,7 @@
 <span class="kw">impl </span>Termios {
     <span class="doccomment">/// Exposes an immutable reference to the underlying `libc::termios` data structure.
     ///
-    /// This is not part of `nix`&#39;s public API because it requires additional work to maintain type
+    /// This is not part of `nix`'s public API because it requires additional work to maintain type
     /// safety.
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>get_libc_termios(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Ref&lt;libc::termios&gt; {
         {
@@ -1274,8 +1275,8 @@
     /// enum.
     ///
     /// B0 is special and will disable the port.
-    </span><span class="attr">#[cfg_attr(all(any(target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>), target_pointer_width = <span class="string">&quot;64&quot;</span>), repr(u64))]
-    #[cfg_attr(not(all(any(target_os = <span class="string">&quot;ios&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>), target_pointer_width = <span class="string">&quot;64&quot;</span>)), repr(u32))]
+    </span><span class="attr">#[cfg_attr(all(any(target_os = <span class="string">"ios"</span>, target_os = <span class="string">"macos"</span>), target_pointer_width = <span class="string">"64"</span>), repr(u64))]
+    #[cfg_attr(not(all(any(target_os = <span class="string">"ios"</span>, target_os = <span class="string">"macos"</span>), target_pointer_width = <span class="string">"64"</span>)), repr(u32))]
     #[non_exhaustive]
     </span><span class="kw">pub enum </span>BaudRate {
         B0,
@@ -1291,84 +1292,84 @@
         B1800,
         B2400,
         B4800,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                target_os = <span class="string">&quot;freebsd&quot;</span>,
-                target_os = <span class="string">&quot;macos&quot;</span>,
-                target_os = <span class="string">&quot;netbsd&quot;</span>,
-                target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                target_os = <span class="string">"freebsd"</span>,
+                target_os = <span class="string">"macos"</span>,
+                target_os = <span class="string">"netbsd"</span>,
+                target_os = <span class="string">"openbsd"</span>))]
         </span>B7200,
         B9600,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                target_os = <span class="string">&quot;freebsd&quot;</span>,
-                target_os = <span class="string">&quot;macos&quot;</span>,
-                target_os = <span class="string">&quot;netbsd&quot;</span>,
-                target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                target_os = <span class="string">"freebsd"</span>,
+                target_os = <span class="string">"macos"</span>,
+                target_os = <span class="string">"netbsd"</span>,
+                target_os = <span class="string">"openbsd"</span>))]
         </span>B14400,
         B19200,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                target_os = <span class="string">&quot;freebsd&quot;</span>,
-                target_os = <span class="string">&quot;macos&quot;</span>,
-                target_os = <span class="string">&quot;netbsd&quot;</span>,
-                target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                target_os = <span class="string">"freebsd"</span>,
+                target_os = <span class="string">"macos"</span>,
+                target_os = <span class="string">"netbsd"</span>,
+                target_os = <span class="string">"openbsd"</span>))]
         </span>B28800,
         B38400,
         B57600,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                target_os = <span class="string">&quot;freebsd&quot;</span>,
-                target_os = <span class="string">&quot;macos&quot;</span>,
-                target_os = <span class="string">&quot;netbsd&quot;</span>,
-                target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                target_os = <span class="string">"freebsd"</span>,
+                target_os = <span class="string">"macos"</span>,
+                target_os = <span class="string">"netbsd"</span>,
+                target_os = <span class="string">"openbsd"</span>))]
         </span>B76800,
         B115200,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>B153600,
         B230400,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>B307200,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;illumos&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;solaris&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"illumos"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"solaris"</span>))]
         </span>B460800,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>B500000,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>B576000,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;illumos&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;solaris&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"illumos"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"solaris"</span>))]
         </span>B921600,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>B1000000,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>B1152000,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>B1500000,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>B2000000,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, all(target_os = <span class="string">&quot;linux&quot;</span>, not(target_arch = <span class="string">&quot;sparc64&quot;</span>))))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, all(target_os = <span class="string">"linux"</span>, not(target_arch = <span class="string">"sparc64"</span>))))]
         </span>B2500000,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, all(target_os = <span class="string">&quot;linux&quot;</span>, not(target_arch = <span class="string">&quot;sparc64&quot;</span>))))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, all(target_os = <span class="string">"linux"</span>, not(target_arch = <span class="string">"sparc64"</span>))))]
         </span>B3000000,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, all(target_os = <span class="string">&quot;linux&quot;</span>, not(target_arch = <span class="string">&quot;sparc64&quot;</span>))))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, all(target_os = <span class="string">"linux"</span>, not(target_arch = <span class="string">"sparc64"</span>))))]
         </span>B3500000,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, all(target_os = <span class="string">&quot;linux&quot;</span>, not(target_arch = <span class="string">&quot;sparc64&quot;</span>))))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, all(target_os = <span class="string">"linux"</span>, not(target_arch = <span class="string">"sparc64"</span>))))]
         </span>B4000000,
     }
     <span class="kw">impl </span>TryFrom&lt;libc::speed_t&gt;
 }
 
-<span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>,
-          target_os = <span class="string">&quot;dragonfly&quot;</span>,
-          target_os = <span class="string">&quot;ios&quot;</span>,
-          target_os = <span class="string">&quot;macos&quot;</span>,
-          target_os = <span class="string">&quot;netbsd&quot;</span>,
-          target_os = <span class="string">&quot;openbsd&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">"freebsd"</span>,
+          target_os = <span class="string">"dragonfly"</span>,
+          target_os = <span class="string">"ios"</span>,
+          target_os = <span class="string">"macos"</span>,
+          target_os = <span class="string">"netbsd"</span>,
+          target_os = <span class="string">"openbsd"</span>))]
 </span><span class="kw">impl </span>From&lt;BaudRate&gt; <span class="kw">for </span>u32 {
     <span class="kw">fn </span>from(b: BaudRate) -&gt; u32 {
         b <span class="kw">as </span>u32
@@ -1433,69 +1434,69 @@
     #[non_exhaustive]
     </span><span class="kw">pub enum </span>SpecialCharacterIndices {
         VDISCARD,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                target_os = <span class="string">&quot;freebsd&quot;</span>,
-                target_os = <span class="string">&quot;illumos&quot;</span>,
-                target_os = <span class="string">&quot;macos&quot;</span>,
-                target_os = <span class="string">&quot;netbsd&quot;</span>,
-                target_os = <span class="string">&quot;openbsd&quot;</span>,
-                target_os = <span class="string">&quot;solaris&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                target_os = <span class="string">"freebsd"</span>,
+                target_os = <span class="string">"illumos"</span>,
+                target_os = <span class="string">"macos"</span>,
+                target_os = <span class="string">"netbsd"</span>,
+                target_os = <span class="string">"openbsd"</span>,
+                target_os = <span class="string">"solaris"</span>))]
         </span>VDSUSP,
         VEOF,
         VEOL,
         VEOL2,
         VERASE,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;illumos&quot;</span>,
-                  target_os = <span class="string">&quot;solaris&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"illumos"</span>,
+                  target_os = <span class="string">"solaris"</span>))]
         </span>VERASE2,
         VINTR,
         VKILL,
         VLNEXT,
-        <span class="attr">#[cfg(not(any(all(target_os = <span class="string">&quot;linux&quot;</span>, target_arch = <span class="string">&quot;sparc64&quot;</span>),
-                target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>)))]
+        <span class="attr">#[cfg(not(any(all(target_os = <span class="string">"linux"</span>, target_arch = <span class="string">"sparc64"</span>),
+                target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>)))]
         </span>VMIN,
         VQUIT,
         VREPRINT,
         VSTART,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                target_os = <span class="string">&quot;freebsd&quot;</span>,
-                target_os = <span class="string">&quot;illumos&quot;</span>,
-                target_os = <span class="string">&quot;macos&quot;</span>,
-                target_os = <span class="string">&quot;netbsd&quot;</span>,
-                target_os = <span class="string">&quot;openbsd&quot;</span>,
-                target_os = <span class="string">&quot;solaris&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                target_os = <span class="string">"freebsd"</span>,
+                target_os = <span class="string">"illumos"</span>,
+                target_os = <span class="string">"macos"</span>,
+                target_os = <span class="string">"netbsd"</span>,
+                target_os = <span class="string">"openbsd"</span>,
+                target_os = <span class="string">"solaris"</span>))]
         </span>VSTATUS,
         VSTOP,
         VSUSP,
-        <span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+        <span class="attr">#[cfg(target_os = <span class="string">"linux"</span>)]
         </span>VSWTC,
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;haiku&quot;</span>, target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"haiku"</span>, target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>VSWTCH,
-        <span class="attr">#[cfg(not(any(all(target_os = <span class="string">&quot;linux&quot;</span>, target_arch = <span class="string">&quot;sparc64&quot;</span>),
-                target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>)))]
+        <span class="attr">#[cfg(not(any(all(target_os = <span class="string">"linux"</span>, target_arch = <span class="string">"sparc64"</span>),
+                target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>)))]
         </span>VTIME,
         VWERASE,
-        <span class="attr">#[cfg(target_os = <span class="string">&quot;dragonfly&quot;</span>)]
+        <span class="attr">#[cfg(target_os = <span class="string">"dragonfly"</span>)]
         </span>VCHECKPT,
     }
 }
 
-<span class="attr">#[cfg(any(all(target_os = <span class="string">&quot;linux&quot;</span>, target_arch = <span class="string">&quot;sparc64&quot;</span>),
-        target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+<span class="attr">#[cfg(any(all(target_os = <span class="string">"linux"</span>, target_arch = <span class="string">"sparc64"</span>),
+        target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
 </span><span class="kw">impl </span>SpecialCharacterIndices {
     <span class="kw">pub const </span>VMIN: SpecialCharacterIndices = SpecialCharacterIndices::VEOF;
     <span class="kw">pub const </span>VTIME: SpecialCharacterIndices = SpecialCharacterIndices::VEOL;
 }
 
 <span class="kw">pub use </span>libc::NCCS;
-<span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-          target_os = <span class="string">&quot;freebsd&quot;</span>,
-          target_os = <span class="string">&quot;linux&quot;</span>,
-          target_os = <span class="string">&quot;macos&quot;</span>,
-          target_os = <span class="string">&quot;netbsd&quot;</span>,
-          target_os = <span class="string">&quot;openbsd&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+          target_os = <span class="string">"freebsd"</span>,
+          target_os = <span class="string">"linux"</span>,
+          target_os = <span class="string">"macos"</span>,
+          target_os = <span class="string">"netbsd"</span>,
+          target_os = <span class="string">"openbsd"</span>))]
 </span><span class="kw">pub use </span>libc::_POSIX_VDISABLE;
 
 <span class="macro">libc_bitflags! </span>{
@@ -1512,11 +1513,11 @@
         ICRNL;
         IXON;
         IXOFF;
-        <span class="attr">#[cfg(not(target_os = <span class="string">&quot;redox&quot;</span>))]
+        <span class="attr">#[cfg(not(target_os = <span class="string">"redox"</span>))]
         </span>IXANY;
-        <span class="attr">#[cfg(not(target_os = <span class="string">&quot;redox&quot;</span>))]
+        <span class="attr">#[cfg(not(target_os = <span class="string">"redox"</span>))]
         </span>IMAXBEL;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>, target_os = <span class="string">"macos"</span>))]
         </span>IUTF8;
     }
 }
@@ -1525,181 +1526,181 @@
     <span class="doccomment">/// Flags for configuring the output mode of a terminal
     </span><span class="kw">pub struct </span>OutputFlags: tcflag_t {
         OPOST;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"openbsd"</span>))]
         </span>OLCUC;
         ONLCR;
         OCRNL <span class="kw">as </span>tcflag_t;
         ONOCR <span class="kw">as </span>tcflag_t;
         ONLRET <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>OFILL <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>OFDEL <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>NL0 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>NL1 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>CR0 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>CR1 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>CR2 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>CR3 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>TAB0 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>TAB1 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>TAB2 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>TAB3 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>XTABS;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>BS0 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>BS1 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>VT0 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>VT1 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>FF0 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>FF1 <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>))]
         </span>OXTABS;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>))]
         </span>ONOEOT <span class="kw">as </span>tcflag_t;
 
         <span class="comment">// Bitmasks for use with OutputFlags to select specific settings
         // These should be moved to be a mask once https://github.com/rust-lang-nursery/bitflags/issues/110
         // is resolved.
 
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>NLDLY <span class="kw">as </span>tcflag_t; <span class="comment">// FIXME: Datatype needs to be corrected in libc for mac
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>CRDLY <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>TABDLY <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>BSDLY <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>VTDLY <span class="kw">as </span>tcflag_t;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;haiku&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"haiku"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>))]
         </span>FFDLY <span class="kw">as </span>tcflag_t;
     }
 }
@@ -1707,12 +1708,12 @@
 <span class="macro">libc_bitflags! </span>{
     <span class="doccomment">/// Flags for setting the control mode of a terminal
     </span><span class="kw">pub struct </span>ControlFlags: tcflag_t {
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>))]
         </span>CIGNORE;
         CS5;
         CS6;
@@ -1724,44 +1725,44 @@
         PARODD;
         HUPCL;
         CLOCAL;
-        <span class="attr">#[cfg(not(target_os = <span class="string">&quot;redox&quot;</span>))]
+        <span class="attr">#[cfg(not(target_os = <span class="string">"redox"</span>))]
         </span>CRTSCTS;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>CBAUD;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, all(target_os = <span class="string">&quot;linux&quot;</span>, not(target_arch = <span class="string">&quot;mips&quot;</span>))))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, all(target_os = <span class="string">"linux"</span>, not(target_arch = <span class="string">"mips"</span>))))]
         </span>CMSPAR;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  all(target_os = <span class="string">&quot;linux&quot;</span>,
-                      not(any(target_arch = <span class="string">&quot;powerpc&quot;</span>, target_arch = <span class="string">&quot;powerpc64&quot;</span>)))))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  all(target_os = <span class="string">"linux"</span>,
+                      not(any(target_arch = <span class="string">"powerpc"</span>, target_arch = <span class="string">"powerpc64"</span>)))))]
         </span>CIBAUD;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"linux"</span>))]
         </span>CBAUDEX;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>))]
         </span>MDMBUF;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;netbsd&quot;</span>, target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"netbsd"</span>, target_os = <span class="string">"openbsd"</span>))]
         </span>CHWFLOW;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>))]
         </span>CCTS_OFLOW;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>))]
         </span>CRTS_IFLOW;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>))]
         </span>CDTR_IFLOW;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>))]
         </span>CDSR_OFLOW;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>))]
         </span>CCAR_OFLOW;
 
         <span class="comment">// Bitmasks for use with ControlFlags to select specific settings
@@ -1775,51 +1776,51 @@
 <span class="macro">libc_bitflags! </span>{
     <span class="doccomment">/// Flags for setting any local modes
     </span><span class="kw">pub struct </span>LocalFlags: tcflag_t {
-        <span class="attr">#[cfg(not(target_os = <span class="string">&quot;redox&quot;</span>))]
+        <span class="attr">#[cfg(not(target_os = <span class="string">"redox"</span>))]
         </span>ECHOKE;
         ECHOE;
         ECHOK;
         ECHO;
         ECHONL;
-        <span class="attr">#[cfg(not(target_os = <span class="string">&quot;redox&quot;</span>))]
+        <span class="attr">#[cfg(not(target_os = <span class="string">"redox"</span>))]
         </span>ECHOPRT;
-        <span class="attr">#[cfg(not(target_os = <span class="string">&quot;redox&quot;</span>))]
+        <span class="attr">#[cfg(not(target_os = <span class="string">"redox"</span>))]
         </span>ECHOCTL;
         ISIG;
         ICANON;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>))]
         </span>ALTWERASE;
         IEXTEN;
-        <span class="attr">#[cfg(not(target_os = <span class="string">&quot;redox&quot;</span>))]
+        <span class="attr">#[cfg(not(target_os = <span class="string">"redox"</span>))]
         </span>EXTPROC;
         TOSTOP;
-        <span class="attr">#[cfg(not(target_os = <span class="string">&quot;redox&quot;</span>))]
+        <span class="attr">#[cfg(not(target_os = <span class="string">"redox"</span>))]
         </span>FLUSHO;
-        <span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>))]
+        <span class="attr">#[cfg(any(target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>))]
         </span>NOKERNINFO;
-        <span class="attr">#[cfg(not(target_os = <span class="string">&quot;redox&quot;</span>))]
+        <span class="attr">#[cfg(not(target_os = <span class="string">"redox"</span>))]
         </span>PENDIN;
         NOFLSH;
     }
 }
 
 <span class="macro">cfg_if!</span>{
-    <span class="kw">if </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>,
-                 target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                 target_os = <span class="string">&quot;ios&quot;</span>,
-                 target_os = <span class="string">&quot;macos&quot;</span>,
-                 target_os = <span class="string">&quot;netbsd&quot;</span>,
-                 target_os = <span class="string">&quot;openbsd&quot;</span>))] </span>{
+    <span class="kw">if </span><span class="attr">#[cfg(any(target_os = <span class="string">"freebsd"</span>,
+                 target_os = <span class="string">"dragonfly"</span>,
+                 target_os = <span class="string">"ios"</span>,
+                 target_os = <span class="string">"macos"</span>,
+                 target_os = <span class="string">"netbsd"</span>,
+                 target_os = <span class="string">"openbsd"</span>))] </span>{
         <span class="doccomment">/// Get input baud rate (see
         /// [cfgetispeed(3p)](https://pubs.opengroup.org/onlinepubs/9699919799/functions/cfgetispeed.html)).
         ///
@@ -1932,7 +1933,7 @@
     }
 }
 
-<span class="doccomment">/// Configures the port to something like the &quot;raw&quot; mode of the old Version 7 terminal driver (see
+<span class="doccomment">/// Configures the port to something like the "raw" mode of the old Version 7 terminal driver (see
 /// [termios(3)](https://man7.org/linux/man-pages/man3/termios.3.html)).
 ///
 /// `cfmakeraw()` configures the termios structure such that input is available character-by-
@@ -1946,11 +1947,11 @@
     termios.update_wrapper();
 }
 
-<span class="doccomment">/// Configures the port to &quot;sane&quot; mode (like the configuration of a newly created terminal) (see
+<span class="doccomment">/// Configures the port to "sane" mode (like the configuration of a newly created terminal) (see
 /// [tcsetattr(3)](https://www.freebsd.org/cgi/man.cgi?query=tcsetattr)).
 ///
 /// Note that this is a non-standard function, available on FreeBSD.
-</span><span class="attr">#[cfg(target_os = <span class="string">&quot;freebsd&quot;</span>)]
+</span><span class="attr">#[cfg(target_os = <span class="string">"freebsd"</span>)]
 </span><span class="kw">pub fn </span>cfmakesane(termios: <span class="kw-2">&amp;mut </span>Termios) {
     <span class="kw">let </span>inner_termios = <span class="kw">unsafe </span>{ termios.get_libc_termios_mut() };
     <span class="kw">unsafe </span>{

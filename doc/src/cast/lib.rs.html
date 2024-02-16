@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cast-0.3.0/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="cast" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../cast/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cast-0.3.0/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="cast" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -560,8 +561,8 @@
 //! # }
 //! ```
 //!
-//! There are no namespace problems between these functions, the &quot;primitive
-//! modules&quot; in `core`/`std` and the built-in primitive types, so all them can
+//! There are no namespace problems between these functions, the "primitive
+//! modules" in `core`/`std` and the built-in primitive types, so all them can
 //! be in the same scope:
 //!
 //! ```
@@ -597,7 +598,7 @@
 //!
 //! ```
 //! fn to_u32&lt;T&gt;(x: T) -&gt; u32
-//!     // reads as: &quot;where u32 can be casted from T with output u32&quot;
+//!     // reads as: "where u32 can be casted from T with output u32"
 //!     where u32: cast::From&lt;T, Output=u32&gt;,
 //! {
 //!     cast::u32(x)
@@ -615,20 +616,20 @@
 //! ## Minimal Supported Rust Version
 //!
 //! This crate is guaranteed to compile *as a dependency* on stable Rust 1.31 and up.
-//! It&#39;s not guaranteed that `cargo test`-ing this crate follows the MSRV.
+//! It's not guaranteed that `cargo test`-ing this crate follows the MSRV.
 //! It *might* compile on older versions but that may change in any new patch release.
 //!
 //! ## Building without `std`
 //!
-//! This crate can be used without Rust&#39;s `std` crate by declaring it as
+//! This crate can be used without Rust's `std` crate by declaring it as
 //! follows in your `Cargo.toml`:
 //!
 //! ``` toml
-//! cast = { version = &quot;*&quot;, default-features = false }
+//! cast = { version = "*", default-features = false }
 //! ```
 
 </span><span class="attr">#![allow(const_err)]
-#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
+#![cfg_attr(not(feature = <span class="string">"std"</span>), no_std)]
 #![deny(missing_docs)]
 #![deny(unsafe_code)]
 #![deny(warnings)]
@@ -638,7 +639,7 @@
 </span><span class="kw">extern crate </span>quickcheck;
 
 <span class="kw">use </span>core::fmt;
-<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"std"</span>)]
 </span><span class="kw">use </span>std::error;
 
 <span class="attr">#[cfg(test)]
@@ -649,7 +650,7 @@
 </span><span class="kw">pub enum </span>Error {
     <span class="doccomment">/// Infinite value casted to a type that can only represent finite values
     </span>Infinite,
-    <span class="doccomment">/// NaN value casted to a type that can&#39;t represent a NaN value
+    <span class="doccomment">/// NaN value casted to a type that can't represent a NaN value
     </span>NaN,
     <span class="doccomment">/// Source value is greater than the maximum value that the destination type
     /// can hold
@@ -664,28 +665,28 @@
     /// `description` is only available when we have `std` enabled.
     </span><span class="kw">fn </span>description_helper(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Error::Infinite =&gt; <span class="string">&quot;Cannot store infinite value in finite type&quot;</span>,
-            Error::NaN =&gt; <span class="string">&quot;Cannot store NaN in type which does not support it&quot;</span>,
-            Error::Overflow =&gt; <span class="string">&quot;Overflow during numeric conversion&quot;</span>,
-            Error::Underflow =&gt; <span class="string">&quot;Underflow during numeric conversion&quot;</span>,
+            Error::Infinite =&gt; <span class="string">"Cannot store infinite value in finite type"</span>,
+            Error::NaN =&gt; <span class="string">"Cannot store NaN in type which does not support it"</span>,
+            Error::Overflow =&gt; <span class="string">"Overflow during numeric conversion"</span>,
+            Error::Underflow =&gt; <span class="string">"Underflow during numeric conversion"</span>,
         }
     }
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Error {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.description_helper())
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
+        <span class="macro">write!</span>(f, <span class="string">"{}"</span>, <span class="self">self</span>.description_helper())
     }
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"std"</span>)]
 </span><span class="kw">impl </span>error::Error <span class="kw">for </span>Error {
     <span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="self">self</span>.description_helper()
     }
 }
 
-<span class="doccomment">/// The &quot;cast from&quot; operation
+<span class="doccomment">/// The "cast from" operation
 </span><span class="kw">pub trait </span>From&lt;Src&gt; {
     <span class="doccomment">/// The result of the cast operation: either `Self` or `Result&lt;Self, Error&gt;`
     </span><span class="kw">type </span>Output;
@@ -820,7 +821,7 @@
                             src == <span class="macro-nonterminal">$src::NEG_INFINITY </span>{
                             Error::Infinite
                         } <span class="kw">else if </span>{
-                            <span class="comment">// this &#39;$dst::BITS&#39; works on 1.31.0 (MSRV)
+                            <span class="comment">// this '$dst::BITS' works on 1.31.0 (MSRV)
                             </span><span class="kw">let </span>dst_bits = core::mem::size_of::&lt;<span class="macro-nonterminal">$dst</span>&gt;() <span class="kw">as </span>u32 * <span class="number">8</span>;
                             <span class="kw">let </span>lossless = dst_bits &lt; core::<span class="macro-nonterminal">$src::MANTISSA_DIGITS</span>;
 
@@ -858,7 +859,7 @@
 }
 
 <span class="doccomment">/// From a float `$src` to an integer `$dst`, where $dst is large enough to contain
-/// all values of `$src`. We can&#39;t ever overflow here
+/// all values of `$src`. We can't ever overflow here
 </span><span class="macro">macro_rules! </span>from_float_dst {
     ($(<span class="macro-nonterminal">$src</span>:ident =&gt; $(<span class="macro-nonterminal">$dst</span>:ident),+);+;) =&gt; {
         $(
@@ -890,7 +891,7 @@
 
 <span class="comment">// PLAY TETRIS! ;-)
 
-</span><span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;32&quot;</span>)]
+</span><span class="attr">#[cfg(target_pointer_width = <span class="string">"32"</span>)]
 </span><span class="kw">mod </span>_32 {
     <span class="kw">use crate</span>::{Error, From};
 
@@ -948,7 +949,7 @@
     }
 }
 
-<span class="attr">#[cfg(target_pointer_width = <span class="string">&quot;64&quot;</span>)]
+<span class="attr">#[cfg(target_pointer_width = <span class="string">"64"</span>)]
 </span><span class="kw">mod </span>_64 {
     <span class="kw">use crate</span>::{Error, From};
 

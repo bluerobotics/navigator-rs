@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nix-0.23.2/src/net/if_.rs`."><title>if_.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../nix/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nix-0.23.2/src/net/if_.rs`."><title>if_.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="nix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -411,8 +412,8 @@
 <a href="#411" id="411">411</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Network interface name resolution.
 //!
-//! Uses Linux and/or POSIX functions to resolve interface names like &quot;eth0&quot;
-//! or &quot;socan1&quot; into device numbers.
+//! Uses Linux and/or POSIX functions to resolve interface names like "eth0"
+//! or "socan1" into device numbers.
 
 </span><span class="kw">use crate</span>::{Error, NixPath, <span class="prelude-ty">Result</span>};
 <span class="kw">use </span>libc::c_uint;
@@ -448,31 +449,31 @@
         </span>IFF_POINTOPOINT;
         <span class="doccomment">/// Avoid use of trailers. (see
         /// [`netdevice(7)`](https://man7.org/linux/man-pages/man7/netdevice.7.html))
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;fuchsia&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;illumos&quot;</span>,
-                  target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"fuchsia"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"illumos"</span>,
+                  target_os = <span class="string">"solaris"</span>))]
         </span>IFF_NOTRAILERS;
         <span class="doccomment">/// Interface manages own routes.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>))]
         </span>IFF_SMART;
         <span class="doccomment">/// Resources allocated. (see
         /// [`netdevice(7)`](https://man7.org/linux/man-pages/man7/netdevice.7.html))
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>,
-                  target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;fuchsia&quot;</span>,
-                  target_os = <span class="string">&quot;illumos&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>,
-                  target_os = <span class="string">&quot;linux&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>,
-                  target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>,
+                  target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"fuchsia"</span>,
+                  target_os = <span class="string">"illumos"</span>,
+                  target_os = <span class="string">"ios"</span>,
+                  target_os = <span class="string">"linux"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>,
+                  target_os = <span class="string">"solaris"</span>))]
         </span>IFF_RUNNING;
         <span class="doccomment">/// No arp protocol, L2 destination address not set. (see
         /// [`netdevice(7)`](https://man7.org/linux/man-pages/man7/netdevice.7.html))
@@ -485,209 +486,209 @@
         </span>IFF_ALLMULTI;
         <span class="doccomment">/// Master of a load balancing bundle. (see
         /// [`netdevice(7)`](https://man7.org/linux/man-pages/man7/netdevice.7.html))
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"fuchsia"</span>, target_os = <span class="string">"linux"</span>))]
         </span>IFF_MASTER;
         <span class="doccomment">/// transmission in progress, tx hardware queue is full
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>,
+                  target_os = <span class="string">"ios"</span>))]
         </span>IFF_OACTIVE;
         <span class="doccomment">/// Protocol code on board.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_INTELLIGENT;
         <span class="doccomment">/// Slave of a load balancing bundle. (see
         /// [`netdevice(7)`](https://man7.org/linux/man-pages/man7/netdevice.7.html))
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"fuchsia"</span>, target_os = <span class="string">"linux"</span>))]
         </span>IFF_SLAVE;
-        <span class="doccomment">/// Can&#39;t hear own transmissions.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>,
-                  target_os = <span class="string">&quot;osx&quot;</span>))]
+        <span class="doccomment">/// Can't hear own transmissions.
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>,
+                  target_os = <span class="string">"osx"</span>))]
         </span>IFF_SIMPLEX;
         <span class="doccomment">/// Supports multicast. (see
         /// [`netdevice(7)`](https://man7.org/linux/man-pages/man7/netdevice.7.html))
         </span>IFF_MULTICAST;
         <span class="doccomment">/// Per link layer defined bit.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>,
+                  target_os = <span class="string">"ios"</span>))]
         </span>IFF_LINK0;
         <span class="doccomment">/// Multicast using broadcast.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_MULTI_BCAST;
         <span class="doccomment">/// Is able to select media type via ifmap. (see
         /// [`netdevice(7)`](https://man7.org/linux/man-pages/man7/netdevice.7.html))
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"fuchsia"</span>, target_os = <span class="string">"linux"</span>))]
         </span>IFF_PORTSEL;
         <span class="doccomment">/// Per link layer defined bit.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>,
+                  target_os = <span class="string">"ios"</span>))]
         </span>IFF_LINK1;
         <span class="doccomment">/// Non-unique address.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_UNNUMBERED;
         <span class="doccomment">/// Auto media selection active. (see
         /// [`netdevice(7)`](https://man7.org/linux/man-pages/man7/netdevice.7.html))
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"fuchsia"</span>, target_os = <span class="string">"linux"</span>))]
         </span>IFF_AUTOMEDIA;
         <span class="doccomment">/// Per link layer defined bit.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;netbsd&quot;</span>,
-                  target_os = <span class="string">&quot;openbsd&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"netbsd"</span>,
+                  target_os = <span class="string">"openbsd"</span>,
+                  target_os = <span class="string">"ios"</span>))]
         </span>IFF_LINK2;
         <span class="doccomment">/// Use alternate physical connection.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>,
-                  target_os = <span class="string">&quot;freebsd&quot;</span>,
-                  target_os = <span class="string">&quot;macos&quot;</span>,
-                  target_os = <span class="string">&quot;ios&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>,
+                  target_os = <span class="string">"freebsd"</span>,
+                  target_os = <span class="string">"macos"</span>,
+                  target_os = <span class="string">"ios"</span>))]
         </span>IFF_ALTPHYS;
         <span class="doccomment">/// DHCP controls interface.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;solaris&quot;</span>, target_os = <span class="string">&quot;illumos&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"solaris"</span>, target_os = <span class="string">"illumos"</span>))]
         </span>IFF_DHCPRUNNING;
         <span class="doccomment">/// The addresses are lost when the interface goes down. (see
         /// [`netdevice(7)`](https://man7.org/linux/man-pages/man7/netdevice.7.html))
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"fuchsia"</span>, target_os = <span class="string">"linux"</span>))]
         </span>IFF_DYNAMIC;
         <span class="doccomment">/// Do not advertise.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_PRIVATE;
         <span class="doccomment">/// Driver signals L1 up. Volatile.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"fuchsia"</span>, target_os = <span class="string">"linux"</span>))]
         </span>IFF_LOWER_UP;
         <span class="doccomment">/// Interface is in polling mode.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>))]
         </span>IFF_POLLING_COMPAT;
         <span class="doccomment">/// Unconfigurable using ioctl(2).
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"freebsd"</span>))]
         </span>IFF_CANTCONFIG;
         <span class="doccomment">/// Do not transmit packets.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_NOXMIT;
         <span class="doccomment">/// Driver signals dormant. Volatile.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"fuchsia"</span>, target_os = <span class="string">"linux"</span>))]
         </span>IFF_DORMANT;
         <span class="doccomment">/// User-requested promisc mode.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>))]
         </span>IFF_PPROMISC;
         <span class="doccomment">/// Just on-link subnet.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_NOLOCAL;
         <span class="doccomment">/// Echo sent packets. Volatile.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"fuchsia"</span>, target_os = <span class="string">"linux"</span>))]
         </span>IFF_ECHO;
         <span class="doccomment">/// User-requested monitor mode.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>))]
         </span>IFF_MONITOR;
         <span class="doccomment">/// Address is deprecated.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_DEPRECATED;
         <span class="doccomment">/// Static ARP.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>, target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>, target_os = <span class="string">"freebsd"</span>))]
         </span>IFF_STATICARP;
         <span class="doccomment">/// Address from stateless addrconf.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_ADDRCONF;
         <span class="doccomment">/// Interface is in polling mode.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>))]
         </span>IFF_NPOLLING;
         <span class="doccomment">/// Router on interface.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_ROUTER;
         <span class="doccomment">/// Interface is in polling mode.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;dragonfly&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"dragonfly"</span>))]
         </span>IFF_IDIRECT;
         <span class="doccomment">/// Interface is winding down
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"freebsd"</span>))]
         </span>IFF_DYING;
         <span class="doccomment">/// No NUD on interface.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_NONUD;
         <span class="doccomment">/// Interface is being renamed
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;freebsd&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"freebsd"</span>))]
         </span>IFF_RENAMING;
         <span class="doccomment">/// Anycast address.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_ANYCAST;
-        <span class="doccomment">/// Don&#39;t exchange routing info.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        <span class="doccomment">/// Don't exchange routing info.
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_NORTEXCH;
         <span class="doccomment">/// Do not provide packet information
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"fuchsia"</span>, target_os = <span class="string">"linux"</span>))]
         </span>IFF_NO_PI <span class="kw">as </span>libc::c_int;
         <span class="doccomment">/// TUN device (no Ethernet headers)
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"fuchsia"</span>, target_os = <span class="string">"linux"</span>))]
         </span>IFF_TUN <span class="kw">as </span>libc::c_int;
         <span class="doccomment">/// TAP device
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;android&quot;</span>, target_os = <span class="string">&quot;fuchsia&quot;</span>, target_os = <span class="string">&quot;linux&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"android"</span>, target_os = <span class="string">"fuchsia"</span>, target_os = <span class="string">"linux"</span>))]
         </span>IFF_TAP <span class="kw">as </span>libc::c_int;
         <span class="doccomment">/// IPv4 interface.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_IPV4;
         <span class="doccomment">/// IPv6 interface.
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_IPV6;
         <span class="doccomment">/// in.mpathd test address
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_NOFAILOVER;
         <span class="doccomment">/// Interface has failed
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_FAILED;
         <span class="doccomment">/// Interface is a hot-spare
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_STANDBY;
         <span class="doccomment">/// Functioning but not used
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_INACTIVE;
         <span class="doccomment">/// Interface is offline
-        </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;illumos&quot;</span>, target_os = <span class="string">&quot;solaris&quot;</span>))]
+        </span><span class="attr">#[cfg(any(target_os = <span class="string">"illumos"</span>, target_os = <span class="string">"solaris"</span>))]
         </span>IFF_OFFLINE;
-        <span class="attr">#[cfg(target_os = <span class="string">&quot;solaris&quot;</span>)]
+        <span class="attr">#[cfg(target_os = <span class="string">"solaris"</span>)]
         </span>IFF_COS_ENABLED;
         <span class="doccomment">/// Prefer as source addr.
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;solaris&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"solaris"</span>)]
         </span>IFF_PREFERRED;
         <span class="doccomment">/// RFC3041
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;solaris&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"solaris"</span>)]
         </span>IFF_TEMPORARY;
         <span class="doccomment">/// MTU set with SIOCSLIFMTU
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;solaris&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"solaris"</span>)]
         </span>IFF_FIXEDMTU;
         <span class="doccomment">/// Cannot send / receive packets
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;solaris&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"solaris"</span>)]
         </span>IFF_VIRTUAL;
         <span class="doccomment">/// Local address in use
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;solaris&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"solaris"</span>)]
         </span>IFF_DUPLICATE;
         <span class="doccomment">/// IPMP IP interface
-        </span><span class="attr">#[cfg(target_os = <span class="string">&quot;solaris&quot;</span>)]
+        </span><span class="attr">#[cfg(target_os = <span class="string">"solaris"</span>)]
         </span>IFF_IPMP;
     }
 );
 
 <span class="attr">#[cfg(any(
-    target_os = <span class="string">&quot;dragonfly&quot;</span>,
-    target_os = <span class="string">&quot;freebsd&quot;</span>,
-    target_os = <span class="string">&quot;fuchsia&quot;</span>,
-    target_os = <span class="string">&quot;ios&quot;</span>,
-    target_os = <span class="string">&quot;linux&quot;</span>,
-    target_os = <span class="string">&quot;macos&quot;</span>,
-    target_os = <span class="string">&quot;netbsd&quot;</span>,
-    target_os = <span class="string">&quot;openbsd&quot;</span>,
+    target_os = <span class="string">"dragonfly"</span>,
+    target_os = <span class="string">"freebsd"</span>,
+    target_os = <span class="string">"fuchsia"</span>,
+    target_os = <span class="string">"ios"</span>,
+    target_os = <span class="string">"linux"</span>,
+    target_os = <span class="string">"macos"</span>,
+    target_os = <span class="string">"netbsd"</span>,
+    target_os = <span class="string">"openbsd"</span>,
 ))]
 </span><span class="kw">mod </span>if_nameindex {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -697,8 +698,8 @@
     <span class="kw">use </span>std::marker::PhantomData;
     <span class="kw">use </span>std::ptr::NonNull;
 
-    <span class="doccomment">/// A network interface. Has a name like &quot;eth0&quot; or &quot;wlp4s0&quot; or &quot;wlan0&quot;, as well as an index
-    /// (1, 2, 3, etc) that identifies it in the OS&#39;s networking stack.
+    <span class="doccomment">/// A network interface. Has a name like "eth0" or "wlp4s0" or "wlan0", as well as an index
+    /// (1, 2, 3, etc) that identifies it in the OS's networking stack.
     </span><span class="attr">#[allow(missing_copy_implementations)]
     #[repr(transparent)]
     </span><span class="kw">pub struct </span>Interface(libc::if_nameindex);
@@ -717,9 +718,9 @@
 
     <span class="kw">impl </span>fmt::Debug <span class="kw">for </span>Interface {
         <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-            f.debug_struct(<span class="string">&quot;Interface&quot;</span>)
-                .field(<span class="string">&quot;index&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.index())
-                .field(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.name())
+            f.debug_struct(<span class="string">"Interface"</span>)
+                .field(<span class="string">"index"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.index())
+                .field(<span class="string">"name"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.name())
                 .finish()
         }
     }
@@ -732,12 +733,12 @@
     <span class="kw">impl </span>Interfaces {
         <span class="doccomment">/// Iterate over the interfaces in this list.
         </span><span class="attr">#[inline]
-        </span><span class="kw">pub fn </span>iter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InterfacesIter&lt;<span class="lifetime">&#39;_</span>&gt; {
+        </span><span class="kw">pub fn </span>iter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InterfacesIter&lt;<span class="lifetime">'_</span>&gt; {
             <span class="self">self</span>.into_iter()
         }
 
         <span class="doccomment">/// Convert this to a slice of interfaces. Note that the underlying interfaces list is
-        /// null-terminated, so calling this calculates the length. If random access isn&#39;t needed,
+        /// null-terminated, so calling this calculates the length. If random access isn't needed,
         /// [`Interfaces::iter()`] should be used instead.
         </span><span class="kw">pub fn </span>to_slice(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[Interface] {
             <span class="kw">let </span>ifs = <span class="self">self</span>.ptr.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>Interface;
@@ -758,9 +759,9 @@
         }
     }
 
-    <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; IntoIterator <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Interfaces {
-        <span class="kw">type </span>IntoIter = InterfacesIter&lt;<span class="lifetime">&#39;a</span>&gt;;
-        <span class="kw">type </span>Item = <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Interface;
+    <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; IntoIterator <span class="kw">for </span><span class="kw-2">&amp;</span><span class="lifetime">'a </span>Interfaces {
+        <span class="kw">type </span>IntoIter = InterfacesIter&lt;<span class="lifetime">'a</span>&gt;;
+        <span class="kw">type </span>Item = <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Interface;
         <span class="attr">#[inline]
         </span><span class="kw">fn </span>into_iter(<span class="self">self</span>) -&gt; <span class="self">Self</span>::IntoIter {
             InterfacesIter {
@@ -772,13 +773,13 @@
 
     <span class="doccomment">/// An iterator over the interfaces in an [`Interfaces`].
     </span><span class="attr">#[derive(Debug)]
-    </span><span class="kw">pub struct </span>InterfacesIter&lt;<span class="lifetime">&#39;a</span>&gt; {
+    </span><span class="kw">pub struct </span>InterfacesIter&lt;<span class="lifetime">'a</span>&gt; {
         ptr: <span class="kw-2">*const </span>libc::if_nameindex,
-        _marker: PhantomData&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Interfaces&gt;,
+        _marker: PhantomData&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Interfaces&gt;,
     }
 
-    <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Iterator <span class="kw">for </span>InterfacesIter&lt;<span class="lifetime">&#39;a</span>&gt; {
-        <span class="kw">type </span>Item = <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Interface;
+    <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; Iterator <span class="kw">for </span>InterfacesIter&lt;<span class="lifetime">'a</span>&gt; {
+        <span class="kw">type </span>Item = <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Interface;
         <span class="attr">#[inline]
         </span><span class="kw">fn </span>next(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>::Item&gt; {
             <span class="kw">unsafe </span>{
@@ -798,7 +799,7 @@
     /// ```
     /// let interfaces = nix::net::if_::if_nameindex().unwrap();
     /// for iface in &amp;interfaces {
-    ///     println!(&quot;Interface #{} is called {}&quot;, iface.index(), iface.name().to_string_lossy());
+    ///     println!("Interface #{} is called {}", iface.index(), iface.name().to_string_lossy());
     /// }
     /// ```
     </span><span class="kw">pub fn </span>if_nameindex() -&gt; <span class="prelude-ty">Result</span>&lt;Interfaces&gt; {
@@ -810,14 +811,14 @@
     }
 }
 <span class="attr">#[cfg(any(
-    target_os = <span class="string">&quot;dragonfly&quot;</span>,
-    target_os = <span class="string">&quot;freebsd&quot;</span>,
-    target_os = <span class="string">&quot;fuchsia&quot;</span>,
-    target_os = <span class="string">&quot;ios&quot;</span>,
-    target_os = <span class="string">&quot;linux&quot;</span>,
-    target_os = <span class="string">&quot;macos&quot;</span>,
-    target_os = <span class="string">&quot;netbsd&quot;</span>,
-    target_os = <span class="string">&quot;openbsd&quot;</span>,
+    target_os = <span class="string">"dragonfly"</span>,
+    target_os = <span class="string">"freebsd"</span>,
+    target_os = <span class="string">"fuchsia"</span>,
+    target_os = <span class="string">"ios"</span>,
+    target_os = <span class="string">"linux"</span>,
+    target_os = <span class="string">"macos"</span>,
+    target_os = <span class="string">"netbsd"</span>,
+    target_os = <span class="string">"openbsd"</span>,
 ))]
 </span><span class="kw">pub use </span>if_nameindex::<span class="kw-2">*</span>;
 </code></pre></div></section></main></body></html>

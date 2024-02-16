@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rppal-0.13.1/src/system.rs`."><title>system.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="rppal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../rppal/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rppal-0.13.1/src/system.rs`."><title>system.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="rppal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -397,7 +398,7 @@
 </pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2017-2021 Rene van der Meer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the &quot;Software&quot;),
+// copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation
 // the rights to use, copy, modify, merge, publish, distribute, sublicense,
 // and/or sell copies of the Software, and to permit persons to whom the
@@ -406,7 +407,7 @@
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
 //
-// THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -416,7 +417,7 @@
 
 </span><span class="doccomment">//! Raspberry Pi system-related tools.
 //!
-//! Use [`DeviceInfo`] to identify the Raspberry Pi&#39;s model and SoC.
+//! Use [`DeviceInfo`] to identify the Raspberry Pi's model and SoC.
 //!
 //! [`DeviceInfo`]: struct.DeviceInfo.html
 
@@ -442,19 +443,19 @@
     /// and `/sys/firmware/devicetree/base/model`.
     ///
     /// Support for new models is usually added shortly after they are officially
-    /// announced and available to the public. Make sure you&#39;re using the latest
+    /// announced and available to the public. Make sure you're using the latest
     /// release of RPPAL.
     ///
     /// You may also encounter this error if your Linux distribution
-    /// doesn&#39;t provide any of the common user-accessible system files
+    /// doesn't provide any of the common user-accessible system files
     /// that are used to identify the model and SoC.
     </span>UnknownModel,
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Error {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Error::UnknownModel =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Unknown Raspberry Pi model&quot;</span>),
+            Error::UnknownModel =&gt; <span class="macro">write!</span>(f, <span class="string">"Unknown Raspberry Pi model"</span>),
         }
     }
 }
@@ -493,26 +494,26 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Model {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Model::RaspberryPiA =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi A&quot;</span>),
-            Model::RaspberryPiAPlus =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi A+&quot;</span>),
-            Model::RaspberryPiBRev1 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi B Rev 1&quot;</span>),
-            Model::RaspberryPiBRev2 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi B Rev 2&quot;</span>),
-            Model::RaspberryPiBPlus =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi B+&quot;</span>),
-            Model::RaspberryPi2B =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi 2 B&quot;</span>),
-            Model::RaspberryPi3B =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi 3 B&quot;</span>),
-            Model::RaspberryPi3BPlus =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi 3 B+&quot;</span>),
-            Model::RaspberryPi3APlus =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi 3 A+&quot;</span>),
-            Model::RaspberryPi4B =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi 4 B&quot;</span>),
-            Model::RaspberryPi400 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi 400&quot;</span>),
-            Model::RaspberryPiComputeModule =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi Compute Module&quot;</span>),
-            Model::RaspberryPiComputeModule3 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi Compute Module 3&quot;</span>),
-            Model::RaspberryPiComputeModule3Plus =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi Compute Module 3+&quot;</span>),
-            Model::RaspberryPiComputeModule4 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi Compute Module 4&quot;</span>),
-            Model::RaspberryPiZero =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi Zero&quot;</span>),
-            Model::RaspberryPiZeroW =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi Zero W&quot;</span>),
-            Model::RaspberryPiZero2W =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Raspberry Pi Zero 2 W&quot;</span>),
+            Model::RaspberryPiA =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi A"</span>),
+            Model::RaspberryPiAPlus =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi A+"</span>),
+            Model::RaspberryPiBRev1 =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi B Rev 1"</span>),
+            Model::RaspberryPiBRev2 =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi B Rev 2"</span>),
+            Model::RaspberryPiBPlus =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi B+"</span>),
+            Model::RaspberryPi2B =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi 2 B"</span>),
+            Model::RaspberryPi3B =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi 3 B"</span>),
+            Model::RaspberryPi3BPlus =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi 3 B+"</span>),
+            Model::RaspberryPi3APlus =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi 3 A+"</span>),
+            Model::RaspberryPi4B =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi 4 B"</span>),
+            Model::RaspberryPi400 =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi 400"</span>),
+            Model::RaspberryPiComputeModule =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi Compute Module"</span>),
+            Model::RaspberryPiComputeModule3 =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi Compute Module 3"</span>),
+            Model::RaspberryPiComputeModule3Plus =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi Compute Module 3+"</span>),
+            Model::RaspberryPiComputeModule4 =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi Compute Module 4"</span>),
+            Model::RaspberryPiZero =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi Zero"</span>),
+            Model::RaspberryPiZeroW =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi Zero W"</span>),
+            Model::RaspberryPiZero2W =&gt; <span class="macro">write!</span>(f, <span class="string">"Raspberry Pi Zero 2 W"</span>),
         }
     }
 }
@@ -533,20 +534,20 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>SoC {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            SoC::Bcm2835 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;BCM2835&quot;</span>),
-            SoC::Bcm2836 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;BCM2836&quot;</span>),
-            SoC::Bcm2837A1 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;BCM2837A1&quot;</span>),
-            SoC::Bcm2837B0 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;BCM2837B0&quot;</span>),
-            SoC::Bcm2711 =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;BCM2711&quot;</span>),
+            SoC::Bcm2835 =&gt; <span class="macro">write!</span>(f, <span class="string">"BCM2835"</span>),
+            SoC::Bcm2836 =&gt; <span class="macro">write!</span>(f, <span class="string">"BCM2836"</span>),
+            SoC::Bcm2837A1 =&gt; <span class="macro">write!</span>(f, <span class="string">"BCM2837A1"</span>),
+            SoC::Bcm2837B0 =&gt; <span class="macro">write!</span>(f, <span class="string">"BCM2837B0"</span>),
+            SoC::Bcm2711 =&gt; <span class="macro">write!</span>(f, <span class="string">"BCM2711"</span>),
         }
     }
 }
 
 <span class="comment">// Identify Pi model based on /proc/cpuinfo
 </span><span class="kw">fn </span>parse_proc_cpuinfo() -&gt; <span class="prelude-ty">Result</span>&lt;Model&gt; {
-    <span class="kw">let </span>proc_cpuinfo = BufReader::new(<span class="kw">match </span>File::open(<span class="string">&quot;/proc/cpuinfo&quot;</span>) {
+    <span class="kw">let </span>proc_cpuinfo = BufReader::new(<span class="kw">match </span>File::open(<span class="string">"/proc/cpuinfo"</span>) {
         <span class="prelude-val">Ok</span>(file) =&gt; file,
         <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownModel),
     });
@@ -554,51 +555,51 @@
     <span class="kw">let </span><span class="kw-2">mut </span>hardware: String = String::new();
     <span class="kw">let </span><span class="kw-2">mut </span>revision: String = String::new();
     <span class="kw">for </span>line <span class="kw">in </span>proc_cpuinfo.lines().flatten() {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(line_value) = line.strip_prefix(<span class="string">&quot;Hardware\t: &quot;</span>) {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(line_value) = line.strip_prefix(<span class="string">"Hardware\t: "</span>) {
             hardware = String::from(line_value);
-        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(line_value) = line.strip_prefix(<span class="string">&quot;Revision\t: &quot;</span>) {
+        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(line_value) = line.strip_prefix(<span class="string">"Revision\t: "</span>) {
             revision = String::from(line_value).to_lowercase();
         }
     }
 
-    <span class="comment">// Return an error if we don&#39;t recognize the SoC. This check is
+    <span class="comment">// Return an error if we don't recognize the SoC. This check is
     // done to prevent accidentally identifying a non-Pi SBC as a Pi
     // solely based on the revision field.
     </span><span class="kw">match </span><span class="kw-2">&amp;</span>hardware[..] {
-        <span class="string">&quot;BCM2708&quot; </span>| <span class="string">&quot;BCM2835&quot; </span>| <span class="string">&quot;BCM2709&quot; </span>| <span class="string">&quot;BCM2836&quot; </span>| <span class="string">&quot;BCM2710&quot; </span>| <span class="string">&quot;BCM2837&quot; </span>| <span class="string">&quot;BCM2837A1&quot;
-        </span>| <span class="string">&quot;BCM2837B0&quot; </span>| <span class="string">&quot;RP3A0-AU&quot; </span>| <span class="string">&quot;BCM2710A1&quot; </span>| <span class="string">&quot;BCM2711&quot; </span>=&gt; {}
+        <span class="string">"BCM2708" </span>| <span class="string">"BCM2835" </span>| <span class="string">"BCM2709" </span>| <span class="string">"BCM2836" </span>| <span class="string">"BCM2710" </span>| <span class="string">"BCM2837" </span>| <span class="string">"BCM2837A1"
+        </span>| <span class="string">"BCM2837B0" </span>| <span class="string">"RP3A0-AU" </span>| <span class="string">"BCM2710A1" </span>| <span class="string">"BCM2711" </span>=&gt; {}
         <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownModel),
     }
 
     <span class="kw">let </span>model = <span class="kw">if </span>(revision.len() == <span class="number">4</span>) || (revision.len() == <span class="number">8</span>) {
-        <span class="comment">// Older revisions are 4 characters long, or 8 if they&#39;ve been over-volted
+        <span class="comment">// Older revisions are 4 characters long, or 8 if they've been over-volted
         </span><span class="kw">match </span><span class="kw-2">&amp;</span>revision[revision.len() - <span class="number">4</span>..] {
-            <span class="string">&quot;0007&quot; </span>| <span class="string">&quot;0008&quot; </span>| <span class="string">&quot;0009&quot; </span>| <span class="string">&quot;0015&quot; </span>=&gt; Model::RaspberryPiA,
-            <span class="string">&quot;beta&quot; </span>| <span class="string">&quot;0002&quot; </span>| <span class="string">&quot;0003&quot; </span>=&gt; Model::RaspberryPiBRev1,
-            <span class="string">&quot;0004&quot; </span>| <span class="string">&quot;0005&quot; </span>| <span class="string">&quot;0006&quot; </span>| <span class="string">&quot;000d&quot; </span>| <span class="string">&quot;000e&quot; </span>| <span class="string">&quot;000f&quot; </span>=&gt; Model::RaspberryPiBRev2,
-            <span class="string">&quot;0012&quot; </span>=&gt; Model::RaspberryPiAPlus,
-            <span class="string">&quot;0010&quot; </span>| <span class="string">&quot;0013&quot; </span>=&gt; Model::RaspberryPiBPlus,
-            <span class="string">&quot;0011&quot; </span>| <span class="string">&quot;0014&quot; </span>=&gt; Model::RaspberryPiComputeModule,
+            <span class="string">"0007" </span>| <span class="string">"0008" </span>| <span class="string">"0009" </span>| <span class="string">"0015" </span>=&gt; Model::RaspberryPiA,
+            <span class="string">"beta" </span>| <span class="string">"0002" </span>| <span class="string">"0003" </span>=&gt; Model::RaspberryPiBRev1,
+            <span class="string">"0004" </span>| <span class="string">"0005" </span>| <span class="string">"0006" </span>| <span class="string">"000d" </span>| <span class="string">"000e" </span>| <span class="string">"000f" </span>=&gt; Model::RaspberryPiBRev2,
+            <span class="string">"0012" </span>=&gt; Model::RaspberryPiAPlus,
+            <span class="string">"0010" </span>| <span class="string">"0013" </span>=&gt; Model::RaspberryPiBPlus,
+            <span class="string">"0011" </span>| <span class="string">"0014" </span>=&gt; Model::RaspberryPiComputeModule,
             <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownModel),
         }
     } <span class="kw">else if </span>revision.len() &gt;= <span class="number">6 </span>{
         <span class="comment">// Newer revisions consist of at least 6 characters
         </span><span class="kw">match </span><span class="kw-2">&amp;</span>revision[..] {
-            <span class="string">&quot;900021&quot; </span>=&gt; Model::RaspberryPiAPlus,
-            <span class="string">&quot;900032&quot; </span>=&gt; Model::RaspberryPiBPlus,
-            <span class="string">&quot;a01040&quot; </span>| <span class="string">&quot;a01041&quot; </span>| <span class="string">&quot;a21041&quot; </span>| <span class="string">&quot;a22042&quot; </span>=&gt; Model::RaspberryPi2B,
-            <span class="string">&quot;a02082&quot; </span>| <span class="string">&quot;a22082&quot; </span>| <span class="string">&quot;a32082&quot; </span>| <span class="string">&quot;a52082&quot; </span>=&gt; Model::RaspberryPi3B,
-            <span class="string">&quot;900092&quot; </span>| <span class="string">&quot;900093&quot; </span>| <span class="string">&quot;920092&quot; </span>| <span class="string">&quot;920093&quot; </span>=&gt; Model::RaspberryPiZero,
-            <span class="string">&quot;a020a0&quot; </span>| <span class="string">&quot;a220a0&quot; </span>=&gt; Model::RaspberryPiComputeModule3,
-            <span class="string">&quot;9000c1&quot; </span>=&gt; Model::RaspberryPiZeroW,
-            <span class="string">&quot;a020d3&quot; </span>=&gt; Model::RaspberryPi3BPlus,
-            <span class="string">&quot;9020e0&quot; </span>=&gt; Model::RaspberryPi3APlus,
-            <span class="string">&quot;a02100&quot; </span>=&gt; Model::RaspberryPiComputeModule3Plus,
-            <span class="string">&quot;a03111&quot; </span>| <span class="string">&quot;a03112&quot; </span>| <span class="string">&quot;b03111&quot; </span>| <span class="string">&quot;b03112&quot; </span>| <span class="string">&quot;b03114&quot; </span>| <span class="string">&quot;c03111&quot; </span>| <span class="string">&quot;c03112&quot;
-            </span>| <span class="string">&quot;c03114&quot; </span>| <span class="string">&quot;d03114&quot; </span>=&gt; Model::RaspberryPi4B,
-            <span class="string">&quot;c03130&quot; </span>=&gt; Model::RaspberryPi400,
-            <span class="string">&quot;a03140&quot; </span>| <span class="string">&quot;b03140&quot; </span>| <span class="string">&quot;c03140&quot; </span>| <span class="string">&quot;d03140&quot; </span>=&gt; Model::RaspberryPiComputeModule4,
-            <span class="string">&quot;902120&quot; </span>=&gt; Model::RaspberryPiZero2W,
+            <span class="string">"900021" </span>=&gt; Model::RaspberryPiAPlus,
+            <span class="string">"900032" </span>=&gt; Model::RaspberryPiBPlus,
+            <span class="string">"a01040" </span>| <span class="string">"a01041" </span>| <span class="string">"a21041" </span>| <span class="string">"a22042" </span>=&gt; Model::RaspberryPi2B,
+            <span class="string">"a02082" </span>| <span class="string">"a22082" </span>| <span class="string">"a32082" </span>| <span class="string">"a52082" </span>=&gt; Model::RaspberryPi3B,
+            <span class="string">"900092" </span>| <span class="string">"900093" </span>| <span class="string">"920092" </span>| <span class="string">"920093" </span>=&gt; Model::RaspberryPiZero,
+            <span class="string">"a020a0" </span>| <span class="string">"a220a0" </span>=&gt; Model::RaspberryPiComputeModule3,
+            <span class="string">"9000c1" </span>=&gt; Model::RaspberryPiZeroW,
+            <span class="string">"a020d3" </span>=&gt; Model::RaspberryPi3BPlus,
+            <span class="string">"9020e0" </span>=&gt; Model::RaspberryPi3APlus,
+            <span class="string">"a02100" </span>=&gt; Model::RaspberryPiComputeModule3Plus,
+            <span class="string">"a03111" </span>| <span class="string">"a03112" </span>| <span class="string">"b03111" </span>| <span class="string">"b03112" </span>| <span class="string">"b03114" </span>| <span class="string">"c03111" </span>| <span class="string">"c03112"
+            </span>| <span class="string">"c03114" </span>| <span class="string">"d03114" </span>=&gt; Model::RaspberryPi4B,
+            <span class="string">"c03130" </span>=&gt; Model::RaspberryPi400,
+            <span class="string">"a03140" </span>| <span class="string">"b03140" </span>| <span class="string">"c03140" </span>| <span class="string">"d03140" </span>=&gt; Model::RaspberryPiComputeModule4,
+            <span class="string">"902120" </span>=&gt; Model::RaspberryPiZero2W,
             <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownModel),
         }
     } <span class="kw">else </span>{
@@ -610,33 +611,33 @@
 
 <span class="comment">// Identify Pi model based on /sys/firmware/devicetree/base/compatible
 </span><span class="kw">fn </span>parse_base_compatible() -&gt; <span class="prelude-ty">Result</span>&lt;Model&gt; {
-    <span class="kw">let </span>base_compatible = <span class="kw">match </span>fs::read_to_string(<span class="string">&quot;/sys/firmware/devicetree/base/compatible&quot;</span>) {
+    <span class="kw">let </span>base_compatible = <span class="kw">match </span>fs::read_to_string(<span class="string">"/sys/firmware/devicetree/base/compatible"</span>) {
         <span class="prelude-val">Ok</span>(buffer) =&gt; buffer,
         <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownModel),
     };
 
     <span class="comment">// Based on /arch/arm/boot/dts/ and /Documentation/devicetree/bindings/arm/bcm/
-    </span><span class="kw">for </span>comp_id <span class="kw">in </span>base_compatible.split(<span class="string">&#39;\0&#39;</span>) {
+    </span><span class="kw">for </span>comp_id <span class="kw">in </span>base_compatible.split(<span class="string">'\0'</span>) {
         <span class="kw">let </span>model = <span class="kw">match </span>comp_id {
-            <span class="string">&quot;raspberrypi,model-b-i2c0&quot; </span>=&gt; Model::RaspberryPiBRev1,
-            <span class="string">&quot;raspberrypi,model-b&quot; </span>=&gt; Model::RaspberryPiBRev1,
-            <span class="string">&quot;raspberrypi,model-a&quot; </span>=&gt; Model::RaspberryPiA,
-            <span class="string">&quot;raspberrypi,model-b-rev2&quot; </span>=&gt; Model::RaspberryPiBRev2,
-            <span class="string">&quot;raspberrypi,model-a-plus&quot; </span>=&gt; Model::RaspberryPiAPlus,
-            <span class="string">&quot;raspberrypi,model-b-plus&quot; </span>=&gt; Model::RaspberryPiBPlus,
-            <span class="string">&quot;raspberrypi,2-model-b&quot; </span>=&gt; Model::RaspberryPi2B,
-            <span class="string">&quot;raspberrypi,compute-module&quot; </span>=&gt; Model::RaspberryPiComputeModule,
-            <span class="string">&quot;raspberrypi,3-model-b&quot; </span>=&gt; Model::RaspberryPi3B,
-            <span class="string">&quot;raspberrypi,model-zero&quot; </span>=&gt; Model::RaspberryPiZero,
-            <span class="string">&quot;raspberrypi,3-compute-module&quot; </span>=&gt; Model::RaspberryPiComputeModule3,
-            <span class="string">&quot;raspberrypi,3-compute-module-plus&quot; </span>=&gt; Model::RaspberryPiComputeModule3Plus,
-            <span class="string">&quot;raspberrypi,model-zero-w&quot; </span>=&gt; Model::RaspberryPiZeroW,
-            <span class="string">&quot;raspberrypi,model-zero-2&quot; </span>=&gt; Model::RaspberryPiZero2W,
-            <span class="string">&quot;raspberrypi,3-model-b-plus&quot; </span>=&gt; Model::RaspberryPi3BPlus,
-            <span class="string">&quot;raspberrypi,3-model-a-plus&quot; </span>=&gt; Model::RaspberryPi3APlus,
-            <span class="string">&quot;raspberrypi,4-model-b&quot; </span>=&gt; Model::RaspberryPi4B,
-            <span class="string">&quot;raspberrypi,400&quot; </span>=&gt; Model::RaspberryPi400,
-            <span class="string">&quot;raspberrypi,4-compute-module&quot; </span>=&gt; Model::RaspberryPiComputeModule4,
+            <span class="string">"raspberrypi,model-b-i2c0" </span>=&gt; Model::RaspberryPiBRev1,
+            <span class="string">"raspberrypi,model-b" </span>=&gt; Model::RaspberryPiBRev1,
+            <span class="string">"raspberrypi,model-a" </span>=&gt; Model::RaspberryPiA,
+            <span class="string">"raspberrypi,model-b-rev2" </span>=&gt; Model::RaspberryPiBRev2,
+            <span class="string">"raspberrypi,model-a-plus" </span>=&gt; Model::RaspberryPiAPlus,
+            <span class="string">"raspberrypi,model-b-plus" </span>=&gt; Model::RaspberryPiBPlus,
+            <span class="string">"raspberrypi,2-model-b" </span>=&gt; Model::RaspberryPi2B,
+            <span class="string">"raspberrypi,compute-module" </span>=&gt; Model::RaspberryPiComputeModule,
+            <span class="string">"raspberrypi,3-model-b" </span>=&gt; Model::RaspberryPi3B,
+            <span class="string">"raspberrypi,model-zero" </span>=&gt; Model::RaspberryPiZero,
+            <span class="string">"raspberrypi,3-compute-module" </span>=&gt; Model::RaspberryPiComputeModule3,
+            <span class="string">"raspberrypi,3-compute-module-plus" </span>=&gt; Model::RaspberryPiComputeModule3Plus,
+            <span class="string">"raspberrypi,model-zero-w" </span>=&gt; Model::RaspberryPiZeroW,
+            <span class="string">"raspberrypi,model-zero-2" </span>=&gt; Model::RaspberryPiZero2W,
+            <span class="string">"raspberrypi,3-model-b-plus" </span>=&gt; Model::RaspberryPi3BPlus,
+            <span class="string">"raspberrypi,3-model-a-plus" </span>=&gt; Model::RaspberryPi3APlus,
+            <span class="string">"raspberrypi,4-model-b" </span>=&gt; Model::RaspberryPi4B,
+            <span class="string">"raspberrypi,400" </span>=&gt; Model::RaspberryPi400,
+            <span class="string">"raspberrypi,4-compute-module" </span>=&gt; Model::RaspberryPiComputeModule4,
             <span class="kw">_ </span>=&gt; <span class="kw">continue</span>,
         };
 
@@ -648,9 +649,9 @@
 
 <span class="comment">// Identify Pi model based on /sys/firmware/devicetree/base/model
 </span><span class="kw">fn </span>parse_base_model() -&gt; <span class="prelude-ty">Result</span>&lt;Model&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>base_model = <span class="kw">match </span>fs::read_to_string(<span class="string">&quot;/sys/firmware/devicetree/base/model&quot;</span>) {
+    <span class="kw">let </span><span class="kw-2">mut </span>base_model = <span class="kw">match </span>fs::read_to_string(<span class="string">"/sys/firmware/devicetree/base/model"</span>) {
         <span class="prelude-val">Ok</span>(<span class="kw-2">mut </span>buffer) =&gt; {
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(idx) = buffer.find(<span class="string">&#39;\0&#39;</span>) {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(idx) = buffer.find(<span class="string">'\0'</span>) {
                 buffer.truncate(idx);
             }
 
@@ -663,39 +664,39 @@
     // PCB Revision numbers on https://elinux.org/RPi_HardwareHistory are correct, and
     // the installed distro appends the revision to the model name.
     </span><span class="kw">match </span><span class="kw-2">&amp;</span>base_model[..] {
-        <span class="string">&quot;Raspberry Pi Model B Rev 2.0&quot; </span>=&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(Model::RaspberryPiBRev2),
-        <span class="string">&quot;Raspberry Pi Model B rev2 Rev 2.0&quot; </span>=&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(Model::RaspberryPiBRev2),
+        <span class="string">"Raspberry Pi Model B Rev 2.0" </span>=&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(Model::RaspberryPiBRev2),
+        <span class="string">"Raspberry Pi Model B rev2 Rev 2.0" </span>=&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(Model::RaspberryPiBRev2),
         <span class="kw">_ </span>=&gt; (),
     }
 
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(idx) = base_model.find(<span class="string">&quot; Rev &quot;</span>) {
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(idx) = base_model.find(<span class="string">" Rev "</span>) {
         base_model.truncate(idx);
     }
 
     <span class="comment">// Based on /arch/arm/boot/dts/ and /Documentation/devicetree/bindings/arm/bcm/
     </span><span class="kw">let </span>model = <span class="kw">match </span><span class="kw-2">&amp;</span>base_model[..] {
-        <span class="string">&quot;Raspberry Pi Model B (no P5)&quot; </span>=&gt; Model::RaspberryPiBRev1,
-        <span class="string">&quot;Raspberry Pi Model B&quot; </span>=&gt; Model::RaspberryPiBRev1,
-        <span class="string">&quot;Raspberry Pi Model A&quot; </span>=&gt; Model::RaspberryPiA,
-        <span class="string">&quot;Raspberry Pi Model B rev2&quot; </span>=&gt; Model::RaspberryPiBRev2,
-        <span class="string">&quot;Raspberry Pi Model A+&quot; </span>=&gt; Model::RaspberryPiAPlus,
-        <span class="string">&quot;Raspberry Pi Model A Plus&quot; </span>=&gt; Model::RaspberryPiAPlus,
-        <span class="string">&quot;Raspberry Pi Model B+&quot; </span>=&gt; Model::RaspberryPiBPlus,
-        <span class="string">&quot;Raspberry Pi Model B Plus&quot; </span>=&gt; Model::RaspberryPiBPlus,
-        <span class="string">&quot;Raspberry Pi 2 Model B&quot; </span>=&gt; Model::RaspberryPi2B,
-        <span class="string">&quot;Raspberry Pi Compute Module&quot; </span>=&gt; Model::RaspberryPiComputeModule,
-        <span class="string">&quot;Raspberry Pi 3 Model B&quot; </span>=&gt; Model::RaspberryPi3B,
-        <span class="string">&quot;Raspberry Pi Zero&quot; </span>=&gt; Model::RaspberryPiZero,
-        <span class="string">&quot;Raspberry Pi Compute Module 3&quot; </span>=&gt; Model::RaspberryPiComputeModule3,
-        <span class="string">&quot;Raspberry Pi Compute Module 3 Plus&quot; </span>=&gt; Model::RaspberryPiComputeModule3Plus,
-        <span class="string">&quot;Raspberry Pi Zero W&quot; </span>=&gt; Model::RaspberryPiZeroW,
-        <span class="string">&quot;Raspberry Pi Zero 2&quot; </span>=&gt; Model::RaspberryPiZero2W,
-        <span class="string">&quot;Raspberry Pi 3 Model B+&quot; </span>=&gt; Model::RaspberryPi3BPlus,
-        <span class="string">&quot;Raspberry Pi 3 Model B Plus&quot; </span>=&gt; Model::RaspberryPi3BPlus,
-        <span class="string">&quot;Raspberry Pi 3 Model A Plus&quot; </span>=&gt; Model::RaspberryPi3APlus,
-        <span class="string">&quot;Raspberry Pi 4 Model B&quot; </span>=&gt; Model::RaspberryPi4B,
-        <span class="string">&quot;Raspberry Pi 400&quot; </span>=&gt; Model::RaspberryPi400,
-        <span class="string">&quot;Raspberry Pi Compute Module 4&quot; </span>=&gt; Model::RaspberryPiComputeModule4,
+        <span class="string">"Raspberry Pi Model B (no P5)" </span>=&gt; Model::RaspberryPiBRev1,
+        <span class="string">"Raspberry Pi Model B" </span>=&gt; Model::RaspberryPiBRev1,
+        <span class="string">"Raspberry Pi Model A" </span>=&gt; Model::RaspberryPiA,
+        <span class="string">"Raspberry Pi Model B rev2" </span>=&gt; Model::RaspberryPiBRev2,
+        <span class="string">"Raspberry Pi Model A+" </span>=&gt; Model::RaspberryPiAPlus,
+        <span class="string">"Raspberry Pi Model A Plus" </span>=&gt; Model::RaspberryPiAPlus,
+        <span class="string">"Raspberry Pi Model B+" </span>=&gt; Model::RaspberryPiBPlus,
+        <span class="string">"Raspberry Pi Model B Plus" </span>=&gt; Model::RaspberryPiBPlus,
+        <span class="string">"Raspberry Pi 2 Model B" </span>=&gt; Model::RaspberryPi2B,
+        <span class="string">"Raspberry Pi Compute Module" </span>=&gt; Model::RaspberryPiComputeModule,
+        <span class="string">"Raspberry Pi 3 Model B" </span>=&gt; Model::RaspberryPi3B,
+        <span class="string">"Raspberry Pi Zero" </span>=&gt; Model::RaspberryPiZero,
+        <span class="string">"Raspberry Pi Compute Module 3" </span>=&gt; Model::RaspberryPiComputeModule3,
+        <span class="string">"Raspberry Pi Compute Module 3 Plus" </span>=&gt; Model::RaspberryPiComputeModule3Plus,
+        <span class="string">"Raspberry Pi Zero W" </span>=&gt; Model::RaspberryPiZeroW,
+        <span class="string">"Raspberry Pi Zero 2" </span>=&gt; Model::RaspberryPiZero2W,
+        <span class="string">"Raspberry Pi 3 Model B+" </span>=&gt; Model::RaspberryPi3BPlus,
+        <span class="string">"Raspberry Pi 3 Model B Plus" </span>=&gt; Model::RaspberryPi3BPlus,
+        <span class="string">"Raspberry Pi 3 Model A Plus" </span>=&gt; Model::RaspberryPi3APlus,
+        <span class="string">"Raspberry Pi 4 Model B" </span>=&gt; Model::RaspberryPi4B,
+        <span class="string">"Raspberry Pi 400" </span>=&gt; Model::RaspberryPi400,
+        <span class="string">"Raspberry Pi Compute Module 4" </span>=&gt; Model::RaspberryPiComputeModule4,
         <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(Error::UnknownModel),
     };
 
@@ -714,7 +715,7 @@
 <span class="kw">impl </span>DeviceInfo {
     <span class="doccomment">/// Constructs a new `DeviceInfo`.
     ///
-    /// `new` attempts to identify the Raspberry Pi&#39;s model and SoC based on
+    /// `new` attempts to identify the Raspberry Pi's model and SoC based on
     /// the contents of `/proc/cpuinfo`, `/sys/firmware/devicetree/base/compatible`
     /// and `/sys/firmware/devicetree/base/model`.
     </span><span class="kw">pub fn </span>new() -&gt; <span class="prelude-ty">Result</span>&lt;DeviceInfo&gt; {
@@ -770,12 +771,12 @@
         }
     }
 
-    <span class="doccomment">/// Returns the Raspberry Pi&#39;s model.
+    <span class="doccomment">/// Returns the Raspberry Pi's model.
     </span><span class="kw">pub fn </span>model(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Model {
         <span class="self">self</span>.model
     }
 
-    <span class="doccomment">/// Returns the Raspberry Pi&#39;s SoC.
+    <span class="doccomment">/// Returns the Raspberry Pi's SoC.
     </span><span class="kw">pub fn </span>soc(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SoC {
         <span class="self">self</span>.soc
     }

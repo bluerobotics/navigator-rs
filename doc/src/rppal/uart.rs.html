@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rppal-0.13.1/src/uart.rs`."><title>uart.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="rppal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../rppal/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rppal-0.13.1/src/uart.rs`."><title>uart.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="rppal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -981,7 +982,7 @@
 </pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2017-2021 Rene van der Meer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the &quot;Software&quot;),
+// copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation
 // the rights to use, copy, modify, merge, publish, distribute, sublicense,
 // and/or sell copies of the Software, and to permit persons to whom the
@@ -990,7 +991,7 @@
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
 //
-// THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -1000,15 +1001,15 @@
 
 </span><span class="doccomment">//! Interface for the UART peripherals and any USB to serial adapters.
 //!
-//! RPPAL controls the Raspberry Pi&#39;s UART peripherals through the `ttyAMA0`
+//! RPPAL controls the Raspberry Pi's UART peripherals through the `ttyAMA0`
 //! (PL011) and `ttyS0` (mini UART) character devices. USB to serial adapters
 //! are controlled using the `ttyUSBx` and `ttyACMx` character devices.
 //!
 //! ## UART peripherals
 //!
-//! The Raspberry Pi&#39;s BCM283x SoC features two UART peripherals.
+//! The Raspberry Pi's BCM283x SoC features two UART peripherals.
 //! `/dev/ttyAMA0` represents the PL011 UART, which offers a full set of
-//! features. `/dev/ttyS0` represents an auxiliary peripheral that&#39;s referred
+//! features. `/dev/ttyS0` represents an auxiliary peripheral that's referred
 //! to as mini UART, with limited capabilities. More details on the differences
 //! between the PL011 and mini UART can be found in the official Raspberry Pi
 //! [documentation].
@@ -1018,14 +1019,14 @@
 //! `/dev/ttyAMA0` is connected to the Bluetooth
 //! module, and `/dev/ttyS0` is used as a serial console instead. Due to the
 //! limitations of `/dev/ttyS0` and the requirement for a fixed core frequency,
-//! in most cases you&#39;ll want to use `/dev/ttyAMA0` for serial communication.
+//! in most cases you'll want to use `/dev/ttyAMA0` for serial communication.
 //!
 //! By default, TX (outgoing data) is tied to BCM GPIO 14 (physical pin 8) and
 //! RX (incoming data) is tied to BCM GPIO 15 (physical pin 10). You can move
 //! these lines to different GPIO pins using the `uart0` and `uart1` overlays,
-//! but the alternative pin options aren&#39;t exposed through the GPIO header on
+//! but the alternative pin options aren't exposed through the GPIO header on
 //! any of the current Raspberry Pi models. They are only available on the
-//! Compute Module&#39;s SO-DIMM pads.
+//! Compute Module's SO-DIMM pads.
 //!
 //! ## Configure `/dev/ttyAMA0` for serial communication (recommended)
 //!
@@ -1041,7 +1042,7 @@
 //! becomes available for serial communication.
 //!
 //! To disable Bluetooth, add `dtoverlay=pi3-disable-bt` to `/boot/config.txt`.
-//! You&#39;ll also need to disable the service that initializes Bluetooth with
+//! You'll also need to disable the service that initializes Bluetooth with
 //! `sudo systemctl disable hciuart`.
 //!
 //! To move the Bluetooth module to `/dev/ttyS0`, instead of disabling it with
@@ -1088,7 +1089,7 @@
 //! ## Hardware flow control
 //!
 //! The RTS/CTS hardware flow control implementation supported by [`Uart`]
-//! and used by the Raspberry Pi&#39;s UART peripherals requires RTS on one
+//! and used by the Raspberry Pi's UART peripherals requires RTS on one
 //! device to be connected to CTS on the other device. The RTS signal is
 //! used to request the other device to pause or resume its transmission.
 //!
@@ -1096,22 +1097,22 @@
 //! referred to as legacy or simplex mode, where RTS is connected to RTS, and
 //! CTS to CTS. The RTS signal is used to indicate data is about to be
 //! transmitted. [`Uart`] is not compatible with this implementation.
-//! Connecting the Raspberry Pi&#39;s RTS and CTS pins incorrectly could damage
+//! Connecting the Raspberry Pi's RTS and CTS pins incorrectly could damage
 //! the Pi or the external device.
 //!
 //! When [`Uart`] is controlling a UART peripheral, enabling hardware flow
 //! control will also configure the RTS and CTS pins. On Raspberry Pi models
 //! with a 40-pin GPIO header, RTS is tied to BCM GPIO 17 (physical pin 11)
-//! and CTS is tied to BCM GPIO 16 (physical pin 36). RTS and CTS aren&#39;t
+//! and CTS is tied to BCM GPIO 16 (physical pin 36). RTS and CTS aren't
 //! available on models with a 26-pin header, except for the Raspberry Pi B
 //! Rev 2, which exposes RTS and CTS through its unpopulated P5 header with
 //! RTS on BCM GPIO 31 (physical pin 6) and CTS on BCM GPIO 30 (physical pin
 //! 5).
 //!
 //! The RTS and CTS pins are reset to their original state when [`Uart`] goes
-//! out of scope. Note that `drop` methods aren&#39;t called when a process is
+//! out of scope. Note that `drop` methods aren't called when a process is
 //! abnormally terminated, for instance when a user presses &lt;kbd&gt;Ctrl&lt;/kbd&gt; +
-//! &lt;kbd&gt;C&lt;/kbd&gt; and the `SIGINT` signal isn&#39;t caught, which prevents [`Uart`]
+//! &lt;kbd&gt;C&lt;/kbd&gt; and the `SIGINT` signal isn't caught, which prevents [`Uart`]
 //! from resetting the pins. You can catch those using crates such as
 //! [`simple_signal`].
 //!
@@ -1147,7 +1148,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::gpio::{<span class="self">self</span>, Gpio, IoPin, Mode};
 <span class="kw">use </span><span class="kw">crate</span>::system::{<span class="self">self</span>, DeviceInfo, Model};
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;hal&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"hal"</span>)]
 </span><span class="kw">mod </span>hal;
 <span class="kw">mod </span>termios;
 
@@ -1175,11 +1176,11 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Error {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Error::Io(<span class="kw-2">ref </span>err) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;I/O error: {}&quot;</span>, err),
-            Error::Gpio(<span class="kw-2">ref </span>err) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;GPIO error: {}&quot;</span>, err),
-            Error::InvalidValue =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Invalid or unsupported value&quot;</span>),
+            Error::Io(<span class="kw-2">ref </span>err) =&gt; <span class="macro">write!</span>(f, <span class="string">"I/O error: {}"</span>, err),
+            Error::Gpio(<span class="kw-2">ref </span>err) =&gt; <span class="macro">write!</span>(f, <span class="string">"GPIO error: {}"</span>, err),
+            Error::InvalidValue =&gt; <span class="macro">write!</span>(f, <span class="string">"Invalid or unsupported value"</span>),
         }
     }
 }
@@ -1229,13 +1230,13 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Parity {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Parity::None =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;None&quot;</span>),
-            Parity::Even =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Even&quot;</span>),
-            Parity::Odd =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Odd&quot;</span>),
-            Parity::Mark =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Mark&quot;</span>),
-            Parity::Space =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Space&quot;</span>),
+            Parity::None =&gt; <span class="macro">write!</span>(f, <span class="string">"None"</span>),
+            Parity::Even =&gt; <span class="macro">write!</span>(f, <span class="string">"Even"</span>),
+            Parity::Odd =&gt; <span class="macro">write!</span>(f, <span class="string">"Odd"</span>),
+            Parity::Mark =&gt; <span class="macro">write!</span>(f, <span class="string">"Mark"</span>),
+            Parity::Space =&gt; <span class="macro">write!</span>(f, <span class="string">"Space"</span>),
         }
     }
 }
@@ -1259,12 +1260,12 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>ParityCheck {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            ParityCheck::None =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;None&quot;</span>),
-            ParityCheck::Strip =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Strip&quot;</span>),
-            ParityCheck::Replace =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Replace&quot;</span>),
-            ParityCheck::Mark =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Mark&quot;</span>),
+            ParityCheck::None =&gt; <span class="macro">write!</span>(f, <span class="string">"None"</span>),
+            ParityCheck::Strip =&gt; <span class="macro">write!</span>(f, <span class="string">"Strip"</span>),
+            ParityCheck::Replace =&gt; <span class="macro">write!</span>(f, <span class="string">"Replace"</span>),
+            ParityCheck::Mark =&gt; <span class="macro">write!</span>(f, <span class="string">"Mark"</span>),
         }
     }
 }
@@ -1281,11 +1282,11 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Queue {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
-            Queue::Input =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Input&quot;</span>),
-            Queue::Output =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Output&quot;</span>),
-            Queue::Both =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Both&quot;</span>),
+            Queue::Input =&gt; <span class="macro">write!</span>(f, <span class="string">"Input"</span>),
+            Queue::Output =&gt; <span class="macro">write!</span>(f, <span class="string">"Output"</span>),
+            Queue::Both =&gt; <span class="macro">write!</span>(f, <span class="string">"Both"</span>),
         }
     }
 }
@@ -1321,7 +1322,7 @@
     /// signal causes the modem to hang up. Other devices may use DTR and DSR
     /// for flow control.
     ///
-    /// DTR is not supported by the Raspberry Pi&#39;s UART peripherals,
+    /// DTR is not supported by the Raspberry Pi's UART peripherals,
     /// but may be available on some USB to serial adapters.
     ///
     /// [`Uart`]: struct.Uart.html
@@ -1336,7 +1337,7 @@
     /// ready for data transmission. Other devices may use DTR and DSR for flow
     /// control.
     ///
-    /// DSR is not supported by the Raspberry Pi&#39;s UART peripherals,
+    /// DSR is not supported by the Raspberry Pi's UART peripherals,
     /// but may be available on some USB to serial adapters.
     </span><span class="kw">pub fn </span>dsr(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.tiocm &amp; TIOCM_DSR &gt; <span class="number">0
@@ -1348,7 +1349,7 @@
     /// communicating with a modem, an active signal indicates a connection is
     /// established.
     ///
-    /// DCD is not supported by the Raspberry Pi&#39;s UART peripherals,
+    /// DCD is not supported by the Raspberry Pi's UART peripherals,
     /// but may be available on some USB to serial adapters.
     </span><span class="kw">pub fn </span>dcd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.tiocm &amp; TIOCM_CAR &gt; <span class="number">0
@@ -1360,7 +1361,7 @@
     /// communicating with a modem, an active signal indicates an incoming
     /// call.
     ///
-    /// RI is not supported by the Raspberry Pi&#39;s UART peripherals,
+    /// RI is not supported by the Raspberry Pi's UART peripherals,
     /// but may be available on some USB to serial adapters.
     </span><span class="kw">pub fn </span>ri(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.tiocm &amp; TIOCM_RNG &gt; <span class="number">0
@@ -1368,14 +1369,14 @@
 }
 
 <span class="kw">impl </span>fmt::Debug <span class="kw">for </span>Status {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        f.debug_struct(<span class="string">&quot;Status&quot;</span>)
-            .field(<span class="string">&quot;rts&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.rts())
-            .field(<span class="string">&quot;cts&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.cts())
-            .field(<span class="string">&quot;dtr&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.dtr())
-            .field(<span class="string">&quot;dsr&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.dsr())
-            .field(<span class="string">&quot;dcd&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.dcd())
-            .field(<span class="string">&quot;ri&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.ri())
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
+        f.debug_struct(<span class="string">"Status"</span>)
+            .field(<span class="string">"rts"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.rts())
+            .field(<span class="string">"cts"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.cts())
+            .field(<span class="string">"dtr"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.dtr())
+            .field(<span class="string">"dsr"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.dsr())
+            .field(<span class="string">"dcd"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.dcd())
+            .field(<span class="string">"ri"</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.ri())
             .finish()
     }
 }
@@ -1397,7 +1398,7 @@
     hardware_flow_control: bool,
 }
 
-<span class="doccomment">/// Provides access to the Raspberry Pi&#39;s UART peripherals and any USB to
+<span class="doccomment">/// Provides access to the Raspberry Pi's UART peripherals and any USB to
 /// serial adapters.
 ///
 /// The `embedded-hal` [`serial::Read`], [`serial::Write`] and [`blocking::serial::Write`] trait
@@ -1420,7 +1421,7 @@
     ///
     /// [`with_path`]: #method.with_path
     </span><span class="kw">pub fn </span>new(baud_rate: u32, parity: Parity, data_bits: u8, stop_bits: u8) -&gt; <span class="prelude-ty">Result</span>&lt;Uart&gt; {
-        <span class="self">Self</span>::with_path(<span class="string">&quot;/dev/serial0&quot;</span>, baud_rate, parity, data_bits, stop_bits)
+        <span class="self">Self</span>::with_path(<span class="string">"/dev/serial0"</span>, baud_rate, parity, data_bits, stop_bits)
     }
 
     <span class="doccomment">/// Constructs a new `Uart` connected to the serial character device
@@ -1444,12 +1445,12 @@
         <span class="comment">// Follow symbolic links
         </span><span class="kw">let </span>path = fs::canonicalize(path)<span class="question-mark">?</span>;
 
-        <span class="comment">// Check if we&#39;re using /dev/ttyAMA0 or /dev/ttyS0 so we can set the
+        <span class="comment">// Check if we're using /dev/ttyAMA0 or /dev/ttyS0 so we can set the
         // correct RTS/CTS pin modes when needed.
         </span><span class="kw">let </span>rtscts_mode = <span class="kw">if let </span><span class="prelude-val">Some</span>(path_str) = path.to_str() {
             <span class="kw">match </span>path_str {
-                <span class="string">&quot;/dev/ttyAMA0&quot; </span>=&gt; <span class="prelude-val">Some</span>((GPIO_RTS_MODE_UART0, GPIO_CTS_MODE_UART0)),
-                <span class="string">&quot;/dev/ttyS0&quot; </span>=&gt; <span class="prelude-val">Some</span>((GPIO_RTS_MODE_UART1, GPIO_CTS_MODE_UART1)),
+                <span class="string">"/dev/ttyAMA0" </span>=&gt; <span class="prelude-val">Some</span>((GPIO_RTS_MODE_UART0, GPIO_CTS_MODE_UART0)),
+                <span class="string">"/dev/ttyS0" </span>=&gt; <span class="prelude-val">Some</span>((GPIO_RTS_MODE_UART1, GPIO_CTS_MODE_UART1)),
                 <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
             }
         } <span class="kw">else </span>{
@@ -1624,7 +1625,7 @@
 
     <span class="doccomment">/// Sets DTR to active (`true`) or inactive (`false`).
     ///
-    /// DTR is not supported by the Raspberry Pi&#39;s UART peripherals,
+    /// DTR is not supported by the Raspberry Pi's UART peripherals,
     /// but may be available on some USB to serial adapters.
     </span><span class="kw">pub fn </span>set_dtr(<span class="kw-2">&amp;mut </span><span class="self">self</span>, dtr: bool) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         termios::set_dtr(<span class="self">self</span>.inner.fd, dtr)
@@ -1830,7 +1831,7 @@
         <span class="self">self</span>.inner.blocking_read = min_length &gt; <span class="number">0 </span>|| timeout.as_millis() &gt; <span class="number">0</span>;
 
         <span class="comment">// If both read() and write() are non-blocking, we can safely set
-        // O_NONBLOCK once instead of toggling it for every write. We can&#39;t
+        // O_NONBLOCK once instead of toggling it for every write. We can't
         // leave it set when read() should block, because it ignores the
         // VMIN and VTIME settings.
         </span><span class="kw">if </span><span class="self">self</span>.inner.blocking_read || <span class="self">self</span>.inner.blocking_write {
@@ -1853,7 +1854,7 @@
     ///
     /// * **Non-blocking write**. [`write`] returns immediately after
     /// copying as much of the contents of the provided buffer to the output queue
-    /// as it&#39;s able to fit.
+    /// as it's able to fit.
     /// * **Blocking write**. [`write`] blocks until the entire contents of the provided buffer
     /// can be copied to the output queue. If flow control is enabled and the
     /// external device has sent a stop request, the transmission of any waiting data
@@ -1866,7 +1867,7 @@
         <span class="self">self</span>.inner.blocking_write = blocking;
 
         <span class="comment">// If both read() and write() are non-blocking, we can safely set
-        // O_NONBLOCK once instead of toggling it for every write. We can&#39;t
+        // O_NONBLOCK once instead of toggling it for every write. We can't
         // leave it set when read() should block, because it ignores the
         // VMIN and VTIME settings.
         </span><span class="kw">if </span><span class="self">self</span>.inner.blocking_read || <span class="self">self</span>.inner.blocking_write {

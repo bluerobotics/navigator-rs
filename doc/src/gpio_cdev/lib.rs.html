@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gpio-cdev-0.5.1/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gpio_cdev" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../gpio_cdev/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gpio-cdev-0.5.1/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gpio_cdev" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1055,17 +1056,17 @@
 //!
 //! // Lines are offset within gpiochip0; see docs for more info on chips/lines
 //! fn mirror_gpio(inputline: u32, outputline: u32) -&gt; Result&lt;(), gpio_cdev::Error&gt; {
-//!     let mut chip = Chip::new(&quot;/dev/gpiochip0&quot;)?;
+//!     let mut chip = Chip::new("/dev/gpiochip0")?;
 //!     let input = chip.get_line(inputline)?;
 //!     let output = chip.get_line(outputline)?;
-//!     let output_handle = output.request(LineRequestFlags::OUTPUT, 0, &quot;mirror-gpio&quot;)?;
+//!     let output_handle = output.request(LineRequestFlags::OUTPUT, 0, "mirror-gpio")?;
 //!     for event in input.events(
 //!         LineRequestFlags::INPUT,
 //!         EventRequestFlags::BOTH_EDGES,
-//!         &quot;mirror-gpio&quot;,
+//!         "mirror-gpio",
 //!     )? {
 //!         let evt = event?;
-//!         println!(&quot;{:?}&quot;, evt);
+//!         println!("{:?}", evt);
 //!         match evt.event_type() {
 //!             EventType::RisingEdge =&gt; {
 //!                 output_handle.set_value(1)?;
@@ -1095,12 +1096,12 @@
 //! // The LineHandle returned by request must be assigned to a
 //! // variable (in this case the variable handle) to ensure that
 //! // the corresponding file descriptor is not closed.
-//! let mut chip = Chip::new(&quot;/dev/gpiochip0&quot;)?;
+//! let mut chip = Chip::new("/dev/gpiochip0")?;
 //! let handle = chip
 //!     .get_line(4)?
-//!     .request(LineRequestFlags::INPUT, 0, &quot;read-input&quot;)?;
+//!     .request(LineRequestFlags::INPUT, 0, "read-input")?;
 //! for _ in 1..4 {
-//!     println!(&quot;Value: {:?}&quot;, handle.get_value()?);
+//!     println!("Value: {:?}", handle.get_value()?);
 //! }
 //! # Ok(()) }
 //! ```
@@ -1126,8 +1127,8 @@
 <span class="kw">use </span>std::slice;
 <span class="kw">use </span>std::sync::Arc;
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
-#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)))]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
+#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"async-tokio"</span>)))]
 </span><span class="kw">mod </span>async_tokio;
 <span class="kw">pub mod </span>errors; <span class="comment">// pub portion is deprecated
 </span><span class="kw">mod </span>ffi;
@@ -1142,8 +1143,8 @@
     SetLine,
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
-#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)))]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
+#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"async-tokio"</span>)))]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::async_tokio::AsyncLineEventHandle;
 <span class="kw">pub use </span>errors::<span class="kw-2">*</span>;
 
@@ -1210,7 +1211,7 @@
                         .path()
                         .as_path()
                         .to_string_lossy()
-                        .contains(<span class="string">&quot;gpiochip&quot;</span>)
+                        .contains(<span class="string">"gpiochip"</span>)
                     {
                         <span class="kw">return </span><span class="prelude-val">Some</span>(Chip::new(entry.path()));
                     }
@@ -1228,7 +1229,7 @@
 <span class="doccomment">/// Iterate over all GPIO chips currently present on this system
 </span><span class="kw">pub fn </span>chips() -&gt; <span class="prelude-ty">Result</span>&lt;ChipIterator&gt; {
     <span class="prelude-val">Ok</span>(ChipIterator {
-        readdir: read_dir(<span class="string">&quot;/dev&quot;</span>)<span class="question-mark">?</span>,
+        readdir: read_dir(<span class="string">"/dev"</span>)<span class="question-mark">?</span>,
     })
 }
 
@@ -1271,7 +1272,7 @@
     <span class="doccomment">/// A functional name for this GPIO chip, such as a product number.  Might
     /// be an empty string.
     ///
-    /// As an example, the SoC GPIO chip on a Raspberry Pi is &quot;pinctrl-bcm2835&quot;
+    /// As an example, the SoC GPIO chip on a Raspberry Pi is "pinctrl-bcm2835"
     </span><span class="kw">pub fn </span>label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="self">self</span>.inner.label.as_str()
     }
@@ -1461,7 +1462,7 @@
         <span class="self">self</span>.offset
     }
 
-    <span class="doccomment">/// Get a handle to this chip&#39;s parent
+    <span class="doccomment">/// Get a handle to this chip's parent
     </span><span class="kw">pub fn </span>chip(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Chip {
         Chip {
             inner: <span class="self">self</span>.chip.clone(),
@@ -1470,7 +1471,7 @@
 
     <span class="doccomment">/// Request access to interact with this line from the kernel
     ///
-    /// This is similar to the &quot;export&quot; operation present in the sysfs
+    /// This is similar to the "export" operation present in the sysfs
     /// API with the key difference that we are also able to configure
     /// the GPIO with `flags` to specify how the line will be used
     /// at the time of request.
@@ -1549,16 +1550,16 @@
     /// use gpio_cdev::{Chip, LineRequestFlags, EventRequestFlags};
     /// use std::io;
     ///
-    /// let mut chip = Chip::new(&quot;/dev/gpiochip0&quot;)?;
+    /// let mut chip = Chip::new("/dev/gpiochip0")?;
     /// let input = chip.get_line(0)?;
     ///
     /// // Show all state changes for this line forever
     /// for event in input.events(
     ///     LineRequestFlags::INPUT,
     ///     EventRequestFlags::BOTH_EDGES,
-    ///     &quot;rust-gpio&quot;
+    ///     "rust-gpio"
     /// )? {
-    ///     println!(&quot;{:?}&quot;, event?);
+    ///     println!("{:?}", event?);
     /// }
     /// # Ok(())
     /// # }
@@ -1592,8 +1593,8 @@
         })
     }
 
-    <span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
-    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)))]
+    <span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"async-tokio"</span>)))]
     </span><span class="kw">pub fn </span>async_events(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         handle_flags: LineRequestFlags,
@@ -1665,7 +1666,7 @@
     }
 }
 
-<span class="doccomment">/// Handle for interacting with a &quot;requested&quot; line
+<span class="doccomment">/// Handle for interacting with a "requested" line
 ///
 /// In order for userspace to read/write the value of a GPIO
 /// it must be requested from the chip using [`Line::request`].
@@ -1689,7 +1690,7 @@
     /// not be able to give any useful information when the value
     /// is requested for an output line.
     ///
-    /// This value should be 0 or 1 which a &quot;1&quot; representing that
+    /// This value should be 0 or 1 which a "1" representing that
     /// the line is active.  Usually this means that the line is
     /// at logic-level high but it could mean the opposite if the
     /// line has been marked as being ACTIVE_LOW.
@@ -1702,7 +1703,7 @@
     <span class="doccomment">/// Request that the line be driven to the specified value
     ///
     /// The value should be 0 or 1 with 1 representing a request
-    /// to make the line &quot;active&quot;.  Usually &quot;active&quot; means
+    /// to make the line "active".  Usually "active" means
     /// logic level high unless the line has been marked as ACTIVE_LOW.
     ///
     /// Calling `set_value` on a line that is not an output will
@@ -1768,7 +1769,7 @@
 
     <span class="doccomment">/// Request access to interact with these lines from the kernel
     ///
-    /// This is similar to the &quot;export&quot; operation present in the sysfs
+    /// This is similar to the "export" operation present in the sysfs
     /// API with the key difference that we are also able to configure
     /// the GPIO with `flags` to specify how the line will be used
     /// at the time of request.
@@ -1840,7 +1841,7 @@
     }
 }
 
-<span class="doccomment">/// Handle for interacting with a &quot;requested&quot; line
+<span class="doccomment">/// Handle for interacting with a "requested" line
 ///
 /// In order for userspace to read/write the value of a GPIO
 /// it must be requested from the chip using [`Line::request`].
@@ -1863,7 +1864,7 @@
     /// not be able to give any useful information when the value
     /// is requested for an output line.
     ///
-    /// This value should be 0 or 1 which a &quot;1&quot; representing that
+    /// This value should be 0 or 1 which a "1" representing that
     /// the line is active.  Usually this means that the line is
     /// at logic-level high but it could mean the opposite if the
     /// line has been marked as being ACTIVE_LOW.
@@ -1878,7 +1879,7 @@
     <span class="doccomment">/// Request that the line be driven to the specified value
     ///
     /// The value should be 0 or 1 with 1 representing a request
-    /// to make the line &quot;active&quot;.  Usually &quot;active&quot; means
+    /// to make the line "active".  Usually "active" means
     /// logic level high unless the line has been marked as ACTIVE_LOW.
     ///
     /// Calling `set_value` on a line that is not an output will
@@ -1934,7 +1935,7 @@
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter) -&gt; std::fmt::Result {
         <span class="macro">write!</span>(
             f,
-            <span class="string">&quot;LineEvent {{ timestamp: {:?}, event_type: {:?} }}&quot;</span>,
+            <span class="string">"LineEvent {{ timestamp: {:?}, event_type: {:?} }}"</span>,
             <span class="self">self</span>.timestamp(),
             <span class="self">self</span>.event_type()
         )
@@ -1996,7 +1997,7 @@
 
     <span class="doccomment">/// Request the current state of this Line from the kernel
     ///
-    /// This value should be 0 or 1 which a &quot;1&quot; representing that
+    /// This value should be 0 or 1 which a "1" representing that
     /// the line is active.  Usually this means that the line is
     /// at logic-level high but it could mean the opposite if the
     /// line has been marked as being ACTIVE_LOW.

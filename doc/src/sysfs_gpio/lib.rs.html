@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sysfs_gpio-0.6.1/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sysfs_gpio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0 (79e9716c9 2023-11-13)" data-channel="1.74.0" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../sysfs_gpio/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sysfs_gpio-0.6.1/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sysfs_gpio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -747,39 +748,39 @@
 //! }
 //! ```
 
-</span><span class="attr">#![cfg_attr(feature = <span class="string">&quot;async-tokio&quot;</span>, allow(deprecated))]
+</span><span class="attr">#![cfg_attr(feature = <span class="string">"async-tokio"</span>, allow(deprecated))]
 
-#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+#[cfg(feature = <span class="string">"async-tokio"</span>)]
 </span><span class="kw">extern crate </span>futures;
-<span class="attr">#[cfg(feature = <span class="string">&quot;mio-evented&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"mio-evented"</span>)]
 </span><span class="kw">extern crate </span>mio;
-<span class="attr">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">"wasi"</span>))]
 </span><span class="kw">extern crate </span>nix;
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
 </span><span class="kw">extern crate </span>tokio;
 
 <span class="kw">use </span>std::io;
 <span class="kw">use </span>std::io::prelude::<span class="kw-2">*</span>;
-<span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>, feature = <span class="string">&quot;async-tokio&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">"linux"</span>, target_os = <span class="string">"android"</span>, feature = <span class="string">"async-tokio"</span>))]
 </span><span class="kw">use </span>std::io::SeekFrom;
-<span class="attr">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">"wasi"</span>))]
 </span><span class="kw">use </span>std::os::unix::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span>std::path::Path;
 <span class="kw">use </span>std::{fs, fs::File};
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
 </span><span class="kw">use </span>futures::{ready, Stream};
-<span class="attr">#[cfg(feature = <span class="string">&quot;mio-evented&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"mio-evented"</span>)]
 </span><span class="kw">use </span>mio::event::Source;
-<span class="attr">#[cfg(feature = <span class="string">&quot;mio-evented&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"mio-evented"</span>)]
 </span><span class="kw">use </span>mio::unix::SourceFd;
-<span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
+<span class="attr">#[cfg(any(target_os = <span class="string">"linux"</span>, target_os = <span class="string">"android"</span>))]
 </span><span class="kw">use </span>nix::sys::epoll::<span class="kw-2">*</span>;
-<span class="attr">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">"wasi"</span>))]
 </span><span class="kw">use </span>nix::unistd::close;
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
 </span><span class="kw">use </span>std::task::Poll;
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
 </span><span class="kw">use </span>tokio::io::unix::AsyncFd;
 
 <span class="kw">pub use </span>error::Error;
@@ -827,14 +828,14 @@
 /// Typically, one would just use seek() for this sort of thing,
 /// but for certain files (e.g. in sysfs), you need to actually
 /// read it.
-</span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
+</span><span class="attr">#[cfg(any(target_os = <span class="string">"linux"</span>, target_os = <span class="string">"android"</span>))]
 </span><span class="kw">fn </span>flush_input_from_file(dev_file: <span class="kw-2">&amp;mut </span>File, max: usize) -&gt; io::Result&lt;usize&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>s = String::with_capacity(max);
     dev_file.read_to_string(<span class="kw-2">&amp;mut </span>s)
 }
 
 <span class="doccomment">/// Get the pin value from the provided file
-</span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>, feature = <span class="string">&quot;async-tokio&quot;</span>))]
+</span><span class="attr">#[cfg(any(target_os = <span class="string">"linux"</span>, target_os = <span class="string">"android"</span>, feature = <span class="string">"async-tokio"</span>))]
 </span><span class="kw">fn </span>get_value_from_file(dev_file: <span class="kw-2">&amp;mut </span>File) -&gt; <span class="prelude-ty">Result</span>&lt;u8&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>s = String::with_capacity(<span class="number">10</span>);
     dev_file.seek(SeekFrom::Start(<span class="number">0</span>))<span class="question-mark">?</span>;
@@ -842,7 +843,7 @@
     <span class="kw">match </span>s[..<span class="number">1</span>].parse::&lt;u8&gt;() {
         <span class="prelude-val">Ok</span>(n) =&gt; <span class="prelude-val">Ok</span>(n),
         <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(Error::Unexpected(<span class="macro">format!</span>(
-            <span class="string">&quot;Unexpected value file contents: {:?}&quot;</span>,
+            <span class="string">"Unexpected value file contents: {:?}"</span>,
             s
         ))),
     }
@@ -851,14 +852,14 @@
 <span class="kw">impl </span>Pin {
     <span class="doccomment">/// Write all of the provided contents to the specified devFile
     </span><span class="kw">fn </span>write_to_device_file(<span class="kw-2">&amp;</span><span class="self">self</span>, dev_file_name: <span class="kw-2">&amp;</span>str, value: <span class="kw-2">&amp;</span>str) -&gt; io::Result&lt;()&gt; {
-        <span class="kw">let </span>gpio_path = <span class="macro">format!</span>(<span class="string">&quot;/sys/class/gpio/gpio{}/{}&quot;</span>, <span class="self">self</span>.pin_num, dev_file_name);
+        <span class="kw">let </span>gpio_path = <span class="macro">format!</span>(<span class="string">"/sys/class/gpio/gpio{}/{}"</span>, <span class="self">self</span>.pin_num, dev_file_name);
         <span class="kw">let </span><span class="kw-2">mut </span>dev_file = File::create(<span class="kw-2">&amp;</span>gpio_path)<span class="question-mark">?</span>;
         dev_file.write_all(value.as_bytes())<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="kw">fn </span>read_from_device_file(<span class="kw-2">&amp;</span><span class="self">self</span>, dev_file_name: <span class="kw-2">&amp;</span>str) -&gt; io::Result&lt;String&gt; {
-        <span class="kw">let </span>gpio_path = <span class="macro">format!</span>(<span class="string">&quot;/sys/class/gpio/gpio{}/{}&quot;</span>, <span class="self">self</span>.pin_num, dev_file_name);
+        <span class="kw">let </span>gpio_path = <span class="macro">format!</span>(<span class="string">"/sys/class/gpio/gpio{}/{}"</span>, <span class="self">self</span>.pin_num, dev_file_name);
         <span class="kw">let </span><span class="kw-2">mut </span>dev_file = File::open(<span class="kw-2">&amp;</span>gpio_path)<span class="question-mark">?</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>s = String::new();
         dev_file.read_to_string(<span class="kw-2">&amp;mut </span>s)<span class="question-mark">?</span>;
@@ -891,8 +892,8 @@
         <span class="comment">// determine if this is valid and figure out the pin_num
         </span><span class="kw">if </span>!fs::metadata(<span class="kw-2">&amp;</span>pb)<span class="question-mark">?</span>.is_dir() {
             <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Unexpected(
-                <span class="string">&quot;Provided path not a directory or symlink to \
-                                          a directory&quot;
+                <span class="string">"Provided path not a directory or symlink to \
+                                          a directory"
                     </span>.to_owned(),
             ));
         }
@@ -905,8 +906,8 @@
         path.as_ref()
             .file_name()
             .and_then(|filename| filename.to_str())
-            .and_then(|filename_str| filename_str.trim_start_matches(<span class="string">&quot;gpio&quot;</span>).parse::&lt;u64&gt;().ok())
-            .ok_or_else(|| Error::InvalidPath(<span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, path.as_ref())))
+            .and_then(|filename_str| filename_str.trim_start_matches(<span class="string">"gpio"</span>).parse::&lt;u64&gt;().ok())
+            .ok_or_else(|| Error::InvalidPath(<span class="macro">format!</span>(<span class="string">"{:?}"</span>, path.as_ref())))
     }
 
     <span class="doccomment">/// Get the pin number
@@ -927,7 +928,7 @@
     ///
     /// let gpio = Pin::new(24);
     /// let res = gpio.with_exported(|| {
-    ///     println!(&quot;At this point, the Pin is exported&quot;);
+    ///     println!("At this point, the Pin is exported");
     ///     gpio.set_direction(Direction::Low)?;
     ///     gpio.set_value(1)?;
     ///     // ...
@@ -954,7 +955,7 @@
     /// This function will error out if the kernel does not support the GPIO
     /// sysfs interface (i.e. `/sys/class/gpio` does not exist).
     </span><span class="kw">pub fn </span>is_exported(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        fs::metadata(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;/sys/class/gpio/gpio{}&quot;</span>, <span class="self">self</span>.pin_num)).is_ok()
+        fs::metadata(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"/sys/class/gpio/gpio{}"</span>, <span class="self">self</span>.pin_num)).is_ok()
     }
 
     <span class="doccomment">/// Export the GPIO
@@ -978,14 +979,14 @@
     ///
     /// let gpio = Pin::new(24);
     /// match gpio.export() {
-    ///     Ok(()) =&gt; println!(&quot;Gpio {} exported!&quot;, gpio.get_pin()),
-    ///     Err(err) =&gt; println!(&quot;Gpio {} could not be exported: {}&quot;, gpio.get_pin(), err),
+    ///     Ok(()) =&gt; println!("Gpio {} exported!", gpio.get_pin()),
+    ///     Err(err) =&gt; println!("Gpio {} could not be exported: {}", gpio.get_pin(), err),
     /// }
     /// ```
     </span><span class="kw">pub fn </span>export(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="kw">if </span>fs::metadata(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;/sys/class/gpio/gpio{}&quot;</span>, <span class="self">self</span>.pin_num)).is_err() {
-            <span class="kw">let </span><span class="kw-2">mut </span>export_file = File::create(<span class="string">&quot;/sys/class/gpio/export&quot;</span>)<span class="question-mark">?</span>;
-            export_file.write_all(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.pin_num).as_bytes())<span class="question-mark">?</span>;
+        <span class="kw">if </span>fs::metadata(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"/sys/class/gpio/gpio{}"</span>, <span class="self">self</span>.pin_num)).is_err() {
+            <span class="kw">let </span><span class="kw-2">mut </span>export_file = File::create(<span class="string">"/sys/class/gpio/export"</span>)<span class="question-mark">?</span>;
+            export_file.write_all(<span class="macro">format!</span>(<span class="string">"{}"</span>, <span class="self">self</span>.pin_num).as_bytes())<span class="question-mark">?</span>;
         }
         <span class="prelude-val">Ok</span>(())
     }
@@ -997,9 +998,9 @@
     /// exported, it will return without error.  That is, whenever
     /// this function returns Ok, the GPIO is not exported.
     </span><span class="kw">pub fn </span>unexport(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="kw">if </span>fs::metadata(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;/sys/class/gpio/gpio{}&quot;</span>, <span class="self">self</span>.pin_num)).is_ok() {
-            <span class="kw">let </span><span class="kw-2">mut </span>unexport_file = File::create(<span class="string">&quot;/sys/class/gpio/unexport&quot;</span>)<span class="question-mark">?</span>;
-            unexport_file.write_all(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.pin_num).as_bytes())<span class="question-mark">?</span>;
+        <span class="kw">if </span>fs::metadata(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"/sys/class/gpio/gpio{}"</span>, <span class="self">self</span>.pin_num)).is_ok() {
+            <span class="kw">let </span><span class="kw-2">mut </span>unexport_file = File::create(<span class="string">"/sys/class/gpio/unexport"</span>)<span class="question-mark">?</span>;
+            unexport_file.write_all(<span class="macro">format!</span>(<span class="string">"{}"</span>, <span class="self">self</span>.pin_num).as_bytes())<span class="question-mark">?</span>;
         }
         <span class="prelude-val">Ok</span>(())
     }
@@ -1011,14 +1012,14 @@
 
     <span class="doccomment">/// Get the direction of the Pin
     </span><span class="kw">pub fn </span>get_direction(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Direction&gt; {
-        <span class="kw">match </span><span class="self">self</span>.read_from_device_file(<span class="string">&quot;direction&quot;</span>) {
+        <span class="kw">match </span><span class="self">self</span>.read_from_device_file(<span class="string">"direction"</span>) {
             <span class="prelude-val">Ok</span>(s) =&gt; <span class="kw">match </span>s.trim() {
-                <span class="string">&quot;in&quot; </span>=&gt; <span class="prelude-val">Ok</span>(Direction::In),
-                <span class="string">&quot;out&quot; </span>=&gt; <span class="prelude-val">Ok</span>(Direction::Out),
-                <span class="string">&quot;high&quot; </span>=&gt; <span class="prelude-val">Ok</span>(Direction::High),
-                <span class="string">&quot;low&quot; </span>=&gt; <span class="prelude-val">Ok</span>(Direction::Low),
+                <span class="string">"in" </span>=&gt; <span class="prelude-val">Ok</span>(Direction::In),
+                <span class="string">"out" </span>=&gt; <span class="prelude-val">Ok</span>(Direction::Out),
+                <span class="string">"high" </span>=&gt; <span class="prelude-val">Ok</span>(Direction::High),
+                <span class="string">"low" </span>=&gt; <span class="prelude-val">Ok</span>(Direction::Low),
                 other =&gt; <span class="prelude-val">Err</span>(Error::Unexpected(<span class="macro">format!</span>(
-                    <span class="string">&quot;direction file contents {}&quot;</span>,
+                    <span class="string">"direction file contents {}"</span>,
                     other
                 ))),
             },
@@ -1041,12 +1042,12 @@
     /// this is the case, you will get an error.
     </span><span class="kw">pub fn </span>set_direction(<span class="kw-2">&amp;</span><span class="self">self</span>, dir: Direction) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.write_to_device_file(
-            <span class="string">&quot;direction&quot;</span>,
+            <span class="string">"direction"</span>,
             <span class="kw">match </span>dir {
-                Direction::In =&gt; <span class="string">&quot;in&quot;</span>,
-                Direction::Out =&gt; <span class="string">&quot;out&quot;</span>,
-                Direction::High =&gt; <span class="string">&quot;high&quot;</span>,
-                Direction::Low =&gt; <span class="string">&quot;low&quot;</span>,
+                Direction::In =&gt; <span class="string">"in"</span>,
+                Direction::Out =&gt; <span class="string">"out"</span>,
+                Direction::High =&gt; <span class="string">"high"</span>,
+                Direction::Low =&gt; <span class="string">"low"</span>,
             },
         )<span class="question-mark">?</span>;
 
@@ -1058,13 +1059,13 @@
     /// If successful, 1 will be returned if the pin is high
     /// and 0 will be returned if the pin is low (this may or may
     /// not match the signal level of the actual signal depending
-    /// on the GPIO &quot;active_low&quot; entry).
+    /// on the GPIO "active_low" entry).
     </span><span class="kw">pub fn </span>get_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;u8&gt; {
-        <span class="kw">match </span><span class="self">self</span>.read_from_device_file(<span class="string">&quot;value&quot;</span>) {
+        <span class="kw">match </span><span class="self">self</span>.read_from_device_file(<span class="string">"value"</span>) {
             <span class="prelude-val">Ok</span>(s) =&gt; <span class="kw">match </span>s.trim() {
-                <span class="string">&quot;1&quot; </span>=&gt; <span class="prelude-val">Ok</span>(<span class="number">1</span>),
-                <span class="string">&quot;0&quot; </span>=&gt; <span class="prelude-val">Ok</span>(<span class="number">0</span>),
-                other =&gt; <span class="prelude-val">Err</span>(Error::Unexpected(<span class="macro">format!</span>(<span class="string">&quot;value file contents {}&quot;</span>, other))),
+                <span class="string">"1" </span>=&gt; <span class="prelude-val">Ok</span>(<span class="number">1</span>),
+                <span class="string">"0" </span>=&gt; <span class="prelude-val">Ok</span>(<span class="number">0</span>),
+                other =&gt; <span class="prelude-val">Err</span>(Error::Unexpected(<span class="macro">format!</span>(<span class="string">"value file contents {}"</span>, other))),
             },
             <span class="prelude-val">Err</span>(e) =&gt; <span class="prelude-val">Err</span>(::std::convert::From::from(e)),
         }
@@ -1077,10 +1078,10 @@
     /// set the pin high (1 is typical).
     </span><span class="kw">pub fn </span>set_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: u8) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.write_to_device_file(
-            <span class="string">&quot;value&quot;</span>,
+            <span class="string">"value"</span>,
             <span class="kw">match </span>value {
-                <span class="number">0 </span>=&gt; <span class="string">&quot;0&quot;</span>,
-                <span class="kw">_ </span>=&gt; <span class="string">&quot;1&quot;</span>,
+                <span class="number">0 </span>=&gt; <span class="string">"0"</span>,
+                <span class="kw">_ </span>=&gt; <span class="string">"1"</span>,
             },
         )<span class="question-mark">?</span>;
 
@@ -1092,14 +1093,14 @@
     /// This value will only be present if the Pin allows
     /// for interrupts.
     </span><span class="kw">pub fn </span>get_edge(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Edge&gt; {
-        <span class="kw">match </span><span class="self">self</span>.read_from_device_file(<span class="string">&quot;edge&quot;</span>) {
+        <span class="kw">match </span><span class="self">self</span>.read_from_device_file(<span class="string">"edge"</span>) {
             <span class="prelude-val">Ok</span>(s) =&gt; <span class="kw">match </span>s.trim() {
-                <span class="string">&quot;none&quot; </span>=&gt; <span class="prelude-val">Ok</span>(Edge::NoInterrupt),
-                <span class="string">&quot;rising&quot; </span>=&gt; <span class="prelude-val">Ok</span>(Edge::RisingEdge),
-                <span class="string">&quot;falling&quot; </span>=&gt; <span class="prelude-val">Ok</span>(Edge::FallingEdge),
-                <span class="string">&quot;both&quot; </span>=&gt; <span class="prelude-val">Ok</span>(Edge::BothEdges),
+                <span class="string">"none" </span>=&gt; <span class="prelude-val">Ok</span>(Edge::NoInterrupt),
+                <span class="string">"rising" </span>=&gt; <span class="prelude-val">Ok</span>(Edge::RisingEdge),
+                <span class="string">"falling" </span>=&gt; <span class="prelude-val">Ok</span>(Edge::FallingEdge),
+                <span class="string">"both" </span>=&gt; <span class="prelude-val">Ok</span>(Edge::BothEdges),
                 other =&gt; <span class="prelude-val">Err</span>(Error::Unexpected(<span class="macro">format!</span>(
-                    <span class="string">&quot;Unexpected file contents {}&quot;</span>,
+                    <span class="string">"Unexpected file contents {}"</span>,
                     other
                 ))),
             },
@@ -1114,12 +1115,12 @@
     /// if the pin does not allow interrupts.
     </span><span class="kw">pub fn </span>set_edge(<span class="kw-2">&amp;</span><span class="self">self</span>, edge: Edge) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.write_to_device_file(
-            <span class="string">&quot;edge&quot;</span>,
+            <span class="string">"edge"</span>,
             <span class="kw">match </span>edge {
-                Edge::NoInterrupt =&gt; <span class="string">&quot;none&quot;</span>,
-                Edge::RisingEdge =&gt; <span class="string">&quot;rising&quot;</span>,
-                Edge::FallingEdge =&gt; <span class="string">&quot;falling&quot;</span>,
-                Edge::BothEdges =&gt; <span class="string">&quot;both&quot;</span>,
+                Edge::NoInterrupt =&gt; <span class="string">"none"</span>,
+                Edge::RisingEdge =&gt; <span class="string">"rising"</span>,
+                Edge::FallingEdge =&gt; <span class="string">"falling"</span>,
+                Edge::BothEdges =&gt; <span class="string">"both"</span>,
             },
         )<span class="question-mark">?</span>;
 
@@ -1128,12 +1129,12 @@
 
     <span class="doccomment">/// Get polarity of the Pin (`true` is active low)
     </span><span class="kw">pub fn </span>get_active_low(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;bool&gt; {
-        <span class="kw">match </span><span class="self">self</span>.read_from_device_file(<span class="string">&quot;active_low&quot;</span>) {
+        <span class="kw">match </span><span class="self">self</span>.read_from_device_file(<span class="string">"active_low"</span>) {
             <span class="prelude-val">Ok</span>(s) =&gt; <span class="kw">match </span>s.trim() {
-                <span class="string">&quot;1&quot; </span>=&gt; <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>),
-                <span class="string">&quot;0&quot; </span>=&gt; <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>),
+                <span class="string">"1" </span>=&gt; <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>),
+                <span class="string">"0" </span>=&gt; <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>),
                 other =&gt; <span class="prelude-val">Err</span>(Error::Unexpected(<span class="macro">format!</span>(
-                    <span class="string">&quot;active_low file contents {}&quot;</span>,
+                    <span class="string">"active_low file contents {}"</span>,
                     other
                 ))),
             },
@@ -1143,14 +1144,14 @@
 
     <span class="doccomment">/// Set the polarity of the Pin (`true` is active low)
     ///
-    /// This will affect &quot;rising&quot; and &quot;falling&quot; edge triggered
+    /// This will affect "rising" and "falling" edge triggered
     /// configuration.
     </span><span class="kw">pub fn </span>set_active_low(<span class="kw-2">&amp;</span><span class="self">self</span>, active_low: bool) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="self">self</span>.write_to_device_file(
-            <span class="string">&quot;active_low&quot;</span>,
+            <span class="string">"active_low"</span>,
             <span class="kw">match </span>active_low {
-                <span class="bool-val">true </span>=&gt; <span class="string">&quot;1&quot;</span>,
-                <span class="bool-val">false </span>=&gt; <span class="string">&quot;0&quot;</span>,
+                <span class="bool-val">true </span>=&gt; <span class="string">"1"</span>,
+                <span class="bool-val">false </span>=&gt; <span class="string">"0"</span>,
             },
         )<span class="question-mark">?</span>;
 
@@ -1162,7 +1163,7 @@
     /// This pin poller object will register an interrupt with the
     /// kernel and allow you to poll() on it and receive notifications
     /// that an interrupt has occured with minimal delay.
-    </span><span class="attr">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
+    </span><span class="attr">#[cfg(not(target_os = <span class="string">"wasi"</span>))]
     </span><span class="kw">pub fn </span>get_poller(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;PinPoller&gt; {
         PinPoller::new(<span class="self">self</span>.pin_num)
     }
@@ -1173,7 +1174,7 @@
     /// `set_edge()` before using this.
     ///
     /// This method is only available when the `mio-evented` crate feature is enabled.
-    </span><span class="attr">#[cfg(feature = <span class="string">&quot;mio-evented&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">"mio-evented"</span>)]
     </span><span class="kw">pub fn </span>get_async_poller(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;AsyncPinPoller&gt; {
         AsyncPinPoller::new(<span class="self">self</span>.pin_num)
     }
@@ -1184,7 +1185,7 @@
     /// `set_edge()` before using this.
     ///
     /// This method is only available when the `async-tokio` crate feature is enabled.
-    </span><span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
     </span><span class="kw">pub fn </span>get_stream(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;PinStream&gt; {
         PinStream::init(<span class="kw-2">*</span><span class="self">self</span>)
     }
@@ -1200,7 +1201,7 @@
     /// between when the interrupt occurred and when the value was read.
     ///
     /// This method is only available when the `async-tokio` crate feature is enabled.
-    </span><span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
     </span><span class="kw">pub fn </span>get_value_stream(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;PinValueStream&gt; {
         <span class="prelude-val">Ok</span>(PinValueStream(PinStream::init(<span class="kw-2">*</span><span class="self">self</span>)<span class="question-mark">?</span>))
     }
@@ -1208,25 +1209,25 @@
 
 <span class="attr">#[test]
 </span><span class="kw">fn </span>extract_pin_fom_path_test() {
-    <span class="kw">let </span>tok1 = Pin::extract_pin_from_path(<span class="kw-2">&amp;</span><span class="string">&quot;/sys/class/gpio/gpio951&quot;</span>);
+    <span class="kw">let </span>tok1 = Pin::extract_pin_from_path(<span class="kw-2">&amp;</span><span class="string">"/sys/class/gpio/gpio951"</span>);
     <span class="macro">assert_eq!</span>(<span class="number">951</span>, tok1.unwrap());
-    <span class="kw">let </span>tok2 = Pin::extract_pin_from_path(<span class="kw-2">&amp;</span><span class="string">&quot;/sys/CLASS/gpio/gpio951/&quot;</span>);
+    <span class="kw">let </span>tok2 = Pin::extract_pin_from_path(<span class="kw-2">&amp;</span><span class="string">"/sys/CLASS/gpio/gpio951/"</span>);
     <span class="macro">assert_eq!</span>(<span class="number">951</span>, tok2.unwrap());
-    <span class="kw">let </span>tok3 = Pin::extract_pin_from_path(<span class="kw-2">&amp;</span><span class="string">&quot;../../devices/soc0/gpiochip3/gpio/gpio124&quot;</span>);
+    <span class="kw">let </span>tok3 = Pin::extract_pin_from_path(<span class="kw-2">&amp;</span><span class="string">"../../devices/soc0/gpiochip3/gpio/gpio124"</span>);
     <span class="macro">assert_eq!</span>(<span class="number">124</span>, tok3.unwrap());
-    <span class="kw">let </span>err1 = Pin::extract_pin_from_path(<span class="kw-2">&amp;</span><span class="string">&quot;/sys/CLASS/gpio/gpio&quot;</span>);
+    <span class="kw">let </span>err1 = Pin::extract_pin_from_path(<span class="kw-2">&amp;</span><span class="string">"/sys/CLASS/gpio/gpio"</span>);
     <span class="macro">assert!</span>(err1.is_err());
-    <span class="kw">let </span>err2 = Pin::extract_pin_from_path(<span class="kw-2">&amp;</span><span class="string">&quot;/sys/class/gpio/gpioSDS&quot;</span>);
+    <span class="kw">let </span>err2 = Pin::extract_pin_from_path(<span class="kw-2">&amp;</span><span class="string">"/sys/class/gpio/gpioSDS"</span>);
     <span class="macro">assert!</span>(err2.is_err());
 }
-<span class="attr">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">"wasi"</span>))]
 #[derive(Debug)]
 </span><span class="kw">pub struct </span>PinPoller {
     pin_num: u64,
     epoll_fd: RawFd,
     devfile: File,
 }
-<span class="attr">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">"wasi"</span>))]
 </span><span class="kw">impl </span>PinPoller {
     <span class="doccomment">/// Get the pin associated with this PinPoller
     ///
@@ -1237,9 +1238,9 @@
     }
 
     <span class="doccomment">/// Create a new PinPoller for the provided pin number
-    </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
+    </span><span class="attr">#[cfg(any(target_os = <span class="string">"linux"</span>, target_os = <span class="string">"android"</span>))]
     </span><span class="kw">pub fn </span>new(pin_num: u64) -&gt; <span class="prelude-ty">Result</span>&lt;PinPoller&gt; {
-        <span class="kw">let </span>devfile: File = File::open(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;/sys/class/gpio/gpio{}/value&quot;</span>, pin_num))<span class="question-mark">?</span>;
+        <span class="kw">let </span>devfile: File = File::open(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"/sys/class/gpio/gpio{}/value"</span>, pin_num))<span class="question-mark">?</span>;
         <span class="kw">let </span>devfile_fd = devfile.as_raw_fd();
         <span class="kw">let </span>epoll_fd = epoll_create()<span class="question-mark">?</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>event = EpollEvent::new(EpollFlags::EPOLLPRI | EpollFlags::EPOLLET, <span class="number">0u64</span>);
@@ -1257,9 +1258,9 @@
         }
     }
 
-    <span class="attr">#[cfg(not(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>)))]
+    <span class="attr">#[cfg(not(any(target_os = <span class="string">"linux"</span>, target_os = <span class="string">"android"</span>)))]
     </span><span class="kw">pub fn </span>new(_pin_num: u64) -&gt; <span class="prelude-ty">Result</span>&lt;PinPoller&gt; {
-        <span class="prelude-val">Err</span>(Error::Unsupported(<span class="string">&quot;PinPoller&quot;</span>.into()))
+        <span class="prelude-val">Err</span>(Error::Unsupported(<span class="string">"PinPoller"</span>.into()))
     }
 
     <span class="doccomment">/// Block until an interrupt occurs
@@ -1279,7 +1280,7 @@
     /// has occurred, but you could end up reading the same value multiple
     /// times as the value has changed back between when the interrupt
     /// occurred and the current time.
-    </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
+    </span><span class="attr">#[cfg(any(target_os = <span class="string">"linux"</span>, target_os = <span class="string">"android"</span>))]
     </span><span class="kw">pub fn </span>poll(<span class="kw-2">&amp;mut </span><span class="self">self</span>, timeout_ms: isize) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;u8&gt;&gt; {
         flush_input_from_file(<span class="kw-2">&amp;mut </span><span class="self">self</span>.devfile, <span class="number">255</span>)<span class="question-mark">?</span>;
         <span class="kw">let </span>dummy_event = EpollEvent::new(EpollFlags::EPOLLPRI | EpollFlags::EPOLLET, <span class="number">0u64</span>);
@@ -1291,13 +1292,13 @@
         })
     }
 
-    <span class="attr">#[cfg(not(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>)))]
+    <span class="attr">#[cfg(not(any(target_os = <span class="string">"linux"</span>, target_os = <span class="string">"android"</span>)))]
     </span><span class="kw">pub fn </span>poll(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _timeout_ms: isize) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;u8&gt;&gt; {
-        <span class="prelude-val">Err</span>(Error::Unsupported(<span class="string">&quot;PinPoller&quot;</span>.into()))
+        <span class="prelude-val">Err</span>(Error::Unsupported(<span class="string">"PinPoller"</span>.into()))
     }
 }
 
-<span class="attr">#[cfg(not(target_os = <span class="string">&quot;wasi&quot;</span>))]
+<span class="attr">#[cfg(not(target_os = <span class="string">"wasi"</span>))]
 </span><span class="kw">impl </span>Drop <span class="kw">for </span>PinPoller {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="comment">// we implement drop to close the underlying epoll fd as
@@ -1307,21 +1308,21 @@
     </span>}
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;mio-evented&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"mio-evented"</span>)]
 #[derive(Debug)]
 </span><span class="kw">pub struct </span>AsyncPinPoller {
     devfile: File,
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;mio-evented&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"mio-evented"</span>)]
 </span><span class="kw">impl </span>AsyncPinPoller {
     <span class="kw">fn </span>new(pin_num: u64) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
-        <span class="kw">let </span>devfile = File::open(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;/sys/class/gpio/gpio{}/value&quot;</span>, pin_num))<span class="question-mark">?</span>;
+        <span class="kw">let </span>devfile = File::open(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"/sys/class/gpio/gpio{}/value"</span>, pin_num))<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(AsyncPinPoller { devfile })
     }
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;mio-evented&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"mio-evented"</span>)]
 </span><span class="kw">impl </span>Source <span class="kw">for </span>AsyncPinPoller {
     <span class="kw">fn </span>register(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
@@ -1346,20 +1347,20 @@
     }
 }
 
-<span class="attr">#[cfg(any(feature = <span class="string">&quot;async-tokio&quot;</span>, feature = <span class="string">&quot;mio-evented&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">"async-tokio"</span>, feature = <span class="string">"mio-evented"</span>))]
 </span><span class="kw">impl </span>AsRawFd <span class="kw">for </span>AsyncPinPoller {
     <span class="kw">fn </span>as_raw_fd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawFd {
         <span class="self">self</span>.devfile.as_raw_fd()
     }
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
 </span><span class="kw">pub struct </span>PinStream {
     evented: AsyncFd&lt;AsyncPinPoller&gt;,
     skipped_first_event: bool,
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
 </span><span class="kw">impl </span>PinStream {
     <span class="kw">pub fn </span>init(pin: Pin) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Ok</span>(PinStream {
@@ -1369,13 +1370,13 @@
     }
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
 </span><span class="kw">impl </span>Stream <span class="kw">for </span>PinStream {
     <span class="kw">type </span>Item = <span class="prelude-ty">Result</span>&lt;()&gt;;
 
     <span class="kw">fn </span>poll_next(
         <span class="kw-2">mut </span><span class="self">self</span>: std::pin::Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
-        cx: <span class="kw-2">&amp;mut </span>std::task::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+        cx: <span class="kw-2">&amp;mut </span>std::task::Context&lt;<span class="lifetime">'_</span>&gt;,
     ) -&gt; Poll&lt;<span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>::Item&gt;&gt; {
         <span class="kw">loop </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>guard = <span class="macro">ready!</span>(<span class="self">self</span>.evented.poll_read_ready(cx))<span class="question-mark">?</span>;
@@ -1389,10 +1390,10 @@
     }
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
 </span><span class="kw">pub struct </span>PinValueStream(PinStream);
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
 </span><span class="kw">impl </span>PinValueStream {
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>get_value(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;u8&gt; {
@@ -1400,13 +1401,13 @@
     }
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;async-tokio&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"async-tokio"</span>)]
 </span><span class="kw">impl </span>Stream <span class="kw">for </span>PinValueStream {
     <span class="kw">type </span>Item = <span class="prelude-ty">Result</span>&lt;u8&gt;;
 
     <span class="kw">fn </span>poll_next(
         <span class="kw-2">mut </span><span class="self">self</span>: std::pin::Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
-        cx: <span class="kw-2">&amp;mut </span>std::task::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
+        cx: <span class="kw-2">&amp;mut </span>std::task::Context&lt;<span class="lifetime">'_</span>&gt;,
     ) -&gt; Poll&lt;<span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>::Item&gt;&gt; {
         <span class="macro">ready!</span>(std::pin::Pin::new(<span class="kw-2">&amp;mut </span><span class="self">self</span>.<span class="number">0</span>).poll_next(cx));
         Poll::Ready(<span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(<span class="self">self</span>.get_value()<span class="question-mark">?</span>)))
