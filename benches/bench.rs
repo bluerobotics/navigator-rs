@@ -40,6 +40,7 @@ fn navigator_benchmark(c: &mut Criterion) {
     bench!(set_led(UserLed::Led1, false));
     bench!(set_led_toggle(UserLed::Led1));
     bench!(get_led(UserLed::Led1));
+    bench!(read_leak());
 }
 
 criterion_group!(benches, navigator_benchmark);
