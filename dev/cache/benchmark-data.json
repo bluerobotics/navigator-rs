@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1701900937537,
+  "lastUpdate": 1708102256268,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -803,6 +803,294 @@
             "name": "get_led",
             "value": 45745,
             "range": "± 2950",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "ffb99c3d4f22c1bcb544a832dd352594252e656c",
+          "message": "bemches: Add test for leak sensor\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-02-16T13:30:09-03:00",
+          "tree_id": "f76580364aca0b4ed078bb648254f421b8d93aac",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/ffb99c3d4f22c1bcb544a832dd352594252e656c"
+        },
+        "date": 1708102256257,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183757518,
+            "range": "± 126458",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 324136034,
+            "range": "± 702948",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1451965,
+            "range": "± 64391",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5802464,
+            "range": "± 25872",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 220528,
+            "range": "± 8827",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 219793,
+            "range": "± 7367",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5049753,
+            "range": "± 59092",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 184785,
+            "range": "± 9287",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 92609,
+            "range": "± 4504",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 6690382,
+            "range": "± 136095",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40127,
+            "range": "± 6535",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45498,
+            "range": "± 3453",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 128900,
+            "range": "± 702",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 141941,
+            "range": "± 7960",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 137601,
+            "range": "± 425",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 263673,
+            "range": "± 652",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39746,
+            "range": "± 2275",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85582,
+            "range": "± 3567",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45622,
+            "range": "± 2631",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 99466,
+            "range": "± 3910",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "ffb99c3d4f22c1bcb544a832dd352594252e656c",
+          "message": "bemches: Add test for leak sensor\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-02-16T13:30:09-03:00",
+          "tree_id": "f76580364aca0b4ed078bb648254f421b8d93aac",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/ffb99c3d4f22c1bcb544a832dd352594252e656c"
+        },
+        "date": 1708102256257,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183757518,
+            "range": "± 126458",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 324136034,
+            "range": "± 702948",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1451965,
+            "range": "± 64391",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5802464,
+            "range": "± 25872",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 220528,
+            "range": "± 8827",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 219793,
+            "range": "± 7367",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5049753,
+            "range": "± 59092",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 184785,
+            "range": "± 9287",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 92609,
+            "range": "± 4504",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 6690382,
+            "range": "± 136095",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40127,
+            "range": "± 6535",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45498,
+            "range": "± 3453",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 128900,
+            "range": "± 702",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 141941,
+            "range": "± 7960",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 137601,
+            "range": "± 425",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 263673,
+            "range": "± 652",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39746,
+            "range": "± 2275",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85582,
+            "range": "± 3567",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45622,
+            "range": "± 2631",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 99466,
+            "range": "± 3910",
             "unit": "ns/iter"
           }
         ]
