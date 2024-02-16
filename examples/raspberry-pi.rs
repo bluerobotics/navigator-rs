@@ -8,6 +8,8 @@ fn main() {
 
     println!("Setting up your navigator, ahoy!");
     nav.init();
+    nav.set_pwm_enable(true);
+    nav.set_pwm_freq_prescale(99);
 
     loop {
         nav.set_pwm_channel_value(PwmChannel::All, 0);
