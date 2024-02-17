@@ -481,6 +481,37 @@ impl Navigator {
         self.pwm.set_channel_off(channel.into(), value).unwrap();
     }
 
+    /// Calculate and set the necessary values for the desired Duty Cycle (high value time) of selected channel.
+    ///
+    /// This method also allows the relay mode using a value of 1.0.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator, PwmChannel};
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// nav.set_pwm_enable(true);
+    ///
+    /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
+    /// nav.set_pwm_channel_duty_cycle(PwmChannel::Ch1, 0.50); // sets the duty cycle to 50%
+    /// ```
+    pub fn set_pwm_channel_duty_cycle(&mut self, channel: PwmChannel, duty_cycle: f32) {
+        let duty_cycle = duty_cycle.max(0.0).min(1.0);
+        let max_value = 4095;
+
+        if approx::relative_eq!(duty_cycle, 1.0) {
+            self.pwm.set_channel_full_on(channel.into(), 0).unwrap();
+            return;
+        }
+
+        let value = (duty_cycle * max_value as f32) as u16;
+
+        self.set_pwm_channel_value(channel, value);
+    }
+
     /// Like [`set_pwm_channel_value`](struct.Navigator.html#method.set_pwm_channel_value). This function
     /// sets the Duty Cycle for a list of multiple channels.
     ///
