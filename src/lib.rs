@@ -477,8 +477,9 @@ impl Navigator {
             warn!("Invalid value. Value must be less than or equal {max_value}.");
             value = max_value;
         }
-        self.pwm.set_channel_on(channel.into(), 0).unwrap();
-        self.pwm.set_channel_off(channel.into(), value).unwrap();
+        self.pwm
+            .set_channel_on_off(channel.into(), 0, value)
+            .unwrap();
     }
 
     /// Calculate and set the necessary values for the desired Duty Cycle (high value time) of selected channel.
