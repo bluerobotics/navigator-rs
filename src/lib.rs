@@ -542,6 +542,34 @@ impl Navigator {
         }
     }
 
+    /// Like [`set_pwm_channel_duty_cycle`](struct.Navigator.html#method.set_pwm_channel_duty_cycle). This function
+    /// sets the Duty Cycle for a list of multiple channels.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator, PwmChannel};
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// nav.set_pwm_enable(true);
+    /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
+    ///
+    /// let channels: [PwmChannel; 3] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
+    ///
+    /// nav.set_pwm_channels_duty_cycle(&channels, 0.5); // sets the duty cycle according to the list.
+    /// ```
+    pub fn set_pwm_channels_duty_cycle<const N: usize>(
+        &mut self,
+        channels: &[PwmChannel; N],
+        duty_cycle: f32,
+    ) {
+        for &channel in channels {
+            self.set_pwm_channel_duty_cycle(channel, duty_cycle)
+        }
+    }
+
     /// Like [`set_pwm_channel_value`](struct.Navigator.html#method.set_pwm_channel_value). This function
     /// sets the Duty Cycle for a list of multiple channels with multiple values.
     ///
@@ -568,6 +596,35 @@ impl Navigator {
     ) {
         for i in 0..N {
             self.set_pwm_channel_value(channels[i], values[i])
+        }
+    }
+
+    /// Like [`set_pwm_channel_duty_cycle`](struct.Navigator.html#method.set_pwm_channel_duty_cycle). This function
+    /// sets the Duty Cycle for a list of multiple channels with multiple values.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator, PwmChannel};
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// nav.set_pwm_enable(true);
+    /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
+    ///
+    /// let channels: [PwmChannel; 3] = [PwmChannel::Ch1, PwmChannel::Ch1, PwmChannel::Ch2];
+    /// let values: [f32; 3] = [0.1, 0.2, 0.3];
+    ///
+    /// nav.set_pwm_channels_duty_cycle_values(&channels, &values); // sets the duty cycle according to the lists.
+    /// ```
+    pub fn set_pwm_channels_duty_cycle_values<const N: usize>(
+        &mut self,
+        channels: &[PwmChannel; N],
+        duty_cycle: &[f32; N],
+    ) {
+        for i in 0..N {
+            self.set_pwm_channel_duty_cycle(channels[i], duty_cycle[i])
         }
     }
 
