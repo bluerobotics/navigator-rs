@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1709130518434,
+  "lastUpdate": 1709132133873,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -1151,6 +1151,294 @@
             "name": "new",
             "value": 183806954,
             "range": "± 274437",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "27c504c6694dc29eb9d85049d7f0f02afa7e1a6f",
+          "message": "src: lib: pwm: Optimize using a single call for both ON and OFF channels",
+          "timestamp": "2024-02-28T11:11:56-03:00",
+          "tree_id": "225f56b229916ea6111fd5ac05e28c8e775d7b1a",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/27c504c6694dc29eb9d85049d7f0f02afa7e1a6f"
+        },
+        "date": 1709132133856,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183777008,
+            "range": "± 279496",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 323495002,
+            "range": "± 579892",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1456374,
+            "range": "± 5618",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5826550,
+            "range": "± 19637",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 217797,
+            "range": "± 10457",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 218989,
+            "range": "± 10592",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5025069,
+            "range": "± 115847",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 188822,
+            "range": "± 9403",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94771,
+            "range": "± 5418",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 6691396,
+            "range": "± 128223",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40157,
+            "range": "± 4405",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45390,
+            "range": "± 1828",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 85230,
+            "range": "± 313",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 141309,
+            "range": "± 7666",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 141074,
+            "range": "± 7471",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 261710,
+            "range": "± 6681",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39077,
+            "range": "± 1804",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85058,
+            "range": "± 5872",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45426,
+            "range": "± 2230",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 98675,
+            "range": "± 7901",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "27c504c6694dc29eb9d85049d7f0f02afa7e1a6f",
+          "message": "src: lib: pwm: Optimize using a single call for both ON and OFF channels",
+          "timestamp": "2024-02-28T11:11:56-03:00",
+          "tree_id": "225f56b229916ea6111fd5ac05e28c8e775d7b1a",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/27c504c6694dc29eb9d85049d7f0f02afa7e1a6f"
+        },
+        "date": 1709132133856,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183777008,
+            "range": "± 279496",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 323495002,
+            "range": "± 579892",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1456374,
+            "range": "± 5618",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5826550,
+            "range": "± 19637",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 217797,
+            "range": "± 10457",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 218989,
+            "range": "± 10592",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5025069,
+            "range": "± 115847",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 188822,
+            "range": "± 9403",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94771,
+            "range": "± 5418",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 6691396,
+            "range": "± 128223",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40157,
+            "range": "± 4405",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45390,
+            "range": "± 1828",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 85230,
+            "range": "± 313",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 141309,
+            "range": "± 7666",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 141074,
+            "range": "± 7471",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 261710,
+            "range": "± 6681",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39077,
+            "range": "± 1804",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85058,
+            "range": "± 5872",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45426,
+            "range": "± 2230",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 98675,
+            "range": "± 7901",
             "unit": "ns/iter"
           }
         ]
