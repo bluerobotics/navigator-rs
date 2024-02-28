@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1708102256268,
+  "lastUpdate": 1709130518434,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -1091,6 +1091,66 @@
             "name": "read_leak",
             "value": 99466,
             "range": "± 3910",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "144640caa8c7c68bb0aea89aa993cabd00d52d53",
+          "message": "src: lib: Add set_pwm_channel_duty_cycle",
+          "timestamp": "2024-02-28T11:11:28-03:00",
+          "tree_id": "69d03b2628995b2aa90084ac058dcb87de92c46e",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/144640caa8c7c68bb0aea89aa993cabd00d52d53"
+        },
+        "date": 1709130518422,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183806954,
+            "range": "± 274437",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "144640caa8c7c68bb0aea89aa993cabd00d52d53",
+          "message": "src: lib: Add set_pwm_channel_duty_cycle",
+          "timestamp": "2024-02-28T11:11:28-03:00",
+          "tree_id": "69d03b2628995b2aa90084ac058dcb87de92c46e",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/144640caa8c7c68bb0aea89aa993cabd00d52d53"
+        },
+        "date": 1709130518422,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183806954,
+            "range": "± 274437",
             "unit": "ns/iter"
           }
         ]
