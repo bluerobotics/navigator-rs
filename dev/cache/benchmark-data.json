@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1709132133873,
+  "lastUpdate": 1709152738210,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -1439,6 +1439,294 @@
             "name": "read_leak",
             "value": 98675,
             "range": "± 7901",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "b6fd0a4580c88b281111be4fc574ed230604491e",
+          "message": "github: action: Fix faillure benchmark job",
+          "timestamp": "2024-02-28T17:17:11-03:00",
+          "tree_id": "6f9f79eff6eca0ffd6abd4d0d45880a77059b9c8",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/b6fd0a4580c88b281111be4fc574ed230604491e"
+        },
+        "date": 1709152738196,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183784359,
+            "range": "± 123696",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 323543562,
+            "range": "± 440742",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1456395,
+            "range": "± 9115",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5813786,
+            "range": "± 78903",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 218884,
+            "range": "± 7944",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 219497,
+            "range": "± 24375",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 4938590,
+            "range": "± 116997",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 184326,
+            "range": "± 8939",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94785,
+            "range": "± 4763",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7222108,
+            "range": "± 160275",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40194,
+            "range": "± 2183",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45201,
+            "range": "± 1861",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 84824,
+            "range": "± 2295",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 141497,
+            "range": "± 7692",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 141214,
+            "range": "± 7736",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 264577,
+            "range": "± 4451",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39397,
+            "range": "± 1934",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 84797,
+            "range": "± 5520",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 44899,
+            "range": "± 2194",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 98045,
+            "range": "± 4367",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "b6fd0a4580c88b281111be4fc574ed230604491e",
+          "message": "github: action: Fix faillure benchmark job",
+          "timestamp": "2024-02-28T17:17:11-03:00",
+          "tree_id": "6f9f79eff6eca0ffd6abd4d0d45880a77059b9c8",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/b6fd0a4580c88b281111be4fc574ed230604491e"
+        },
+        "date": 1709152738196,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183784359,
+            "range": "± 123696",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 323543562,
+            "range": "± 440742",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1456395,
+            "range": "± 9115",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5813786,
+            "range": "± 78903",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 218884,
+            "range": "± 7944",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 219497,
+            "range": "± 24375",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 4938590,
+            "range": "± 116997",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 184326,
+            "range": "± 8939",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94785,
+            "range": "± 4763",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7222108,
+            "range": "± 160275",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40194,
+            "range": "± 2183",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45201,
+            "range": "± 1861",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 84824,
+            "range": "± 2295",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 141497,
+            "range": "± 7692",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 141214,
+            "range": "± 7736",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 264577,
+            "range": "± 4451",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39397,
+            "range": "± 1934",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 84797,
+            "range": "± 5520",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 44899,
+            "range": "± 2194",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 98045,
+            "range": "± 4367",
             "unit": "ns/iter"
           }
         ]
