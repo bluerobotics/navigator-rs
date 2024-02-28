@@ -1087,6 +1087,38 @@
 <a href="#1086" id="1086">1086</a>
 <a href="#1087" id="1087">1087</a>
 <a href="#1088" id="1088">1088</a>
+<a href="#1089" id="1089">1089</a>
+<a href="#1090" id="1090">1090</a>
+<a href="#1091" id="1091">1091</a>
+<a href="#1092" id="1092">1092</a>
+<a href="#1093" id="1093">1093</a>
+<a href="#1094" id="1094">1094</a>
+<a href="#1095" id="1095">1095</a>
+<a href="#1096" id="1096">1096</a>
+<a href="#1097" id="1097">1097</a>
+<a href="#1098" id="1098">1098</a>
+<a href="#1099" id="1099">1099</a>
+<a href="#1100" id="1100">1100</a>
+<a href="#1101" id="1101">1101</a>
+<a href="#1102" id="1102">1102</a>
+<a href="#1103" id="1103">1103</a>
+<a href="#1104" id="1104">1104</a>
+<a href="#1105" id="1105">1105</a>
+<a href="#1106" id="1106">1106</a>
+<a href="#1107" id="1107">1107</a>
+<a href="#1108" id="1108">1108</a>
+<a href="#1109" id="1109">1109</a>
+<a href="#1110" id="1110">1110</a>
+<a href="#1111" id="1111">1111</a>
+<a href="#1112" id="1112">1112</a>
+<a href="#1113" id="1113">1113</a>
+<a href="#1114" id="1114">1114</a>
+<a href="#1115" id="1115">1115</a>
+<a href="#1116" id="1116">1116</a>
+<a href="#1117" id="1117">1117</a>
+<a href="#1118" id="1118">1118</a>
+<a href="#1119" id="1119">1119</a>
+<a href="#1120" id="1120">1120</a>
 </pre></div><pre class="rust"><code><span class="attr">#![deny(unsafe_code)]
 #![doc(html_logo_url = <span class="string">"https://upload.wikimedia.org/wikipedia/commons/1/12/Bluerobotics-logo.svg"</span>)]
 #![doc = <span class="macro">include_str!</span>(<span class="string">"../README.md"</span>)]
@@ -1566,8 +1598,40 @@
             <span class="macro">warn!</span>(<span class="string">"Invalid value. Value must be less than or equal {max_value}."</span>);
             value = max_value;
         }
-        <span class="self">self</span>.pwm.set_channel_on(channel.into(), <span class="number">0</span>).unwrap();
-        <span class="self">self</span>.pwm.set_channel_off(channel.into(), value).unwrap();
+        <span class="self">self</span>.pwm
+            .set_channel_on_off(channel.into(), <span class="number">0</span>, value)
+            .unwrap();
+    }
+
+    <span class="doccomment">/// Calculate and set the necessary values for the desired Duty Cycle (high value time) of selected channel.
+    ///
+    /// This method also allows the relay mode using a value of 1.0.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator, PwmChannel};
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// nav.set_pwm_enable(true);
+    ///
+    /// nav.set_pwm_freq_prescale(99); // sets the pwm frequency to 60 Hz
+    /// nav.set_pwm_channel_duty_cycle(PwmChannel::Ch1, 0.50); // sets the duty cycle to 50%
+    /// ```
+    </span><span class="kw">pub fn </span>set_pwm_channel_duty_cycle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, channel: PwmChannel, duty_cycle: f32) {
+        <span class="kw">let </span>duty_cycle = duty_cycle.max(<span class="number">0.0</span>).min(<span class="number">1.0</span>);
+        <span class="kw">let </span>max_value = <span class="number">4095</span>;
+
+        <span class="kw">if </span><span class="macro">approx::relative_eq!</span>(duty_cycle, <span class="number">1.0</span>) {
+            <span class="self">self</span>.pwm.set_channel_full_on(channel.into(), <span class="number">0</span>).unwrap();
+            <span class="kw">return</span>;
+        }
+
+        <span class="kw">let </span>value = (duty_cycle * max_value <span class="kw">as </span>f32) <span class="kw">as </span>u16;
+
+        <span class="self">self</span>.set_pwm_channel_value(channel, value);
     }
 
     <span class="doccomment">/// Like [`set_pwm_channel_value`](struct.Navigator.html#method.set_pwm_channel_value). This function
