@@ -1118,6 +1118,7 @@
 <a href="#1117" id="1117">1117</a>
 <a href="#1118" id="1118">1118</a>
 <a href="#1119" id="1119">1119</a>
+<a href="#1120" id="1120">1120</a>
 </pre></div><pre class="rust"><code><span class="attr">#![deny(unsafe_code)]
 #![doc(html_logo_url = <span class="string">"https://upload.wikimedia.org/wikipedia/commons/1/12/Bluerobotics-logo.svg"</span>)]
 #![doc = <span class="macro">include_str!</span>(<span class="string">"../README.md"</span>)]
@@ -1597,8 +1598,9 @@
             <span class="macro">warn!</span>(<span class="string">"Invalid value. Value must be less than or equal {max_value}."</span>);
             value = max_value;
         }
-        <span class="self">self</span>.pwm.set_channel_on(channel.into(), <span class="number">0</span>).unwrap();
-        <span class="self">self</span>.pwm.set_channel_off(channel.into(), value).unwrap();
+        <span class="self">self</span>.pwm
+            .set_channel_on_off(channel.into(), <span class="number">0</span>, value)
+            .unwrap();
     }
 
     <span class="doccomment">/// Calculate and set the necessary values for the desired Duty Cycle (high value time) of selected channel.
