@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1709152738210,
+  "lastUpdate": 1709233892420,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -1727,6 +1727,294 @@
             "name": "read_leak",
             "value": 98045,
             "range": "± 4367",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "1c2faa2774ca9e645084a978023809b4299633b7",
+          "message": "src: lib: Add set_pwm_channels_duty_cycle and set_pwm_channel_duty_cycle_values",
+          "timestamp": "2024-02-29T15:50:29-03:00",
+          "tree_id": "1d3f8d226641c95d59cb3ade94c8fdabb6d34cab",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/1c2faa2774ca9e645084a978023809b4299633b7"
+        },
+        "date": 1709233892399,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183787215,
+            "range": "± 163508",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 324016421,
+            "range": "± 657886",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1454155,
+            "range": "± 6957",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5822384,
+            "range": "± 28028",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 220107,
+            "range": "± 8048",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 217627,
+            "range": "± 16076",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5039864,
+            "range": "± 50251",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 183840,
+            "range": "± 9117",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 95145,
+            "range": "± 5055",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7220463,
+            "range": "± 23234",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40075,
+            "range": "± 2071",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45641,
+            "range": "± 2131",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 85139,
+            "range": "± 2087",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 141562,
+            "range": "± 7735",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 141083,
+            "range": "± 7633",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 260603,
+            "range": "± 5574",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39769,
+            "range": "± 1878",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 86259,
+            "range": "± 13443",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45756,
+            "range": "± 1840",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 99308,
+            "range": "± 3591",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "1c2faa2774ca9e645084a978023809b4299633b7",
+          "message": "src: lib: Add set_pwm_channels_duty_cycle and set_pwm_channel_duty_cycle_values",
+          "timestamp": "2024-02-29T15:50:29-03:00",
+          "tree_id": "1d3f8d226641c95d59cb3ade94c8fdabb6d34cab",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/1c2faa2774ca9e645084a978023809b4299633b7"
+        },
+        "date": 1709233892399,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183787215,
+            "range": "± 163508",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 324016421,
+            "range": "± 657886",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1454155,
+            "range": "± 6957",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5822384,
+            "range": "± 28028",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 220107,
+            "range": "± 8048",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 217627,
+            "range": "± 16076",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5039864,
+            "range": "± 50251",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 183840,
+            "range": "± 9117",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 95145,
+            "range": "± 5055",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7220463,
+            "range": "± 23234",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40075,
+            "range": "± 2071",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45641,
+            "range": "± 2131",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 85139,
+            "range": "± 2087",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 141562,
+            "range": "± 7735",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 141083,
+            "range": "± 7633",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 260603,
+            "range": "± 5574",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39769,
+            "range": "± 1878",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 86259,
+            "range": "± 13443",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45756,
+            "range": "± 1840",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 99308,
+            "range": "± 3591",
             "unit": "ns/iter"
           }
         ]
