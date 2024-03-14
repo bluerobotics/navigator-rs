@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1709233892420,
+  "lastUpdate": 1710431371755,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -2015,6 +2015,294 @@
             "name": "read_leak",
             "value": 99308,
             "range": "± 3591",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "7098d0b4736959f720b38d803108647f5045cafb",
+          "message": "src: lib: Fix leak set direction first time without need sudo",
+          "timestamp": "2024-03-14T12:27:58-03:00",
+          "tree_id": "241e859fcd5f7bce310a2692fa832e4ccc5ecafb",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/7098d0b4736959f720b38d803108647f5045cafb"
+        },
+        "date": 1710431371737,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183762804,
+            "range": "± 1014339",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 354225657,
+            "range": "± 637997",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1454992,
+            "range": "± 13571",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5775432,
+            "range": "± 55819",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 218423,
+            "range": "± 7918",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 217594,
+            "range": "± 21230",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 4868410,
+            "range": "± 121851",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 187620,
+            "range": "± 9754",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94734,
+            "range": "± 5299",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 6670434,
+            "range": "± 134650",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 39910,
+            "range": "± 1987",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45101,
+            "range": "± 1740",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 85459,
+            "range": "± 236",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 137499,
+            "range": "± 844",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 141188,
+            "range": "± 7568",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 261122,
+            "range": "± 5623",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39248,
+            "range": "± 1681",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85108,
+            "range": "± 4432",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45408,
+            "range": "± 2276",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 98686,
+            "range": "± 7989",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "raulvtrombin@gmail.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "7098d0b4736959f720b38d803108647f5045cafb",
+          "message": "src: lib: Fix leak set direction first time without need sudo",
+          "timestamp": "2024-03-14T12:27:58-03:00",
+          "tree_id": "241e859fcd5f7bce310a2692fa832e4ccc5ecafb",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/7098d0b4736959f720b38d803108647f5045cafb"
+        },
+        "date": 1710431371737,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183762804,
+            "range": "± 1014339",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 354225657,
+            "range": "± 637997",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1454992,
+            "range": "± 13571",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5775432,
+            "range": "± 55819",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 218423,
+            "range": "± 7918",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 217594,
+            "range": "± 21230",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 4868410,
+            "range": "± 121851",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 187620,
+            "range": "± 9754",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94734,
+            "range": "± 5299",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 6670434,
+            "range": "± 134650",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 39910,
+            "range": "± 1987",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45101,
+            "range": "± 1740",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 85459,
+            "range": "± 236",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 137499,
+            "range": "± 844",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 141188,
+            "range": "± 7568",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 261122,
+            "range": "± 5623",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39248,
+            "range": "± 1681",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85108,
+            "range": "± 4432",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45408,
+            "range": "± 2276",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 98686,
+            "range": "± 7989",
             "unit": "ns/iter"
           }
         ]
