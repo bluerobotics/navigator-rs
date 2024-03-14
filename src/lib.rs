@@ -393,6 +393,7 @@ impl Navigator {
         self.leak
             .export()
             .expect("Error: Failed to export leak pin");
+        Delay {}.delay_ms(30_u16);
         self.leak
             .set_direction(Direction::In)
             .expect("Error: Failed to set leak pin as input");
