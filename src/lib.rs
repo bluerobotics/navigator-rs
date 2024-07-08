@@ -855,6 +855,33 @@ impl Navigator {
         self.neopixel.update().unwrap();
     }
 
+    /// Set the values of the neopixel RGBW LED array.
+    ///
+    /// # Arguments
+    ///
+    /// * `array` - A 2D array containing RGBW values for each LED.
+    /// Each inner array is a [u8; 4] representing the Red, Green, Blue and White from a LED.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use navigator_rs::{Navigator};
+    ///
+    /// let mut nav = Navigator::new();
+    ///
+    /// nav.init();
+    /// let mut leds = [[0, 0, 255, 255], [0, 255, 0, 0], [255, 0, 0, 128]];
+    /// nav.set_neopixel_rgbw(&mut leds);
+    /// ```
+    ///
+    /// This will set the first LED to blue, second to green, third to red and fourth to white.
+    pub fn set_neopixel_rgbw(&mut self, array: &[[u8; 4]]) {
+        for (index, value) in array.iter().enumerate() {
+            self.neopixel.leds[index] = StripLed::from_rgbw(value[0], value[1], value[2], value[3]);
+        }
+        self.neopixel.update().unwrap();
+    }
+
     /// Reads the magnetometer Ak09915 of [`Navigator`].
     ///
     /// Measurements in \[µT\]
