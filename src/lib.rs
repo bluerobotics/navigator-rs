@@ -501,7 +501,7 @@ impl Navigator {
     /// nav.set_pwm_channel_duty_cycle(PwmChannel::Ch1, 0.50); // sets the duty cycle to 50%
     /// ```
     pub fn set_pwm_channel_duty_cycle(&mut self, channel: PwmChannel, duty_cycle: f32) {
-        let duty_cycle = duty_cycle.max(0.0).min(1.0);
+        let duty_cycle = duty_cycle.clamp(0.0, 1.0);
         let max_value = 4095;
 
         if approx::relative_eq!(duty_cycle, 1.0) {
