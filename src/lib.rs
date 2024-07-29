@@ -188,8 +188,8 @@ impl DerefMut for Pwm {
 pub struct Pwm {
     pca: Pca9685<I2cdev>,
     /// * `oe_pin`: The `oe_pin` component is a pin that is used to enable or disable the output of the PWM
-    /// signal. It is connected to the Output Enable (OE) pin of the PCA9685 PWM controller.
-    /// The default initialization of the navigator sets oe_pin to a digital high state, which disables the PCA9685's PWM.
+    ///   signal. It is connected to the Output Enable (OE) pin of the PCA9685 PWM controller.
+    ///   The default initialization of the navigator sets oe_pin to a digital high state, which disables the PCA9685's PWM.
     oe_pin: Pin,
 }
 
@@ -833,7 +833,7 @@ impl Navigator {
     /// # Arguments
     ///
     /// * `array` - A 2D array containing RGB values for each LED.
-    /// Each inner array is a [u8; 3] representing the Red, Green and Blue from a LED.
+    ///   Each inner array is a [u8; 3] representing the Red, Green and Blue from a LED.
     ///
     /// # Example
     ///
@@ -860,7 +860,7 @@ impl Navigator {
     /// # Arguments
     ///
     /// * `array` - A 2D array containing RGBW values for each LED.
-    /// Each inner array is a [u8; 4] representing the Red, Green, Blue and White from a LED.
+    ///   Each inner array is a [u8; 4] representing the Red, Green, Blue and White from a LED.
     ///
     /// # Example
     ///
