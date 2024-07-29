@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1710431371755,
+  "lastUpdate": 1722275146546,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -2303,6 +2303,294 @@
             "name": "read_leak",
             "value": 98686,
             "range": "± 7989",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "joao.maker@gmail.com",
+            "name": "João Antônio Cardoso",
+            "username": "joaoantoniocardoso"
+          },
+          "distinct": true,
+          "id": "311fdb2eea6a319ed6348a7edbfd349d30068f9e",
+          "message": "lib: Fix clippy problems\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-07-29T14:24:37-03:00",
+          "tree_id": "aee9c02ea3172557a11bd7b3e260f820fbb8b970",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/311fdb2eea6a319ed6348a7edbfd349d30068f9e"
+        },
+        "date": 1722275146521,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183788665,
+            "range": "± 366593",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 353778665,
+            "range": "± 663859",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1456254,
+            "range": "± 14068",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5818137,
+            "range": "± 115646",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 218495,
+            "range": "± 7643",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 218062,
+            "range": "± 9973",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 4950912,
+            "range": "± 115767",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 189023,
+            "range": "± 9565",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94617,
+            "range": "± 5367",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7200182,
+            "range": "± 22362",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40284,
+            "range": "± 2638",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45315,
+            "range": "± 2462",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 84917,
+            "range": "± 302",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 137036,
+            "range": "± 782",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 140076,
+            "range": "± 6784",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 263503,
+            "range": "± 491",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39334,
+            "range": "± 3244",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 84986,
+            "range": "± 3787",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45515,
+            "range": "± 2709",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 98176,
+            "range": "± 5088",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "joao.maker@gmail.com",
+            "name": "João Antônio Cardoso",
+            "username": "joaoantoniocardoso"
+          },
+          "distinct": true,
+          "id": "311fdb2eea6a319ed6348a7edbfd349d30068f9e",
+          "message": "lib: Fix clippy problems\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-07-29T14:24:37-03:00",
+          "tree_id": "aee9c02ea3172557a11bd7b3e260f820fbb8b970",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/311fdb2eea6a319ed6348a7edbfd349d30068f9e"
+        },
+        "date": 1722275146521,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "new",
+            "value": 183788665,
+            "range": "± 366593",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "init",
+            "value": 353778665,
+            "range": "± 663859",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc",
+            "value": 1456254,
+            "range": "± 14068",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5818137,
+            "range": "± 115646",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 218495,
+            "range": "± 7643",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 218062,
+            "range": "± 9973",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 4950912,
+            "range": "± 115767",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 189023,
+            "range": "± 9565",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94617,
+            "range": "± 5367",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7200182,
+            "range": "± 22362",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40284,
+            "range": "± 2638",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_pwm_enable",
+            "value": 45315,
+            "range": "± 2462",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_channel_value",
+            "value": 84917,
+            "range": "± 302",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_hz",
+            "value": 137036,
+            "range": "± 782",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_freq_prescale",
+            "value": 140076,
+            "range": "± 6784",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 263503,
+            "range": "± 491",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39334,
+            "range": "± 3244",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 84986,
+            "range": "± 3787",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45515,
+            "range": "± 2709",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 98176,
+            "range": "± 5088",
             "unit": "ns/iter"
           }
         ]
