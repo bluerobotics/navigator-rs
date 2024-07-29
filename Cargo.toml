@@ -5,7 +5,6 @@ edition = "2021"
 license = "MIT"
 description = "This crate serves as the entry point for embedding applications using Rust on Blue Robotics's Navigator"
 homepage = "https://bluerobotics.com/store/comm-control-power/control/navigator/"
-documentation = "https://docs.bluerobotics.com/navigator-rs/doc/navigator_rs/"
 repository = "https://github.com/bluerobotics/navigator-rs"
 categories = ["science::robotics", "embedded", "hardware-support"]
 keywords = ["BlueRobotics", "embedded", "navigator", "robotics", "ROV"]
