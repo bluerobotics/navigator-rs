@@ -16,7 +16,6 @@ fn color_from_sine(percentage: f32) -> [u8; 3] {
 
 fn main() {
     let mut nav = Navigator::new();
-    nav.init();
 
     println!("Creating rainbow effect!");
     loop {

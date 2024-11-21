@@ -18,6 +18,7 @@ fn navigator_benchmark(c: &mut Criterion) {
 
     bench!(read_adc(AdcChannel::Ch0));
     bench!(read_adc_all());
+    bench!(read_all());
 
     bench!(read_accel());
     bench!(read_gyro());
