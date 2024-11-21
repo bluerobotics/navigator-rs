@@ -63,24 +63,6 @@ pub struct AxisData {
     pub z: f32,
 }
 
-/// Encapsulates the value of ADC's four channels.
-#[derive(Debug, Default, Clone, Copy)]
-pub struct ADCData {
-    pub channel: [f32; 4],
-}
-
-/// Encapsulates the value of all sensors on the board.
-#[derive(Debug, Default, Clone, Copy)]
-pub struct SensorData {
-    pub adc: ADCData,
-    pub temperature: f32,
-    pub pressure: f32,
-    pub accelerometer: AxisData,
-    pub magnetometer: AxisData,
-    pub gyro: AxisData,
-    pub leak: bool,
-}
-
 /// The `Navigator` struct contains various components used for navigator. It includes PWM control,
 /// pressure and temperature sensing, analog-to-digital conversion, inertial measurement unit,
 /// magnetometer, and LEDs control.
@@ -360,12 +342,9 @@ impl Navigator {
         }
     }
 
-    pub fn read_adc_all(&mut self) -> ADCData {
+    pub fn read_adc_all(&mut self) -> Vec<f32> {
         if let Some(adc_sensor) = self.get_adc_sensor() {
-            let values = adc_sensor.read_all_channels().unwrap();
-            ADCData {
-                channel: [values[0], values[1], values[2], values[3]],
-            }
+            adc_sensor.read_all_channels().unwrap()
         } else {
             panic!("No ADC sensor available");
         }
