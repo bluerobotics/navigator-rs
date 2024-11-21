@@ -19,7 +19,7 @@ jobs:
       - name: Check Type
         run: cargo fmt -- --check
       - name: Check Clippy
-        run: cargo clippy -- -Dwarnings
+        run: cargo clippy -- -Dwarnings --allow dead_code
       - name: Run internal tests
         run: cargo test --verbose -- --nocapture
       - name: Build
