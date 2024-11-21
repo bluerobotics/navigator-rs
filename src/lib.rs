@@ -333,12 +333,9 @@ impl Navigator {
         }
     }
 
-    pub fn read_adc_all(&mut self) -> ADCData {
+    pub fn read_adc_all(&mut self) -> Vec<f32> {
         if let Some(adc_sensor) = self.get_adc_sensor() {
-            let values = adc_sensor.read_all_channels().unwrap();
-            ADCData {
-                channel: [values[0], values[1], values[2], values[3]],
-            }
+            adc_sensor.read_all_channels().unwrap()
         } else {
             panic!("No ADC sensor available");
         }
