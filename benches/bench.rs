@@ -1,5 +1,5 @@
 use criterion::{criterion_group, criterion_main, Criterion};
-use navigator_rs::{AdcChannel, Navigator, PwmChannel, UserLed};
+use navigator_rs::{AdcChannel, Navigator, UserLed};
 
 fn navigator_benchmark(c: &mut Criterion) {
     #[macro_export]
@@ -26,17 +26,13 @@ fn navigator_benchmark(c: &mut Criterion) {
     bench!(read_pressure());
     bench!(read_temperature());
 
-    bench!(read_all());
+    bench!(read_adc_all());
 
     // Benchmark Outputs
     bench!(set_pwm_enable(false));
-    bench!(get_pwm_enable());
-    bench!(set_pwm_channel_value(PwmChannel::Ch1, 100));
-    bench!(set_pwm_freq_hz(60.0));
-    bench!(set_pwm_freq_prescale(100));
-
+    bench!(set_pwm_duty_cycle(0, 0.1));
+    bench!(set_pwm_frequency(60.0));
     bench!(set_neopixel(&[[0, 0, 0]]));
-
     bench!(set_led(UserLed::Led1, false));
     bench!(set_led_toggle(UserLed::Led1));
     bench!(get_led(UserLed::Led1));
