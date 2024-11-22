@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   quick-tests:
-    runs-on: ubuntu-latest
+    runs-on: raspbian-armv7-kernel-5.10.33
     steps:
       - uses: actions/checkout@master
       - uses: dtolnay/rust-toolchain@stable
