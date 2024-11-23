@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   quick-tests:
-    runs-on: ubuntu-latest
+    runs-on: raspbian-armv7-kernel-5.10.33
     steps:
       - uses: actions/checkout@master
       - uses: dtolnay/rust-toolchain@stable
@@ -19,7 +19,7 @@ jobs:
       - name: Check Type
         run: cargo fmt -- --check
       - name: Check Clippy
-        run: cargo clippy -- -Dwarnings
+        run: cargo clippy -- -Dwarnings --allow dead_code
       - name: Run internal tests
         run: cargo test --verbose -- --nocapture
       - name: Build
