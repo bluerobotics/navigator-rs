@@ -1,6 +1,9 @@
 name: Test all targets
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -55,18 +58,42 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./pages
 
-  bench:
-    needs: build
+  cross-compile-bench:
+      needs: build
+      if: ${{ github.repository_owner == 'bluerobotics' }}
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          TARGET: [armv7-unknown-linux-gnueabihf]
+      steps:
+      - uses: actions/checkout@master
+      - name: Cross-compile benchmark
+        uses: houseabsolute/actions-rust-cross@v0.0.17
+        with:
+          command: bench
+          target: ${{ matrix.TARGET }}
+          args: "--no-run"
+      - name: Upload benchmark binary
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: benchmark-binary
+          path: target/${{ matrix.TARGET }}/release/deps/bench-*
+          retention-days: 1
+
+  run-bench:
+    needs: cross-compile-bench
     if: ${{ github.repository_owner == 'bluerobotics' }}
     runs-on: raspbian-armv7-kernel-5.10.33
     steps:
     - uses: actions/checkout@master
-    - uses: dtolnay/rust-toolchain@stable
-    - name: Rust | Cache
-      uses: Swatinem/rust-cache@v2
+    - name: Download benchmark binary
+      uses: actions/download-artifact@v4.1.8
       with:
-        prefix-key: "rust-cache"
-        shared-key: "benchmark"
+        name: benchmark-binary
+        path: ./bench-binary
+    - name: Make benchmark executable
+      run: |
+        chmod +x ./bench-binary/*
     - name: Get previous benchmark data
       run: |
           echo "Fetching gh-pages branch"
@@ -83,10 +110,12 @@ jobs:
           echo "Copying data file from gh-pages to cache"
           cp dev/cache/benchmark-data.json cache/benchmark-data.json || { echo "Failed to copy data file" ; exit 1; }
 
-          echo "Checking out current preivous branch"
+          echo "Checking out current previous branch"
           git checkout -
-    - name: Cargo Bench
-      run:  cargo bench --jobs 1 --bench bench -- --output-format bencher | tee output.txt || { echo "Benchmark failed"; exit 1; }
+    - name: Run benchmark
+      run: |
+        BENCH_BINARY=$(find ./bench-binary -type f -executable -name "bench-*" -not -name "*.d" | head -n 1)
+        "$BENCH_BINARY" --bench --output-format bencher | tee output.txt || { echo "Basic benchmark failed"; exit 1; }
     - name: Compare results & store cached results
       uses: benchmark-action/github-action-benchmark@v1.18.0
       with:
