@@ -90,7 +90,7 @@ jobs:
           retention-days: 1
 
   run-bench:
-    needs: cross-compile-bench
+    needs: [cross-compile-bench, slow-tests]
     if: ${{ github.repository_owner == 'bluerobotics' }}
     runs-on: raspbian-armv7-kernel-5.10.33
     steps:
