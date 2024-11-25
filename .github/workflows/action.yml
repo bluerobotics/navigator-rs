@@ -68,26 +68,26 @@ jobs:
           publish_dir: ./pages
 
   cross-compile-bench:
-      needs: build
-      if: ${{ github.repository_owner == 'bluerobotics' }}
-      runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          TARGET: [armv7-unknown-linux-gnueabihf]
-      steps:
-      - uses: actions/checkout@master
-      - name: Cross-compile benchmark
-        uses: houseabsolute/actions-rust-cross@v0.0.17
-        with:
-          command: bench
-          target: ${{ matrix.TARGET }}
-          args: "--no-run"
-      - name: Upload benchmark binary
-        uses: actions/upload-artifact@v4.4.3
-        with:
-          name: benchmark-binary
-          path: target/${{ matrix.TARGET }}/release/deps/bench-*
-          retention-days: 1
+    needs: build
+    if: ${{ github.repository_owner == 'bluerobotics' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        TARGET: [armv7-unknown-linux-gnueabihf]
+    steps:
+    - uses: actions/checkout@master
+    - name: Cross-compile benchmark
+      uses: houseabsolute/actions-rust-cross@v0.0.17
+      with:
+        command: bench
+        target: ${{ matrix.TARGET }}
+        args: "--no-run"
+    - name: Upload benchmark binary
+      uses: actions/upload-artifact@v4.4.3
+      with:
+        name: benchmark-binary
+        path: target/${{ matrix.TARGET }}/release/deps/bench-*
+        retention-days: 1
 
   run-bench:
     needs: [cross-compile-bench, slow-tests]
