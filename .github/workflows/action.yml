@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   quick-tests:
-    runs-on: raspbian-armv7-kernel-5.10.33
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: dtolnay/rust-toolchain@stable
@@ -20,10 +20,19 @@ jobs:
         run: cargo fmt -- --check
       - name: Check Clippy
         run: cargo clippy -- -Dwarnings --allow dead_code
-      - name: Run internal tests
-        run: cargo test --verbose -- --nocapture
       - name: Build
         run: cargo build
+
+  slow-tests:
+    runs-on: raspbian-armv7-kernel-5.10.33
+    if: ${{ github.repository_owner == 'bluerobotics' }}
+    steps:
+      - uses: actions/checkout@master
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+      - name: Run internal tests
+        run: cargo test --verbose -- --nocapture
 
   build:
     needs: quick-tests
