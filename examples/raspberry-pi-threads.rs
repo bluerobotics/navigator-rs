@@ -10,9 +10,6 @@ fn main() {
     println!("Creating your navigator module!");
     let nav = Arc::new(Mutex::new(Navigator::new()));
 
-    println!("Setting up your navigator, ahoy!");
-    nav.lock().unwrap().init();
-
     // This code block creates a thread that updates the `sensor_data` periodically.
     let sensor_data_cloned = sensor_data.clone();
     let nav_cloned = nav.clone();
