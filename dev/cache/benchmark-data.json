@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1722275146546,
+  "lastUpdate": 1732624492190,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -2591,6 +2591,246 @@
             "name": "read_leak",
             "value": 98176,
             "range": "± 5088",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "80598030+RaulTrombin@users.noreply.github.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "distinct": true,
+          "id": "3f2d1c9e341189301bd9b1747e044b44fe7e1656",
+          "message": "examples: raspberry-pi-threads: Make it more iteractive\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-11-26T08:16:11-03:00",
+          "tree_id": "0c035c42b8a49ccc2ad1deb8a5ca084e92a068b0",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/3f2d1c9e341189301bd9b1747e044b44fe7e1656"
+        },
+        "date": 1732624492170,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "read_adc",
+            "value": 1451738,
+            "range": "± 57922",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 6794393,
+            "range": "± 379493",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 220179,
+            "range": "± 14261",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 222632,
+            "range": "± 16462",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5041269,
+            "range": "± 138995",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 187192,
+            "range": "± 16709",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94599,
+            "range": "± 9497",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5916181,
+            "range": "± 204978",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40396,
+            "range": "± 9062",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_duty_cycle",
+            "value": 87066,
+            "range": "± 395",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_frequency",
+            "value": 47340,
+            "range": "± 4061",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 261816,
+            "range": "± 35941",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39429,
+            "range": "± 4292",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85254,
+            "range": "± 7311",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45688,
+            "range": "± 4804",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 45490,
+            "range": "± 3401",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "80598030+RaulTrombin@users.noreply.github.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "distinct": true,
+          "id": "3f2d1c9e341189301bd9b1747e044b44fe7e1656",
+          "message": "examples: raspberry-pi-threads: Make it more iteractive\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-11-26T08:16:11-03:00",
+          "tree_id": "0c035c42b8a49ccc2ad1deb8a5ca084e92a068b0",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/3f2d1c9e341189301bd9b1747e044b44fe7e1656"
+        },
+        "date": 1732624492170,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "read_adc",
+            "value": 1451738,
+            "range": "± 57922",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 6794393,
+            "range": "± 379493",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 220179,
+            "range": "± 14261",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 222632,
+            "range": "± 16462",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5041269,
+            "range": "± 138995",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 187192,
+            "range": "± 16709",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 94599,
+            "range": "± 9497",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 5916181,
+            "range": "± 204978",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40396,
+            "range": "± 9062",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_duty_cycle",
+            "value": 87066,
+            "range": "± 395",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_frequency",
+            "value": 47340,
+            "range": "± 4061",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 261816,
+            "range": "± 35941",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39429,
+            "range": "± 4292",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 85254,
+            "range": "± 7311",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 45688,
+            "range": "± 4804",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 45490,
+            "range": "± 3401",
             "unit": "ns/iter"
           }
         ]
