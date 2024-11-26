@@ -20,7 +20,7 @@ fn main() {
                 *sensor_data = nav_cloned.lock().unwrap().read_all();
                 println!("Updated value: {sensor_data:?}");
             }
-            sleep(Duration::from_millis(10000));
+            sleep(Duration::from_millis(200));
         })
         .expect("Failed to spawn the sensor reader thread");
 
@@ -33,17 +33,20 @@ fn main() {
         .name("Flip monitor".into())
         .spawn(move || loop {
             if let Ok(sensor_data) = sensor_data_cloned.read() {
-                if sensor_data.accelerometer.x.abs() > 8.00 {
-                    nav_cloned.lock().unwrap().set_led(UserLed::Led1, true)
-                };
-                if sensor_data.accelerometer.y.abs() > 8.00 {
-                    nav_cloned.lock().unwrap().set_led(UserLed::Led2, true)
-                };
-                if sensor_data.accelerometer.z < -8.00 {
-                    nav_cloned.lock().unwrap().set_led(UserLed::Led3, true)
-                };
+                nav_cloned
+                    .lock()
+                    .unwrap()
+                    .set_led(UserLed::Led1, sensor_data.accelerometer.x.abs() > 8.00);
+                nav_cloned
+                    .lock()
+                    .unwrap()
+                    .set_led(UserLed::Led2, sensor_data.accelerometer.y.abs() > 8.00);
+                nav_cloned
+                    .lock()
+                    .unwrap()
+                    .set_led(UserLed::Led3, sensor_data.accelerometer.z < -8.00)
             }
-            sleep(Duration::from_millis(5000));
+            sleep(Duration::from_millis(10));
         })
         .expect("Failed to spawn the flip monitor thread");
 
@@ -53,6 +56,6 @@ fn main() {
         if let Ok(sensor_data) = sensor_data.read() {
             println!("Read SensorData: {sensor_data:?}");
         }
-        sleep(Duration::from_millis(1000));
+        sleep(Duration::from_millis(300));
     }
 }
