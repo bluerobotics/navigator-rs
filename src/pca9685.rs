@@ -92,7 +92,7 @@ impl Pca9685DeviceBuilder {
             let pin = Pin::new(self.oe_pin_number);
             pin.export()?;
             sleep(Duration::from_millis(30));
-            pin.set_direction(Direction::Low)?;
+            pin.set_direction(Direction::High)?;
             pin
         };
 
