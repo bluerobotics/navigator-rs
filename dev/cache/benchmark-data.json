@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1732729447279,
+  "lastUpdate": 1732738838341,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -3539,6 +3539,234 @@
             "name": "read_leak",
             "value": 45538,
             "range": "± 2421",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "joao.maker@gmail.com",
+            "name": "João Antônio Cardoso",
+            "username": "joaoantoniocardoso"
+          },
+          "distinct": true,
+          "id": "5b8881a33e3b0cb42b045a4a2a24dc25940bc691",
+          "message": "{icm20698, leak, pca9685}: Remove 'error' from format string\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-11-27T17:10:47-03:00",
+          "tree_id": "b2b91b734b6ebf47d9a8e3f6e0c816b8f3d856b9",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/5b8881a33e3b0cb42b045a4a2a24dc25940bc691"
+        },
+        "date": 1732738838318,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "read_adc",
+            "value": 1453904,
+            "range": "± 7597",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7434920,
+            "range": "± 100837",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 222603,
+            "range": "± 9396",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 220167,
+            "range": "± 8307",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5012665,
+            "range": "± 83145",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 182522,
+            "range": "± 8137",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 93792,
+            "range": "± 8869",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 6030861,
+            "range": "± 80655",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40501,
+            "range": "± 2570",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_duty_cycle",
+            "value": 86357,
+            "range": "± 315",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 278494,
+            "range": "± 483",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 40642,
+            "range": "± 4112",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 86114,
+            "range": "± 16904",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 46075,
+            "range": "± 8490",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 45791,
+            "range": "± 3380",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "joao.maker@gmail.com",
+            "name": "João Antônio Cardoso",
+            "username": "joaoantoniocardoso"
+          },
+          "distinct": true,
+          "id": "5b8881a33e3b0cb42b045a4a2a24dc25940bc691",
+          "message": "{icm20698, leak, pca9685}: Remove 'error' from format string\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-11-27T17:10:47-03:00",
+          "tree_id": "b2b91b734b6ebf47d9a8e3f6e0c816b8f3d856b9",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/5b8881a33e3b0cb42b045a4a2a24dc25940bc691"
+        },
+        "date": 1732738838318,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "read_adc",
+            "value": 1453904,
+            "range": "± 7597",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7434920,
+            "range": "± 100837",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 222603,
+            "range": "± 9396",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 220167,
+            "range": "± 8307",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5012665,
+            "range": "± 83145",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 182522,
+            "range": "± 8137",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 93792,
+            "range": "± 8869",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 6030861,
+            "range": "± 80655",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40501,
+            "range": "± 2570",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_duty_cycle",
+            "value": 86357,
+            "range": "± 315",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 278494,
+            "range": "± 483",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 40642,
+            "range": "± 4112",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 86114,
+            "range": "± 16904",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 46075,
+            "range": "± 8490",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 45791,
+            "range": "± 3380",
             "unit": "ns/iter"
           }
         ]
