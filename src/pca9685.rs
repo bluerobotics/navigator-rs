@@ -1,13 +1,16 @@
 use std::{error::Error, thread::sleep, time::Duration};
 
-use linux_embedded_hal::{sysfs_gpio::Direction, I2cdev, Pin};
+use linux_embedded_hal::{
+    gpio_cdev::{Chip, LineHandle, LineRequestFlags},
+    I2cdev,
+};
 use pwm_pca9685::{Address as PwmAddress, Channel, Pca9685};
 
 use crate::peripherals::{AnyHardware, PeripheralClass, PeripheralInfo, Peripherals, PwmBehaviour};
 
 pub struct Pca9685Device {
     pwm: Pca9685<I2cdev>,
-    oe_pin: Pin,
+    oe_pin: LineHandle,
     info: PeripheralInfo,
 }
 
@@ -30,7 +33,7 @@ impl AnyHardware for Pca9685Device {
 pub struct Pca9685DeviceBuilder {
     i2c_bus: String,
     address: PwmAddress,
-    oe_pin_number: u64,
+    oe_pin_number: u32,
     info: PeripheralInfo,
 }
 
@@ -72,7 +75,7 @@ impl Pca9685DeviceBuilder {
     /// # Arguments
     ///
     /// * `pin_number` - The GPIO pin number for OE.
-    pub fn with_oe_pin(mut self, pin_number: u64) -> Self {
+    pub fn with_oe_pin(mut self, pin_number: u32) -> Self {
         self.oe_pin_number = pin_number;
         self
     }
@@ -89,10 +92,14 @@ impl Pca9685DeviceBuilder {
         let mut pwm = Pca9685::new(device, self.address).expect("Failed to open PWM controller");
 
         let oe_pin = {
-            let pin = Pin::new(self.oe_pin_number);
-            pin.export()?;
-            sleep(Duration::from_millis(60));
-            pin.set_direction(Direction::High)?;
+            let mut chip = Chip::new("/dev/gpiochip0")?;
+            let pin = chip
+                .get_line(self.oe_pin_number)
+                .unwrap()
+                .request(LineRequestFlags::OUTPUT, 1, "oe-pin-pca9685")
+                .expect("Failed to request OE pin");
+            sleep(Duration::from_millis(30));
+            pin.set_value(1)?;
             pin
         };
 
@@ -110,12 +117,9 @@ impl Pca9685DeviceBuilder {
 
 impl PwmBehaviour for Pca9685Device {
     fn enable_output(&mut self, enable: bool) -> Result<(), Box<dyn Error>> {
-        let value = if enable {
-            Direction::Low
-        } else {
-            Direction::High
-        }; // Active low OE pin
-        self.oe_pin.set_direction(value).unwrap();
+        // Active low OE pin
+        let value = if enable { 0 } else { 1 };
+        self.oe_pin.set_value(value).unwrap();
         Ok(())
     }
 
