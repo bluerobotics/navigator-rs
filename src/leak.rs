@@ -82,7 +82,9 @@ mod tests {
 
     #[test]
     fn test_leak_pi_4() {
-        let leak = LeakDetector::builder().build().unwrap();
+        let leak = LeakDetector::builder()
+            .build()
+            .expect("Failed to build leak detector: {error:?}");
         for _ in 0..10 {
             println!("Leak detector: {}", leak.is_leak_detected().unwrap());
             sleep(Duration::from_millis(1000));

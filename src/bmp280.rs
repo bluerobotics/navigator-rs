@@ -110,7 +110,9 @@ mod tests {
 
     #[test]
     fn test_bmp280_pi_4() {
-        let mut baro = Bmp280Device::builder().build().unwrap();
+        let mut baro = Bmp280Device::builder()
+            .build()
+            .expect("Failed to build BMP280");
         for _ in 0..10 {
             println!("BMP280 temperature: {:?}", baro.read_temperature());
             println!("BMP280 pressure: {:?}", baro.read_pressure());

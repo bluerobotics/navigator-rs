@@ -123,7 +123,9 @@ mod tests {
 
     #[test]
     fn test_icm20689_pi_4() {
-        let mut imu = Icm20689Device::builder().build().unwrap();
+        let mut imu = Icm20689Device::builder()
+            .build()
+            .expect("Failed to build ICM20689: {error:?}");
         for _ in 0..10 {
             println!("ICM20689 gyroscope: {:?}", imu.read_angular_velocity());
             println!("ICM20689 accelerometers: {:?}", imu.read_acceleration());

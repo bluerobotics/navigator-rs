@@ -191,18 +191,26 @@ mod tests {
     //TODO: Not working
     #[test]
     fn test_pca9685_pi_4() {
-        let mut pwm = Pca9685Device::builder().build().unwrap();
+        let mut pwm = Pca9685Device::builder()
+            .build()
+            .expect("Error building PCA9685");
+
         println!("PCA9685: Start initial configuration");
-        pwm.enable_output(false).unwrap();
-        pwm.set_frequency(60.0).unwrap();
-        pwm.set_duty_cycle_all(0.5).unwrap();
+
+        pwm.enable_output(false)
+            .expect("Error in while enabling output");
+        pwm.set_frequency(60.0).expect("Error in setting frequency");
+        pwm.set_duty_cycle_all(0.5)
+            .expect("Error in configuring duty cycle");
+
         println!("PCA9685: Enabling PWM output");
-        pwm.enable_output(true).unwrap();
+        pwm.enable_output(true).expect("Error in enabling output");
         sleep(Duration::from_millis(1000));
         for duty_cycle in [0.0, 1.0, 0.0, 1.0, 0.5] {
             for channel in 0..16 {
                 println!("PCA9685: Channel {channel} value {duty_cycle:.1}");
-                pwm.set_duty_cycle(channel, duty_cycle).unwrap();
+                pwm.set_duty_cycle(channel, duty_cycle)
+                    .expect("Error in setting duty cycle: {error:?}");
                 sleep(Duration::from_millis(100));
             }
         }
