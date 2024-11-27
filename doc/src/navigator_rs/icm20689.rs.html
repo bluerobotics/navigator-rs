@@ -260,7 +260,7 @@
     </span><span class="kw">fn </span>test_icm20689_pi_4() {
         <span class="kw">let </span><span class="kw-2">mut </span>imu = Icm20689Device::builder()
             .build()
-            .expect(<span class="string">"Failed to build ICM20689: {error:?}"</span>);
+            .expect(<span class="string">"Failed to build ICM20689"</span>);
         <span class="kw">for _ in </span><span class="number">0</span>..<span class="number">10 </span>{
             <span class="macro">println!</span>(<span class="string">"ICM20689 gyroscope: {:?}"</span>, imu.read_angular_velocity());
             <span class="macro">println!</span>(<span class="string">"ICM20689 accelerometers: {:?}"</span>, imu.read_acceleration());

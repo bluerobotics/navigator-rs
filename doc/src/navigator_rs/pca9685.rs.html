@@ -428,7 +428,7 @@
             <span class="kw">for </span>channel <span class="kw">in </span><span class="number">0</span>..<span class="number">16 </span>{
                 <span class="macro">println!</span>(<span class="string">"PCA9685: Channel {channel} value {duty_cycle:.1}"</span>);
                 pwm.set_duty_cycle(channel, duty_cycle)
-                    .expect(<span class="string">"Error in setting duty cycle: {error:?}"</span>);
+                    .expect(<span class="string">"Error in setting duty cycle"</span>);
                 sleep(Duration::from_millis(<span class="number">100</span>));
             }
         }

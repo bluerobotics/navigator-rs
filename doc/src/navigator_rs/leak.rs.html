@@ -177,7 +177,7 @@
     </span><span class="kw">fn </span>test_leak_pi_4() {
         <span class="kw">let </span>leak = LeakDetector::builder()
             .build()
-            .expect(<span class="string">"Failed to build leak detector: {error:?}"</span>);
+            .expect(<span class="string">"Failed to build leak detector"</span>);
         <span class="kw">for _ in </span><span class="number">0</span>..<span class="number">10 </span>{
             <span class="macro">println!</span>(<span class="string">"Leak detector: {}"</span>, leak.is_leak_detected().unwrap());
             sleep(Duration::from_millis(<span class="number">1000</span>));
