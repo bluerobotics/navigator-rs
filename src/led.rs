@@ -1,11 +1,11 @@
 use std::{thread::sleep, time::Duration};
 
-use linux_embedded_hal::{sysfs_gpio::Direction, Pin};
+use linux_embedded_hal::gpio_cdev::{Chip, LineHandle, LineRequestFlags};
 
 use crate::peripherals::{AnyHardware, LedBehaviour, PeripheralClass, PeripheralInfo, Peripherals};
 
 pub struct LedController {
-    pub leds: Vec<Pin>,
+    pub leds: Vec<LineHandle>,
     pub info: PeripheralInfo,
 }
 
@@ -26,7 +26,7 @@ impl AnyHardware for LedController {
 }
 
 pub struct LedControllerBuilder {
-    pub pins: Vec<u64>,
+    pub pins: Vec<u32>,
     pub info: PeripheralInfo,
 }
 
@@ -42,7 +42,7 @@ impl LedControllerBuilder {
     }
 
     /// Adds a GPIO pin to control an LED.
-    pub fn add_led_pin(mut self, pin_number: u64) -> Self {
+    pub fn add_led_pin(mut self, pin_number: u32) -> Self {
         self.pins.push(pin_number);
         self
     }
@@ -65,12 +65,18 @@ impl LedControllerBuilder {
             self = self.configure_navigator();
         }
 
+        let mut chip = Chip::new("/dev/gpiochip0").unwrap();
         for &pin_number in &self.pins {
-            let pin = Pin::new(pin_number);
-            pin.export().expect("Failed to export LED pin");
-            sleep(Duration::from_millis(60));
-            pin.set_direction(Direction::Out)
-                .expect("Failed to set direction");
+            let pin = chip
+                .get_line(pin_number)
+                .unwrap()
+                .request(
+                    LineRequestFlags::OUTPUT,
+                    1,
+                    &format!("user-led-{pin_number}"),
+                )
+                .expect("Failed to request LED pin");
+            sleep(Duration::from_millis(30));
             pin.set_value(1).expect("Failed to set initial LED value");
             leds.push(pin);
         }
