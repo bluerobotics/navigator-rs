@@ -24,7 +24,6 @@ fn navigator_benchmark(c: &mut Criterion) {
     // Benchmark Outputs
     bench!(set_pwm_enable(false));
     bench!(set_pwm_duty_cycle(0, 0.1));
-    bench!(set_pwm_frequency(60.0));
     bench!(set_neopixel(&[[0, 0, 0]]));
     bench!(set_led(UserLed::Led1, false));
     bench!(set_led_toggle(UserLed::Led1));
