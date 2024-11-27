@@ -86,7 +86,7 @@ impl Pca9685DeviceBuilder {
     /// Builds the `Pca9685Device`.
     pub fn build(self) -> Result<Pca9685Device, Box<dyn Error>> {
         let device = I2cdev::new(self.i2c_bus)?;
-        let pwm = Pca9685::new(device, self.address).expect("Failed to open PWM controller");
+        let mut pwm = Pca9685::new(device, self.address).expect("Failed to open PWM controller");
 
         let oe_pin = {
             let pin = Pin::new(self.oe_pin_number);
@@ -95,6 +95,10 @@ impl Pca9685DeviceBuilder {
             pin.set_direction(Direction::Low)?;
             pin
         };
+
+        pwm.reset_internal_driver_state();
+        pwm.use_external_clock().unwrap();
+        pwm.enable().unwrap();
 
         Ok(Pca9685Device {
             pwm,
