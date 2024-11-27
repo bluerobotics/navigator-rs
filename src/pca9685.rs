@@ -210,7 +210,7 @@ mod tests {
             for channel in 0..16 {
                 println!("PCA9685: Channel {channel} value {duty_cycle:.1}");
                 pwm.set_duty_cycle(channel, duty_cycle)
-                    .expect("Error in setting duty cycle: {error:?}");
+                    .expect("Error in setting duty cycle");
                 sleep(Duration::from_millis(100));
             }
         }
