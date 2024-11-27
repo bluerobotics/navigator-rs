@@ -204,6 +204,18 @@
 <a href="#204" id="204">204</a>
 <a href="#205" id="205">205</a>
 <a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{error::Error, thread::sleep, time::Duration};
 
 <span class="kw">use </span>linux_embedded_hal::{sysfs_gpio::Direction, I2cdev, Pin};
@@ -292,15 +304,19 @@
     <span class="doccomment">/// Builds the `Pca9685Device`.
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Pca9685Device, Box&lt;<span class="kw">dyn </span>Error&gt;&gt; {
         <span class="kw">let </span>device = I2cdev::new(<span class="self">self</span>.i2c_bus)<span class="question-mark">?</span>;
-        <span class="kw">let </span>pwm = Pca9685::new(device, <span class="self">self</span>.address).expect(<span class="string">"Failed to open PWM controller"</span>);
+        <span class="kw">let </span><span class="kw-2">mut </span>pwm = Pca9685::new(device, <span class="self">self</span>.address).expect(<span class="string">"Failed to open PWM controller"</span>);
 
         <span class="kw">let </span>oe_pin = {
             <span class="kw">let </span>pin = Pin::new(<span class="self">self</span>.oe_pin_number);
             pin.export()<span class="question-mark">?</span>;
             sleep(Duration::from_millis(<span class="number">30</span>));
-            pin.set_direction(Direction::Low)<span class="question-mark">?</span>;
+            pin.set_direction(Direction::High)<span class="question-mark">?</span>;
             pin
         };
+
+        pwm.reset_internal_driver_state();
+        pwm.use_external_clock().unwrap();
+        pwm.enable().unwrap();
 
         <span class="prelude-val">Ok</span>(Pca9685Device {
             pwm,
@@ -393,18 +409,26 @@
     <span class="comment">//TODO: Not working
     </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_pca9685_pi_4() {
-        <span class="kw">let </span><span class="kw-2">mut </span>pwm = Pca9685Device::builder().build().unwrap();
+        <span class="kw">let </span><span class="kw-2">mut </span>pwm = Pca9685Device::builder()
+            .build()
+            .expect(<span class="string">"Error building PCA9685"</span>);
+
         <span class="macro">println!</span>(<span class="string">"PCA9685: Start initial configuration"</span>);
-        pwm.enable_output(<span class="bool-val">false</span>).unwrap();
-        pwm.set_frequency(<span class="number">60.0</span>).unwrap();
-        pwm.set_duty_cycle_all(<span class="number">0.5</span>).unwrap();
+
+        pwm.enable_output(<span class="bool-val">false</span>)
+            .expect(<span class="string">"Error in while enabling output"</span>);
+        pwm.set_frequency(<span class="number">60.0</span>).expect(<span class="string">"Error in setting frequency"</span>);
+        pwm.set_duty_cycle_all(<span class="number">0.5</span>)
+            .expect(<span class="string">"Error in configuring duty cycle"</span>);
+
         <span class="macro">println!</span>(<span class="string">"PCA9685: Enabling PWM output"</span>);
-        pwm.enable_output(<span class="bool-val">true</span>).unwrap();
+        pwm.enable_output(<span class="bool-val">true</span>).expect(<span class="string">"Error in enabling output"</span>);
         sleep(Duration::from_millis(<span class="number">1000</span>));
         <span class="kw">for </span>duty_cycle <span class="kw">in </span>[<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.5</span>] {
             <span class="kw">for </span>channel <span class="kw">in </span><span class="number">0</span>..<span class="number">16 </span>{
                 <span class="macro">println!</span>(<span class="string">"PCA9685: Channel {channel} value {duty_cycle:.1}"</span>);
-                pwm.set_duty_cycle(channel, duty_cycle).unwrap();
+                pwm.set_duty_cycle(channel, duty_cycle)
+                    .expect(<span class="string">"Error in setting duty cycle: {error:?}"</span>);
                 sleep(Duration::from_millis(<span class="number">100</span>));
             }
         }
