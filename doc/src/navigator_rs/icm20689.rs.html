@@ -223,7 +223,7 @@
 
         <span class="kw">let </span>cs_pin = Pin::new(<span class="self">self</span>.cs_pin_number);
         cs_pin.export()<span class="question-mark">?</span>;
-        std::thread::sleep(std::time::Duration::from_millis(<span class="number">30</span>));
+        std::thread::sleep(std::time::Duration::from_millis(<span class="number">60</span>));
         cs_pin.set_direction(Direction::Out)<span class="question-mark">?</span>;
         cs_pin.set_value(<span class="number">1</span>)<span class="question-mark">?</span>;
 

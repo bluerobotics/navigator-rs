@@ -199,7 +199,7 @@
         <span class="kw">for </span><span class="kw-2">&amp;</span>pin_number <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.pins {
             <span class="kw">let </span>pin = Pin::new(pin_number);
             pin.export().expect(<span class="string">"Failed to export LED pin"</span>);
-            sleep(Duration::from_millis(<span class="number">30</span>));
+            sleep(Duration::from_millis(<span class="number">60</span>));
             pin.set_direction(Direction::Out)
                 .expect(<span class="string">"Failed to set direction"</span>);
             pin.set_value(<span class="number">1</span>).expect(<span class="string">"Failed to set initial LED value"</span>);

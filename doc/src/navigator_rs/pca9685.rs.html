@@ -309,7 +309,7 @@
         <span class="kw">let </span>oe_pin = {
             <span class="kw">let </span>pin = Pin::new(<span class="self">self</span>.oe_pin_number);
             pin.export()<span class="question-mark">?</span>;
-            sleep(Duration::from_millis(<span class="number">30</span>));
+            sleep(Duration::from_millis(<span class="number">60</span>));
             pin.set_direction(Direction::High)<span class="question-mark">?</span>;
             pin
         };

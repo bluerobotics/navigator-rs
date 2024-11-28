@@ -152,7 +152,7 @@
     <span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;LeakDetector, Box&lt;<span class="kw">dyn </span>Error&gt;&gt; {
         <span class="kw">let </span>pin = Pin::new(<span class="self">self</span>.pin_number);
         pin.export()<span class="question-mark">?</span>;
-        sleep(Duration::from_millis(<span class="number">30</span>));
+        sleep(Duration::from_millis(<span class="number">60</span>));
         pin.set_direction(Direction::In)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(LeakDetector {
             pin,
