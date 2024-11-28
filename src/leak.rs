@@ -1,11 +1,11 @@
 use std::{error::Error, thread::sleep, time::Duration};
 
-use linux_embedded_hal::sysfs_gpio::{Direction, Pin};
+use linux_embedded_hal::gpio_cdev::{Chip, LineHandle, LineRequestFlags};
 
 use crate::peripherals::{AnyHardware, LeakSensor, PeripheralClass, PeripheralInfo, Peripherals};
 
 pub struct LeakDetector {
-    pin: Pin,
+    pin: LineHandle,
     info: PeripheralInfo,
 }
 
@@ -26,7 +26,7 @@ impl AnyHardware for LeakDetector {
 }
 
 pub struct LeakBuilder {
-    pin_number: u64,
+    pin_number: u32,
     info: PeripheralInfo,
 }
 
@@ -46,7 +46,7 @@ impl LeakBuilder {
     /// # Arguments
     ///
     /// * `pin_number` - The GPIO pin number.
-    pub fn with_pin(mut self, pin_number: u64) -> Self {
+    pub fn with_pin(mut self, pin_number: u32) -> Self {
         self.pin_number = pin_number;
         self
     }
@@ -57,10 +57,17 @@ impl LeakBuilder {
     }
 
     pub fn build(self) -> Result<LeakDetector, Box<dyn Error>> {
-        let pin = Pin::new(self.pin_number);
-        pin.export()?;
-        sleep(Duration::from_millis(60));
-        pin.set_direction(Direction::In)?;
+        let pin = {
+            let mut chip = Chip::new("/dev/gpiochip0")?;
+            let pin = chip
+                .get_line(self.pin_number)
+                .unwrap()
+                .request(LineRequestFlags::INPUT, 1, "pin-leak")
+                .expect("Failed to configure LEAK pin");
+            sleep(Duration::from_millis(30));
+            pin
+        };
+
         Ok(LeakDetector {
             pin,
             info: self.info,
