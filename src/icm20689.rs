@@ -88,7 +88,7 @@ impl Icm20689Builder {
 
         let cs_pin = Pin::new(self.cs_pin_number);
         cs_pin.export()?;
-        std::thread::sleep(std::time::Duration::from_millis(30));
+        std::thread::sleep(std::time::Duration::from_millis(60));
         cs_pin.set_direction(Direction::Out)?;
         cs_pin.set_value(1)?;
 
