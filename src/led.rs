@@ -68,7 +68,7 @@ impl LedControllerBuilder {
         for &pin_number in &self.pins {
             let pin = Pin::new(pin_number);
             pin.export().expect("Failed to export LED pin");
-            sleep(Duration::from_millis(30));
+            sleep(Duration::from_millis(60));
             pin.set_direction(Direction::Out)
                 .expect("Failed to set direction");
             pin.set_value(1).expect("Failed to set initial LED value");

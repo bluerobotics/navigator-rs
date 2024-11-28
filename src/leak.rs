@@ -59,7 +59,7 @@ impl LeakBuilder {
     pub fn build(self) -> Result<LeakDetector, Box<dyn Error>> {
         let pin = Pin::new(self.pin_number);
         pin.export()?;
-        sleep(Duration::from_millis(30));
+        sleep(Duration::from_millis(60));
         pin.set_direction(Direction::In)?;
         Ok(LeakDetector {
             pin,
