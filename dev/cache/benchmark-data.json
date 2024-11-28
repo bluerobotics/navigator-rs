@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1732738838341,
+  "lastUpdate": 1732795590562,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -3767,6 +3767,234 @@
             "name": "read_leak",
             "value": 45791,
             "range": "± 3380",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "80598030+RaulTrombin@users.noreply.github.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "distinct": true,
+          "id": "e4c605f07ab297a811d7d7d58e916884f2c6151b",
+          "message": "{icm20689, leak, led, pca9685}: Move from 30 to 60ms to wait pin configuration\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-11-28T07:44:50-03:00",
+          "tree_id": "8033fe2f69b7ec9751f7e9d3aaeedde7679caa85",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/e4c605f07ab297a811d7d7d58e916884f2c6151b"
+        },
+        "date": 1732795590533,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "read_adc",
+            "value": 1494316,
+            "range": "± 29439",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7442627,
+            "range": "± 143326",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 221758,
+            "range": "± 25135",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 222387,
+            "range": "± 16089",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5013913,
+            "range": "± 82401",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 190399,
+            "range": "± 12882",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 91948,
+            "range": "± 4743",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 6027130,
+            "range": "± 104541",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40406,
+            "range": "± 3628",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_duty_cycle",
+            "value": 86380,
+            "range": "± 297",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 261903,
+            "range": "± 6806",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39886,
+            "range": "± 4365",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 87405,
+            "range": "± 5316",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 46070,
+            "range": "± 4516",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 46089,
+            "range": "± 2456",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "80598030+RaulTrombin@users.noreply.github.com",
+            "name": "Raul Victor Trombin",
+            "username": "RaulTrombin"
+          },
+          "distinct": true,
+          "id": "e4c605f07ab297a811d7d7d58e916884f2c6151b",
+          "message": "{icm20689, leak, led, pca9685}: Move from 30 to 60ms to wait pin configuration\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-11-28T07:44:50-03:00",
+          "tree_id": "8033fe2f69b7ec9751f7e9d3aaeedde7679caa85",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/e4c605f07ab297a811d7d7d58e916884f2c6151b"
+        },
+        "date": 1732795590533,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "read_adc",
+            "value": 1494316,
+            "range": "± 29439",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_all",
+            "value": 7442627,
+            "range": "± 143326",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_accel",
+            "value": 221758,
+            "range": "± 25135",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_gyro",
+            "value": 222387,
+            "range": "± 16089",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_mag",
+            "value": 5013913,
+            "range": "± 82401",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_pressure",
+            "value": 190399,
+            "range": "± 12882",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_temperature",
+            "value": 91948,
+            "range": "± 4743",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_adc_all",
+            "value": 6027130,
+            "range": "± 104541",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_enable",
+            "value": 40406,
+            "range": "± 3628",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_pwm_duty_cycle",
+            "value": 86380,
+            "range": "± 297",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_neopixel",
+            "value": 261903,
+            "range": "± 6806",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led",
+            "value": 39886,
+            "range": "± 4365",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "set_led_toggle",
+            "value": 87405,
+            "range": "± 5316",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "get_led",
+            "value": 46070,
+            "range": "± 4516",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "read_leak",
+            "value": 46089,
+            "range": "± 2456",
             "unit": "ns/iter"
           }
         ]
