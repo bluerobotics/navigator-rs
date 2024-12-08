@@ -7,6 +7,7 @@ use std::fmt;
 mod ads1115;
 mod ak09915;
 mod bmp280;
+mod bmp390;
 mod icm20689;
 mod leak;
 mod led;
