@@ -1,16 +1,19 @@
-use std::error::Error;
+use std::{error::Error, thread::sleep, time::Duration};
 
 use icm20689::{self, Builder as ImuBuilder, SpiInterface, ICM20689};
 use linux_embedded_hal::spidev::{SpiModeFlags, SpidevOptions};
-use linux_embedded_hal::sysfs_gpio::Direction;
-use linux_embedded_hal::{Delay, Pin, Spidev};
+use linux_embedded_hal::{
+    gpio_cdev::{Chip, LineRequestFlags},
+    CdevPin,
+};
+use linux_embedded_hal::{Delay, Spidev};
 
 use crate::peripherals::{
     AccelerometerSensor, AnyHardware, GyroscopeSensor, PeripheralClass, PeripheralInfo, Peripherals,
 };
 
 pub struct Icm20689Device {
-    imu: ICM20689<SpiInterface<Spidev, Pin>>,
+    imu: ICM20689<SpiInterface<Spidev, CdevPin>>,
     info: PeripheralInfo,
 }
 
@@ -36,7 +39,7 @@ impl AnyHardware for Icm20689Device {
 
 pub struct Icm20689Builder {
     spi_device: String,
-    cs_pin_number: u64,
+    cs_pin_number: u32,
     info: PeripheralInfo,
 }
 
@@ -67,7 +70,7 @@ impl Icm20689Builder {
     /// # Arguments
     ///
     /// * `pin_number` - The SPI pin number (e.g., 16).
-    pub fn with_cs_pin(mut self, pin_number: u64) -> Self {
+    pub fn with_cs_pin(mut self, pin_number: u32) -> Self {
         self.cs_pin_number = pin_number;
         self
     }
@@ -86,11 +89,18 @@ impl Icm20689Builder {
             .build();
         spi.configure(&options)?;
 
-        let cs_pin = Pin::new(self.cs_pin_number);
-        cs_pin.export()?;
-        std::thread::sleep(std::time::Duration::from_millis(60));
-        cs_pin.set_direction(Direction::Out)?;
-        cs_pin.set_value(1)?;
+        let cs_pin = {
+            let mut chip = Chip::new("/dev/gpiochip0").unwrap();
+            let line = chip
+                .get_line(self.cs_pin_number)
+                .unwrap()
+                .request(LineRequestFlags::OUTPUT, 1, "cs-icm20689")
+                .expect("Failed to request CS pin");
+            let pin = CdevPin::new(line)?;
+            sleep(Duration::from_millis(30));
+            pin.set_value(1)?;
+            pin
+        };
 
         let mut imu = ImuBuilder::new_spi(spi, cs_pin);
 
