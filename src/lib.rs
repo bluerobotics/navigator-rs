@@ -349,6 +349,14 @@ impl Navigator {
         }
     }
 
+    pub fn set_neopixel_rgbw(&mut self, colors: &[[u8; 4]]) {
+        if let Some(rgb_behaviour) = self.get_rgb_behaviour() {
+            rgb_behaviour.set_colors_rgbw(colors).unwrap();
+        } else {
+            panic!("No RGB controller available");
+        }
+    }
+
     pub fn read_all(&mut self) -> SensorData {
         SensorData {
             adc: self.read_adc_all(),
