@@ -1,11 +1,8 @@
-use std::{error::Error, thread::sleep, time::Duration};
+use std::error::Error;
 
+use dummy_pin::DummyPin;
 use icm20689::{self, Builder as ImuBuilder, SpiInterface, ICM20689};
 use linux_embedded_hal::spidev::{SpiModeFlags, SpidevOptions};
-use linux_embedded_hal::{
-    gpio_cdev::{Chip, LineRequestFlags},
-    CdevPin,
-};
 use linux_embedded_hal::{Delay, Spidev};
 
 use crate::peripherals::{
@@ -13,7 +10,7 @@ use crate::peripherals::{
 };
 
 pub struct Icm20689Device {
-    imu: ICM20689<SpiInterface<Spidev, CdevPin>>,
+    imu: ICM20689<SpiInterface<Spidev, DummyPin>>,
     info: PeripheralInfo,
 }
 
@@ -39,15 +36,13 @@ impl AnyHardware for Icm20689Device {
 
 pub struct Icm20689Builder {
     spi_device: String,
-    cs_pin_number: u32,
     info: PeripheralInfo,
 }
 
 impl Icm20689Builder {
     pub fn new() -> Self {
         Icm20689Builder {
-            spi_device: "/dev/spidev1.0".to_string(),
-            cs_pin_number: 16,
+            spi_device: "/dev/spidev1.2".to_string(),
             info: PeripheralInfo {
                 peripheral: Peripherals::Icm20689,
                 class: vec![PeripheralClass::Accelerometer, PeripheralClass::Gyroscope],
@@ -65,16 +60,6 @@ impl Icm20689Builder {
         self
     }
 
-    /// Sets the Chip Select (CS) pin number.
-    ///
-    /// # Arguments
-    ///
-    /// * `pin_number` - The SPI pin number (e.g., 16).
-    pub fn with_cs_pin(mut self, pin_number: u32) -> Self {
-        self.cs_pin_number = pin_number;
-        self
-    }
-
     pub fn with_peripheral_info(mut self, info: PeripheralInfo) -> Self {
         self.info = info;
         self
@@ -89,18 +74,7 @@ impl Icm20689Builder {
             .build();
         spi.configure(&options)?;
 
-        let cs_pin = {
-            let mut chip = Chip::new("/dev/gpiochip0").unwrap();
-            let line = chip
-                .get_line(self.cs_pin_number)
-                .unwrap()
-                .request(LineRequestFlags::OUTPUT, 1, "cs-icm20689")
-                .expect("Failed to request CS pin");
-            let pin = CdevPin::new(line)?;
-            sleep(Duration::from_millis(30));
-            pin.set_value(1)?;
-            pin
-        };
+        let cs_pin = dummy_pin::DummyPin::new_low();
 
         let mut imu = ImuBuilder::new_spi(spi, cs_pin);
 
