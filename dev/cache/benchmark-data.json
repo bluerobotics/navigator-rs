@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1732795590562,
+  "lastUpdate": 1733756053871,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -3995,6 +3995,66 @@
             "name": "read_leak",
             "value": 46089,
             "range": "± 2456",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "0ad8dc318f2b2a2f35e2dd5029141c48bbd7a000",
+          "message": "icm20689:  Move to use new gpio_cdev over sysfs_gpio\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-12-09T11:48:14-03:00",
+          "tree_id": "666c2f1fd28e3f5e8ef088e41edde093addb7246",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/0ad8dc318f2b2a2f35e2dd5029141c48bbd7a000"
+        },
+        "date": 1733756053847,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "read_adc",
+            "value": 1501445,
+            "range": "± 33611",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "0ad8dc318f2b2a2f35e2dd5029141c48bbd7a000",
+          "message": "icm20689:  Move to use new gpio_cdev over sysfs_gpio\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-12-09T11:48:14-03:00",
+          "tree_id": "666c2f1fd28e3f5e8ef088e41edde093addb7246",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/0ad8dc318f2b2a2f35e2dd5029141c48bbd7a000"
+        },
+        "date": 1733756053847,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "read_adc",
+            "value": 1501445,
+            "range": "± 33611",
             "unit": "ns/iter"
           }
         ]
