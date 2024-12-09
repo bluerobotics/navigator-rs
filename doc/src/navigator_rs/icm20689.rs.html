@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/icm20689.rs`."><title>icm20689.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-492a78a4a87dcc01.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="navigator_rs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.82.0 (f6e511eec 2024-10-15)" data-channel="1.82.0" data-search-js="search-a99f1315e7cc5121.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-921df33f47b8780c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-3b12f09e550e0385.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/icm20689.rs`."><title>icm20689.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-b0742ba02757f159.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="navigator_rs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0 (90b35a623 2024-11-26)" data-channel="1.83.0" data-search-js="search-f0d225181b97f9a4.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-f070b9041d14864c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">navigator_rs/</div>icm20689.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -133,19 +134,31 @@
 <a href="#133" id="133">133</a>
 <a href="#134" id="134">134</a>
 <a href="#135" id="135">135</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::error::Error;
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{error::Error, thread::sleep, time::Duration};
 
 <span class="kw">use </span>icm20689::{<span class="self">self</span>, Builder <span class="kw">as </span>ImuBuilder, SpiInterface, ICM20689};
 <span class="kw">use </span>linux_embedded_hal::spidev::{SpiModeFlags, SpidevOptions};
-<span class="kw">use </span>linux_embedded_hal::sysfs_gpio::Direction;
-<span class="kw">use </span>linux_embedded_hal::{Delay, Pin, Spidev};
+<span class="kw">use </span>linux_embedded_hal::{
+    gpio_cdev::{Chip, LineRequestFlags},
+    CdevPin,
+};
+<span class="kw">use </span>linux_embedded_hal::{Delay, Spidev};
 
 <span class="kw">use </span><span class="kw">crate</span>::peripherals::{
     AccelerometerSensor, AnyHardware, GyroscopeSensor, PeripheralClass, PeripheralInfo, Peripherals,
 };
 
 <span class="kw">pub struct </span>Icm20689Device {
-    imu: ICM20689&lt;SpiInterface&lt;Spidev, Pin&gt;&gt;,
+    imu: ICM20689&lt;SpiInterface&lt;Spidev, CdevPin&gt;&gt;,
     info: PeripheralInfo,
 }
 
@@ -171,7 +184,7 @@
 
 <span class="kw">pub struct </span>Icm20689Builder {
     spi_device: String,
-    cs_pin_number: u64,
+    cs_pin_number: u32,
     info: PeripheralInfo,
 }
 
@@ -202,7 +215,7 @@
     /// # Arguments
     ///
     /// * `pin_number` - The SPI pin number (e.g., 16).
-    </span><span class="kw">pub fn </span>with_cs_pin(<span class="kw-2">mut </span><span class="self">self</span>, pin_number: u64) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>with_cs_pin(<span class="kw-2">mut </span><span class="self">self</span>, pin_number: u32) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.cs_pin_number = pin_number;
         <span class="self">self
     </span>}
@@ -221,11 +234,18 @@
             .build();
         spi.configure(<span class="kw-2">&amp;</span>options)<span class="question-mark">?</span>;
 
-        <span class="kw">let </span>cs_pin = Pin::new(<span class="self">self</span>.cs_pin_number);
-        cs_pin.export()<span class="question-mark">?</span>;
-        std::thread::sleep(std::time::Duration::from_millis(<span class="number">60</span>));
-        cs_pin.set_direction(Direction::Out)<span class="question-mark">?</span>;
-        cs_pin.set_value(<span class="number">1</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>cs_pin = {
+            <span class="kw">let </span><span class="kw-2">mut </span>chip = Chip::new(<span class="string">"/dev/gpiochip0"</span>).unwrap();
+            <span class="kw">let </span>line = chip
+                .get_line(<span class="self">self</span>.cs_pin_number)
+                .unwrap()
+                .request(LineRequestFlags::OUTPUT, <span class="number">1</span>, <span class="string">"cs-icm20689"</span>)
+                .expect(<span class="string">"Failed to request CS pin"</span>);
+            <span class="kw">let </span>pin = CdevPin::new(line)<span class="question-mark">?</span>;
+            sleep(Duration::from_millis(<span class="number">30</span>));
+            pin.set_value(<span class="number">1</span>)<span class="question-mark">?</span>;
+            pin
+        };
 
         <span class="kw">let </span><span class="kw-2">mut </span>imu = ImuBuilder::new_spi(spi, cs_pin);
 
