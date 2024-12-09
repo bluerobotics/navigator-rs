@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1733770728992,
+  "lastUpdate": 1733773548721,
   "repoUrl": "https://github.com/bluerobotics/navigator-rs",
   "entries": {
     "Benchmark": [
@@ -4115,6 +4115,66 @@
             "name": "read_adc",
             "value": 1503352,
             "range": "± 44671",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "3517e414221bcddedad7a4f0baefca31b6fc5a4b",
+          "message": "bcm390: Add first version\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-12-09T16:39:48-03:00",
+          "tree_id": "843fcc62647c12d0f44a0c9308a9646ac8c091c1",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/3517e414221bcddedad7a4f0baefca31b6fc5a4b"
+        },
+        "date": 1733773548701,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "read_adc",
+            "value": 1472779,
+            "range": "± 78994",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "committer": {
+            "email": "patrickelectric@gmail.com",
+            "name": "Patrick José Pereira",
+            "username": "patrickelectric"
+          },
+          "distinct": true,
+          "id": "3517e414221bcddedad7a4f0baefca31b6fc5a4b",
+          "message": "bcm390: Add first version\n\nSigned-off-by: Patrick José Pereira <patrickelectric@gmail.com>",
+          "timestamp": "2024-12-09T16:39:48-03:00",
+          "tree_id": "843fcc62647c12d0f44a0c9308a9646ac8c091c1",
+          "url": "https://github.com/bluerobotics/navigator-rs/commit/3517e414221bcddedad7a4f0baefca31b6fc5a4b"
+        },
+        "date": 1733773548701,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "read_adc",
+            "value": 1472779,
+            "range": "± 78994",
             "unit": "ns/iter"
           }
         ]
