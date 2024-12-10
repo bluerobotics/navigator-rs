@@ -1,4 +1,4 @@
-use std::{thread::sleep, time::Duration};
+use std::{path::PathBuf, thread::sleep, time::Duration};
 
 use linux_embedded_hal::gpio_cdev::{Chip, LineHandle, LineRequestFlags};
 
@@ -28,6 +28,7 @@ impl AnyHardware for LedController {
 pub struct LedControllerBuilder {
     pub pins: Vec<u32>,
     pub info: PeripheralInfo,
+    pub gpiochip: PathBuf,
 }
 
 impl LedControllerBuilder {
@@ -38,6 +39,7 @@ impl LedControllerBuilder {
                 peripheral: Peripherals::Gpio,
                 class: vec![PeripheralClass::Led],
             },
+            gpiochip: "/dev/gpiochip0".into(),
         }
     }
 
@@ -49,6 +51,11 @@ impl LedControllerBuilder {
 
     pub fn with_peripheral_info(mut self, info: PeripheralInfo) -> Self {
         self.info = info;
+        self
+    }
+
+    pub fn with_gpiochip(mut self, gpiochip: &str) -> Self {
+        self.gpiochip = gpiochip.into();
         self
     }
 
@@ -65,7 +72,7 @@ impl LedControllerBuilder {
             self = self.configure_navigator();
         }
 
-        let mut chip = Chip::new("/dev/gpiochip0").unwrap();
+        let mut chip = Chip::new(self.gpiochip).expect("Failed to open GPIO chip");
         for &pin_number in &self.pins {
             let pin = chip
                 .get_line(pin_number)
