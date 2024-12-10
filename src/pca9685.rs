@@ -111,8 +111,9 @@ impl Pca9685DeviceBuilder {
         };
 
         pwm.reset_internal_driver_state();
-        pwm.use_external_clock().unwrap();
-        pwm.enable().unwrap();
+        pwm.use_external_clock()
+            .expect("Failed to use external clock");
+        pwm.enable().expect("Failed to enable PWM controller");
 
         Ok(Pca9685Device {
             pwm,
