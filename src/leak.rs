@@ -1,4 +1,4 @@
-use std::{error::Error, thread::sleep, time::Duration};
+use std::{error::Error, path::PathBuf, thread::sleep, time::Duration};
 
 use linux_embedded_hal::gpio_cdev::{Chip, LineHandle, LineRequestFlags};
 
@@ -28,6 +28,7 @@ impl AnyHardware for LeakDetector {
 pub struct LeakBuilder {
     pin_number: u32,
     info: PeripheralInfo,
+    gpiochip: PathBuf,
 }
 
 impl LeakBuilder {
@@ -38,6 +39,7 @@ impl LeakBuilder {
                 peripheral: Peripherals::Leak,
                 class: vec![PeripheralClass::DigitalInput],
             },
+            gpiochip: "/dev/gpiochip0".into(),
         }
     }
 
@@ -56,9 +58,14 @@ impl LeakBuilder {
         self
     }
 
+    pub fn with_gpiochip(mut self, gpiochip: &str) -> Self {
+        self.gpiochip = gpiochip.into();
+        self
+    }
+
     pub fn build(self) -> Result<LeakDetector, Box<dyn Error>> {
         let pin = {
-            let mut chip = Chip::new("/dev/gpiochip0")?;
+            let mut chip = Chip::new(self.gpiochip)?;
             let pin = chip
                 .get_line(self.pin_number)
                 .unwrap()
