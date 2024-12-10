@@ -98,7 +98,14 @@
 <a href="#97" id="97">97</a>
 <a href="#98" id="98">98</a>
 <a href="#99" id="99">99</a>
-<a href="#100" id="100">100</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{error::Error, thread::sleep, time::Duration};
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{error::Error, path::PathBuf, thread::sleep, time::Duration};
 
 <span class="kw">use </span>linux_embedded_hal::gpio_cdev::{Chip, LineHandle, LineRequestFlags};
 
@@ -128,6 +135,7 @@
 <span class="kw">pub struct </span>LeakBuilder {
     pin_number: u32,
     info: PeripheralInfo,
+    gpiochip: PathBuf,
 }
 
 <span class="kw">impl </span>LeakBuilder {
@@ -138,6 +146,7 @@
                 peripheral: Peripherals::Leak,
                 class: <span class="macro">vec!</span>[PeripheralClass::DigitalInput],
             },
+            gpiochip: <span class="string">"/dev/gpiochip0"</span>.into(),
         }
     }
 
@@ -156,9 +165,14 @@
         <span class="self">self
     </span>}
 
+    <span class="kw">pub fn </span>with_gpiochip(<span class="kw-2">mut </span><span class="self">self</span>, gpiochip: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.gpiochip = gpiochip.into();
+        <span class="self">self
+    </span>}
+
     <span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;LeakDetector, Box&lt;<span class="kw">dyn </span>Error&gt;&gt; {
         <span class="kw">let </span>pin = {
-            <span class="kw">let </span><span class="kw-2">mut </span>chip = Chip::new(<span class="string">"/dev/gpiochip0"</span>)<span class="question-mark">?</span>;
+            <span class="kw">let </span><span class="kw-2">mut </span>chip = Chip::new(<span class="self">self</span>.gpiochip)<span class="question-mark">?</span>;
             <span class="kw">let </span>pin = chip
                 .get_line(<span class="self">self</span>.pin_number)
                 .unwrap()

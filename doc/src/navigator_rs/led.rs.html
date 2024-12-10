@@ -135,7 +135,14 @@
 <a href="#134" id="134">134</a>
 <a href="#135" id="135">135</a>
 <a href="#136" id="136">136</a>
-<a href="#137" id="137">137</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{thread::sleep, time::Duration};
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{path::PathBuf, thread::sleep, time::Duration};
 
 <span class="kw">use </span>linux_embedded_hal::gpio_cdev::{Chip, LineHandle, LineRequestFlags};
 
@@ -165,6 +172,7 @@
 <span class="kw">pub struct </span>LedControllerBuilder {
     <span class="kw">pub </span>pins: Vec&lt;u32&gt;,
     <span class="kw">pub </span>info: PeripheralInfo,
+    <span class="kw">pub </span>gpiochip: PathBuf,
 }
 
 <span class="kw">impl </span>LedControllerBuilder {
@@ -175,6 +183,7 @@
                 peripheral: Peripherals::Gpio,
                 class: <span class="macro">vec!</span>[PeripheralClass::Led],
             },
+            gpiochip: <span class="string">"/dev/gpiochip0"</span>.into(),
         }
     }
 
@@ -186,6 +195,11 @@
 
     <span class="kw">pub fn </span>with_peripheral_info(<span class="kw-2">mut </span><span class="self">self</span>, info: PeripheralInfo) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.info = info;
+        <span class="self">self
+    </span>}
+
+    <span class="kw">pub fn </span>with_gpiochip(<span class="kw-2">mut </span><span class="self">self</span>, gpiochip: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.gpiochip = gpiochip.into();
         <span class="self">self
     </span>}
 
@@ -202,7 +216,7 @@
             <span class="self">self </span>= <span class="self">self</span>.configure_navigator();
         }
 
-        <span class="kw">let </span><span class="kw-2">mut </span>chip = Chip::new(<span class="string">"/dev/gpiochip0"</span>).unwrap();
+        <span class="kw">let </span><span class="kw-2">mut </span>chip = Chip::new(<span class="self">self</span>.gpiochip).expect(<span class="string">"Failed to open GPIO chip"</span>);
         <span class="kw">for </span><span class="kw-2">&amp;</span>pin_number <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.pins {
             <span class="kw">let </span>pin = chip
                 .get_line(pin_number)

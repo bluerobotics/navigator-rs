@@ -220,7 +220,15 @@
 <a href="#219" id="219">219</a>
 <a href="#220" id="220">220</a>
 <a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{error::Error, thread::sleep, time::Duration};
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{error::Error, path::PathBuf, thread::sleep, time::Duration};
 
 <span class="kw">use </span>linux_embedded_hal::{
     gpio_cdev::{Chip, LineHandle, LineRequestFlags},
@@ -257,6 +265,7 @@
     address: PwmAddress,
     oe_pin_number: u32,
     info: PeripheralInfo,
+    gpiochip: PathBuf,
 }
 
 <span class="kw">impl </span>Pca9685DeviceBuilder {
@@ -269,6 +278,7 @@
                 peripheral: Peripherals::Pca9685,
                 class: <span class="macro">vec!</span>[PeripheralClass::Pwm],
             },
+            gpiochip: <span class="string">"/dev/gpiochip0"</span>.into(),
         }
     }
 
@@ -308,13 +318,18 @@
         <span class="self">self
     </span>}
 
+    <span class="kw">pub fn </span>with_gpiochip(<span class="kw-2">mut </span><span class="self">self</span>, gpiochip: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.gpiochip = gpiochip.into();
+        <span class="self">self
+    </span>}
+
     <span class="doccomment">/// Builds the `Pca9685Device`.
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Pca9685Device, Box&lt;<span class="kw">dyn </span>Error&gt;&gt; {
         <span class="kw">let </span>device = I2cdev::new(<span class="self">self</span>.i2c_bus)<span class="question-mark">?</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>pwm = Pca9685::new(device, <span class="self">self</span>.address).expect(<span class="string">"Failed to open PWM controller"</span>);
 
         <span class="kw">let </span>oe_pin = {
-            <span class="kw">let </span><span class="kw-2">mut </span>chip = Chip::new(<span class="string">"/dev/gpiochip0"</span>)<span class="question-mark">?</span>;
+            <span class="kw">let </span><span class="kw-2">mut </span>chip = Chip::new(<span class="self">self</span>.gpiochip).expect(<span class="string">"Failed to open GPIO chip"</span>);
             <span class="kw">let </span>pin = chip
                 .get_line(<span class="self">self</span>.oe_pin_number)
                 .unwrap()
@@ -326,8 +341,9 @@
         };
 
         pwm.reset_internal_driver_state();
-        pwm.use_external_clock().unwrap();
-        pwm.enable().unwrap();
+        pwm.use_external_clock()
+            .expect(<span class="string">"Failed to use external clock"</span>);
+        pwm.enable().expect(<span class="string">"Failed to enable PWM controller"</span>);
 
         <span class="prelude-val">Ok</span>(Pca9685Device {
             pwm,
