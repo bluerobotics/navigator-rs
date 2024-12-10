@@ -20,6 +20,7 @@ use peripherals::*;
 use ads1115::Ads1115Device;
 use ak09915::Ak09915Device;
 use bmp280::Bmp280Device;
+use bmp390::Bmp390Device;
 use icm20689::Icm20689Device;
 use leak::LeakDetector;
 use led::LedController;
