@@ -1,4 +1,4 @@
-use std::{error::Error, thread::sleep, time::Duration};
+use std::{error::Error, path::PathBuf, thread::sleep, time::Duration};
 
 use linux_embedded_hal::{
     gpio_cdev::{Chip, LineHandle, LineRequestFlags},
@@ -35,6 +35,7 @@ pub struct Pca9685DeviceBuilder {
     address: PwmAddress,
     oe_pin_number: u32,
     info: PeripheralInfo,
+    gpiochip: PathBuf,
 }
 
 impl Pca9685DeviceBuilder {
@@ -47,6 +48,7 @@ impl Pca9685DeviceBuilder {
                 peripheral: Peripherals::Pca9685,
                 class: vec![PeripheralClass::Pwm],
             },
+            gpiochip: "/dev/gpiochip0".into(),
         }
     }
 
@@ -86,13 +88,18 @@ impl Pca9685DeviceBuilder {
         self
     }
 
+    pub fn with_gpiochip(mut self, gpiochip: &str) -> Self {
+        self.gpiochip = gpiochip.into();
+        self
+    }
+
     /// Builds the `Pca9685Device`.
     pub fn build(self) -> Result<Pca9685Device, Box<dyn Error>> {
         let device = I2cdev::new(self.i2c_bus)?;
         let mut pwm = Pca9685::new(device, self.address).expect("Failed to open PWM controller");
 
         let oe_pin = {
-            let mut chip = Chip::new("/dev/gpiochip0")?;
+            let mut chip = Chip::new(self.gpiochip).expect("Failed to open GPIO chip");
             let pin = chip
                 .get_line(self.oe_pin_number)
                 .unwrap()
