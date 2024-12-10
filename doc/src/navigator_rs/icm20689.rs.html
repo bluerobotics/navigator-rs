@@ -117,40 +117,11 @@
 <a href="#116" id="116">116</a>
 <a href="#117" id="117">117</a>
 <a href="#118" id="118">118</a>
-<a href="#119" id="119">119</a>
-<a href="#120" id="120">120</a>
-<a href="#121" id="121">121</a>
-<a href="#122" id="122">122</a>
-<a href="#123" id="123">123</a>
-<a href="#124" id="124">124</a>
-<a href="#125" id="125">125</a>
-<a href="#126" id="126">126</a>
-<a href="#127" id="127">127</a>
-<a href="#128" id="128">128</a>
-<a href="#129" id="129">129</a>
-<a href="#130" id="130">130</a>
-<a href="#131" id="131">131</a>
-<a href="#132" id="132">132</a>
-<a href="#133" id="133">133</a>
-<a href="#134" id="134">134</a>
-<a href="#135" id="135">135</a>
-<a href="#136" id="136">136</a>
-<a href="#137" id="137">137</a>
-<a href="#138" id="138">138</a>
-<a href="#139" id="139">139</a>
-<a href="#140" id="140">140</a>
-<a href="#141" id="141">141</a>
-<a href="#142" id="142">142</a>
-<a href="#143" id="143">143</a>
-<a href="#144" id="144">144</a>
-<a href="#145" id="145">145</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{error::Error, thread::sleep, time::Duration};
+<a href="#119" id="119">119</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::error::Error;
 
+<span class="kw">use </span>dummy_pin::DummyPin;
 <span class="kw">use </span>icm20689::{<span class="self">self</span>, Builder <span class="kw">as </span>ImuBuilder, SpiInterface, ICM20689};
 <span class="kw">use </span>linux_embedded_hal::spidev::{SpiModeFlags, SpidevOptions};
-<span class="kw">use </span>linux_embedded_hal::{
-    gpio_cdev::{Chip, LineRequestFlags},
-    CdevPin,
-};
 <span class="kw">use </span>linux_embedded_hal::{Delay, Spidev};
 
 <span class="kw">use </span><span class="kw">crate</span>::peripherals::{
@@ -158,7 +129,7 @@
 };
 
 <span class="kw">pub struct </span>Icm20689Device {
-    imu: ICM20689&lt;SpiInterface&lt;Spidev, CdevPin&gt;&gt;,
+    imu: ICM20689&lt;SpiInterface&lt;Spidev, DummyPin&gt;&gt;,
     info: PeripheralInfo,
 }
 
@@ -184,15 +155,13 @@
 
 <span class="kw">pub struct </span>Icm20689Builder {
     spi_device: String,
-    cs_pin_number: u32,
     info: PeripheralInfo,
 }
 
 <span class="kw">impl </span>Icm20689Builder {
     <span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
         Icm20689Builder {
-            spi_device: <span class="string">"/dev/spidev1.0"</span>.to_string(),
-            cs_pin_number: <span class="number">16</span>,
+            spi_device: <span class="string">"/dev/spidev1.2"</span>.to_string(),
             info: PeripheralInfo {
                 peripheral: Peripherals::Icm20689,
                 class: <span class="macro">vec!</span>[PeripheralClass::Accelerometer, PeripheralClass::Gyroscope],
@@ -210,16 +179,6 @@
         <span class="self">self
     </span>}
 
-    <span class="doccomment">/// Sets the Chip Select (CS) pin number.
-    ///
-    /// # Arguments
-    ///
-    /// * `pin_number` - The SPI pin number (e.g., 16).
-    </span><span class="kw">pub fn </span>with_cs_pin(<span class="kw-2">mut </span><span class="self">self</span>, pin_number: u32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.cs_pin_number = pin_number;
-        <span class="self">self
-    </span>}
-
     <span class="kw">pub fn </span>with_peripheral_info(<span class="kw-2">mut </span><span class="self">self</span>, info: PeripheralInfo) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.info = info;
         <span class="self">self
@@ -234,18 +193,7 @@
             .build();
         spi.configure(<span class="kw-2">&amp;</span>options)<span class="question-mark">?</span>;
 
-        <span class="kw">let </span>cs_pin = {
-            <span class="kw">let </span><span class="kw-2">mut </span>chip = Chip::new(<span class="string">"/dev/gpiochip0"</span>).unwrap();
-            <span class="kw">let </span>line = chip
-                .get_line(<span class="self">self</span>.cs_pin_number)
-                .unwrap()
-                .request(LineRequestFlags::OUTPUT, <span class="number">1</span>, <span class="string">"cs-icm20689"</span>)
-                .expect(<span class="string">"Failed to request CS pin"</span>);
-            <span class="kw">let </span>pin = CdevPin::new(line)<span class="question-mark">?</span>;
-            sleep(Duration::from_millis(<span class="number">30</span>));
-            pin.set_value(<span class="number">1</span>)<span class="question-mark">?</span>;
-            pin
-        };
+        <span class="kw">let </span>cs_pin = dummy_pin::DummyPin::new_low();
 
         <span class="kw">let </span><span class="kw-2">mut </span>imu = ImuBuilder::new_spi(spi, cs_pin);
 
