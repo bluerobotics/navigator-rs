@@ -17,11 +17,11 @@ mod rgb;
 
 use peripherals::*;
 
+use crate::bmp280::Bmp280Device;
+use crate::icm20689::Icm20689Device;
 use ads1115::Ads1115Device;
 use ak09915::Ak09915Device;
-use bmp280::Bmp280Device;
 use bmp390::Bmp390Device;
-use icm20689::Icm20689Device;
 use leak::LeakDetector;
 use led::LedController;
 use pca9685::Pca9685Device;
@@ -383,13 +383,37 @@ impl NavigatorBuilder {
 
     pub fn build_navigator_v1_pi4(self) -> Navigator {
         let mut devices: Vec<Box<dyn AnyHardware>> = vec![
-            Box::new(Ads1115Device::builder().build().unwrap()),
-            Box::new(Ak09915Device::builder().build().unwrap()),
-            Box::new(Bmp280Device::builder().build().unwrap()),
-            Box::new(Icm20689Device::builder().build().unwrap()),
-            Box::new(LeakDetector::builder().build().unwrap()),
+            Box::new(
+                Ads1115Device::builder()
+                    .build()
+                    .expect("Failed to create Ads1115"),
+            ),
+            Box::new(
+                Ak09915Device::builder()
+                    .build()
+                    .expect("Failed to create Ak09915"),
+            ),
+            Box::new(
+                Bmp280Device::builder()
+                    .build()
+                    .expect("Failed to create Bmp280"),
+            ),
+            Box::new(
+                Icm20689Device::builder()
+                    .build()
+                    .expect("Failed to create Icm20689"),
+            ),
+            Box::new(
+                LeakDetector::builder()
+                    .build()
+                    .expect("Failed to create LedDetector"),
+            ),
             Box::new(LedController::builder().build()),
-            Box::new(Pca9685Device::builder().build().unwrap()),
+            Box::new(
+                Pca9685Device::builder()
+                    .build()
+                    .expect("Failed to create Pca9685"),
+            ),
         ];
 
         let rgb_device = RgbController::builder()
@@ -397,6 +421,98 @@ impl NavigatorBuilder {
             .build()
             .unwrap();
         devices.push(Box::new(rgb_device));
+
+        Navigator { devices }
+    }
+
+    pub fn build_navigator_v2_pi4(self) -> Navigator {
+        let mut devices: Vec<Box<dyn AnyHardware>> = vec![
+            Box::new(
+                Ads1115Device::builder()
+                    .build()
+                    .expect("Failed to create Ads1115"),
+            ),
+            Box::new(
+                Ak09915Device::builder()
+                    .build()
+                    .expect("Failed to create Ak09915"),
+            ),
+            Box::new(
+                Bmp390Device::builder()
+                    .build()
+                    .expect("Failed to create Bmp390"),
+            ),
+            Box::new(
+                Icm20689Device::builder()
+                    .build()
+                    .expect("Failed to create Icm20689"),
+            ),
+            Box::new(
+                LeakDetector::builder()
+                    .build()
+                    .expect("Failed to create LedDetector"),
+            ),
+            Box::new(LedController::builder().build()),
+            Box::new(
+                Pca9685Device::builder()
+                    .build()
+                    .expect("Failed to create Pca9685"),
+            ),
+        ];
+
+        let rgb_device = RgbController::builder()
+            .with_led_count(self.rgb_led_strip_size)
+            .build()
+            .unwrap();
+        devices.push(Box::new(rgb_device));
+
+        Navigator { devices }
+    }
+
+    pub fn build_navigator_v1_pi5(self) -> Navigator {
+        let gpiochip = "/dev/gpiochip4";
+        let devices: Vec<Box<dyn AnyHardware>> = vec![
+            Box::new(
+                Ads1115Device::builder()
+                    .build()
+                    .expect("Failed to create Ads1115"),
+            ),
+            Box::new(
+                Ak09915Device::builder()
+                    .build()
+                    .expect("Failed to create Ak09915"),
+            ),
+            Box::new(
+                Bmp280Device::builder()
+                    .build()
+                    .expect("Failed to create Bmp390"),
+            ),
+            Box::new(
+                Icm20689Device::builder()
+                    .build()
+                    .expect("Failed to create Icm20689"),
+            ),
+            Box::new(
+                LeakDetector::builder()
+                    .with_gpiochip(gpiochip)
+                    .build()
+                    .expect("Failed to create LedDetector"),
+            ),
+            Box::new(LedController::builder().with_gpiochip(gpiochip).build()),
+            Box::new(
+                Pca9685Device::builder()
+                    .with_gpiochip(gpiochip)
+                    .with_i2c_bus("/dev/i2c-3")
+                    .build()
+                    .expect("Failed to create Pca9685"),
+            ),
+            Box::new(
+                RgbController::builder()
+                    .with_led_count(self.rgb_led_strip_size)
+                    .build()
+                    .expect("Failed to create RgbController"),
+            ),
+        ];
 
         Navigator { devices }
     }
