@@ -27,6 +27,22 @@ use led::LedController;
 use pca9685::Pca9685Device;
 use rgb::RgbController;
 
+// add docs ( difference btwen boards)
+#[derive(Debug, Default, Clone, Copy)]
+pub enum NavigatorVersion {
+    #[default]
+    V1 = 1,
+    V2,
+}
+
+// add docs ( explicit difference btwen overlays)
+#[derive(Debug, Default, Clone, Copy)]
+pub enum PiVersion {
+    #[default]
+    Pi4 = 4,
+    Pi5,
+}
+
 /// Set of available options to select ADC's channel.
 #[derive(Debug, Clone, Copy)]
 pub enum AdcChannel {
@@ -101,6 +117,8 @@ impl Navigator {
 
     pub fn create() -> NavigatorBuilder {
         NavigatorBuilder {
+            navigator: Default::default(),
+            pi: Default::default(),
             rgb_led_strip_size: 1, // There is only a single LED on the board
         }
     }
@@ -372,13 +390,38 @@ impl Navigator {
 }
 
 pub struct NavigatorBuilder {
+    navigator: NavigatorVersion,
+    pi: PiVersion,
     rgb_led_strip_size: usize,
 }
 
 impl NavigatorBuilder {
+    pub fn with_navigator(mut self, navigator: NavigatorVersion) -> Self {
+        self.navigator = navigator;
+        self
+    }
+
+    pub fn with_pi(mut self, pi: PiVersion) -> Self {
+        self.pi = pi;
+        self
+    }
+
     pub fn with_rgb_led_strip_size(mut self, size: usize) -> Self {
         self.rgb_led_strip_size = size;
         self
+    }
+
+    pub fn build(self) -> Navigator {
+        match self.pi {
+            PiVersion::Pi4 => match self.navigator {
+                NavigatorVersion::V1 => self.build_navigator_v1_pi4(),
+                NavigatorVersion::V2 => self.build_navigator_v2_pi4(),
+            },
+            PiVersion::Pi5 => match self.navigator {
+                NavigatorVersion::V1 => self.build_navigator_v1_pi5(),
+                NavigatorVersion::V2 => self.build_navigator_v2_pi5(),
+            },
+        }
     }
 
     pub fn build_navigator_v1_pi4(self) -> Navigator {
