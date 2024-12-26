@@ -2,15 +2,17 @@ use std::error::Error;
 
 use dummy_pin::DummyPin;
 use icm20689::{self, Builder as ImuBuilder, SpiInterface, ICM20689};
-use linux_embedded_hal::spidev::{SpiModeFlags, SpidevOptions};
-use linux_embedded_hal::{Delay, Spidev};
+use linux_embedded_hal::{
+    spidev::{SpiModeFlags, SpidevOptions},
+    Delay, SpidevDevice,
+};
 
 use crate::peripherals::{
     AccelerometerSensor, AnyHardware, GyroscopeSensor, PeripheralClass, PeripheralInfo, Peripherals,
 };
 
 pub struct Icm20689Device {
-    imu: ICM20689<SpiInterface<Spidev, DummyPin>>,
+    imu: ICM20689<SpiInterface<SpidevDevice, DummyPin>>,
     info: PeripheralInfo,
 }
 
@@ -66,7 +68,7 @@ impl Icm20689Builder {
     }
 
     pub fn build(self) -> Result<Icm20689Device, Box<dyn Error>> {
-        let mut spi = Spidev::open(self.spi_device)?;
+        let mut spi = SpidevDevice::open(self.spi_device)?;
         let options = SpidevOptions::new()
             .bits_per_word(8)
             .max_speed_hz(10_000_000)
