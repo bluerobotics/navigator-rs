@@ -1,7 +1,7 @@
 use std::error::Error;
 use std::path::PathBuf;
 
-use embedded_hal::blocking::i2c::{Write, WriteRead};
+use embedded_hal::i2c::I2c;
 use linux_embedded_hal::I2cdev;
 
 use crate::peripherals::{

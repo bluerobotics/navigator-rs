@@ -6,13 +6,16 @@ use std::fmt;
 
 mod ads1115;
 mod ak09915;
+mod bmp180;
 mod bmp280;
 mod bmp390;
 mod icm20689;
 mod leak;
 mod led;
+mod mpu6050;
 mod pca9685;
 mod peripherals;
+mod qmc5883l;
 mod rgb;
 
 use peripherals::*;
@@ -21,10 +24,13 @@ use crate::bmp280::Bmp280Device;
 use crate::icm20689::Icm20689Device;
 use ads1115::Ads1115Device;
 use ak09915::Ak09915Device;
+use bmp180::Bmp180Device;
 use bmp390::Bmp390Device;
 use leak::LeakDetector;
 use led::LedController;
+use mpu6050::Mpu6050Device;
 use pca9685::Pca9685Device;
+use qmc5883l::Qmc5883lDevice;
 use rgb::RgbController;
 
 // add docs ( difference btwen boards)
