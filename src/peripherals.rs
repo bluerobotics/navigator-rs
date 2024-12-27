@@ -9,8 +9,10 @@ pub enum Peripherals {
     Gpio,
     Icm20689, // Accelerometer and Gyroscope
     Leak,
+    Mmc5983, // 3-axis magnetometer and Temperature
     Mpu6050, // Accelerometer, Gyroscope and Temperature
     Pca9685, // PWM controller
+    Qmc5883l, // 3-axis magnetometer
     Sk6812,  // Neopixel RGB LED
 }
 

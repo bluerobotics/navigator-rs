@@ -26,6 +26,7 @@ linux-embedded-hal = "0.4.0"
 log = "0.4.19"
 mpu6050 = { git = "https://github.com/patrickelectric/mpu6050", rev = "0fe2526" }
 nb = "1.1.0"
+qmc5883l = { git = "https://github.com/patrickelectric/qmc5883l", ref = "62b8a64" }
 pwm-pca9685 = "1.0.0"
 sk6812_rpi = "0.1"
 

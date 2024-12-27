@@ -15,6 +15,7 @@ mod led;
 mod mpu6050;
 mod pca9685;
 mod peripherals;
+mod qmc5883l;
 mod rgb;
 
 use peripherals::*;
@@ -29,6 +30,7 @@ use leak::LeakDetector;
 use led::LedController;
 use mpu6050::Mpu6050Device;
 use pca9685::Pca9685Device;
+use qmc5883l::Qmc5883lDevice;
 use rgb::RgbController;
 
 // add docs ( difference btwen boards)
