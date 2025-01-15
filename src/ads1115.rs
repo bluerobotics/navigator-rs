@@ -2,15 +2,14 @@ use std::error::Error;
 
 use ads1x1x::{
     ic::{Ads1115, Resolution16Bit},
-    interface::I2cInterface,
-    Ads1x1x, DynamicOneShot, SlaveAddr,
+    Ads1x1x, TargetAddr,
 };
 use linux_embedded_hal::I2cdev;
 
 use crate::peripherals::{AdcSensor, AnyHardware, PeripheralClass, PeripheralInfo, Peripherals};
 
 pub struct Ads1115Device {
-    adc: Ads1x1x<I2cInterface<I2cdev>, Ads1115, Resolution16Bit, ads1x1x::mode::OneShot>,
+    adc: Ads1x1x<I2cdev, Ads1115, Resolution16Bit, ads1x1x::mode::OneShot>,
     info: PeripheralInfo,
 }
 
@@ -32,7 +31,7 @@ impl AnyHardware for Ads1115Device {
 
 pub struct Ads1115DeviceBuilder {
     i2c_bus: String,
-    address: SlaveAddr,
+    address: TargetAddr,
     info: PeripheralInfo,
 }
 
@@ -40,7 +39,7 @@ impl Ads1115DeviceBuilder {
     pub fn new() -> Self {
         Ads1115DeviceBuilder {
             i2c_bus: "/dev/i2c-1".into(),
-            address: SlaveAddr::default(),
+            address: TargetAddr::default(),
             info: PeripheralInfo {
                 peripheral: Peripherals::Ads1115,
                 class: vec![PeripheralClass::Adc],
@@ -63,7 +62,7 @@ impl Ads1115DeviceBuilder {
     /// # Arguments
     ///
     /// * `address` - The I²C address (e.g., 0x48).
-    pub fn with_address(mut self, address: SlaveAddr) -> Self {
+    pub fn with_address(mut self, address: TargetAddr) -> Self {
         self.address = address;
         self
     }
@@ -77,7 +76,6 @@ impl Ads1115DeviceBuilder {
         let i2c = I2cdev::new(self.i2c_bus)?;
         let mut adc = Ads1x1x::new_ads1115(i2c, self.address);
 
-        adc.reset_internal_driver_state();
         adc.set_full_scale_range(ads1x1x::FullScaleRange::Within4_096V)
             .unwrap();
         adc.set_data_rate(ads1x1x::DataRate16Bit::Sps860).unwrap();
@@ -91,17 +89,17 @@ impl Ads1115DeviceBuilder {
 
 impl AdcSensor for Ads1115Device {
     fn read_channel(&mut self, channel: usize) -> Result<f32, Box<dyn Error>> {
-        let channel_selection = match channel {
-            0 => ads1x1x::ChannelSelection::SingleA0,
-            1 => ads1x1x::ChannelSelection::SingleA1,
-            2 => ads1x1x::ChannelSelection::SingleA2,
-            3 => ads1x1x::ChannelSelection::SingleA3,
-            _ => return Err("Invalid ADC channel".into()),
-        };
-
         // Keep trying to read until the conversion is complete
         loop {
-            match self.adc.read(channel_selection) {
+            let channel_value = match channel {
+                0 => self.adc.read(ads1x1x::channel::SingleA0),
+                1 => self.adc.read(ads1x1x::channel::SingleA1),
+                2 => self.adc.read(ads1x1x::channel::SingleA2),
+                3 => self.adc.read(ads1x1x::channel::SingleA3),
+                _ => return Err("Invalid ADC channel".into()),
+            };
+
+            match channel_value {
                 Ok(raw_value) => {
                     // TODO: Hold configuration over having it hardcoded
                     let gain = ads1x1x::FullScaleRange::Within4_096V;

@@ -11,17 +11,17 @@ keywords = ["BlueRobotics", "embedded", "navigator", "robotics", "ROV"]
 readme = "README.md"
 
 [dependencies]
-ads1x1x = "0.2.2"
-ak09915_rs= "0.2.0"
+ads1x1x = "0.3.0"
+ak09915_rs = "0.3.0"
 approx = "0.5.1"
 bmp280 = "0.4.0"
-dummy-pin = "0.1.1"
-embedded-hal = "0.2.7"
-icm20689 = "0.1.1"
-linux-embedded-hal = "0.3.2"
+dummy-pin = "1.0.0"
+embedded-hal = "1.0.0"
+icm20689 = { git = "https://github.com/tstellanova/icm20689", rev = "296c221" }
+linux-embedded-hal = "0.4.0"
 log = "0.4.19"
 nb = "1.1.0"
-pwm-pca9685 = "0.3.1"
+pwm-pca9685 = "1.0.0"
 sk6812_rpi = "0.1"
 
 [dev-dependencies]
