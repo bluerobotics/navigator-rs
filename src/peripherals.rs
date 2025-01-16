@@ -3,12 +3,16 @@ use std::error::Error;
 pub enum Peripherals {
     Ads1115, // ADC
     Ak09915, // 3-axis magnetometer
+    Bmp180,  // Pressure and Temperature
     Bmp280,  // Pressure and Temperature
     Bmp390,  // Pressure and Temperature
     Gpio,
     Icm20689, // Accelerometer and Gyroscope
     Leak,
+    Mmc5983, // 3-axis magnetometer and Temperature
+    Mpu6050, // Accelerometer, Gyroscope and Temperature
     Pca9685, // PWM controller
+    Qmc5883l, // 3-axis magnetometer
     Sk6812,  // Neopixel RGB LED
 }
 
