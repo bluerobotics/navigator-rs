@@ -1,5 +1,6 @@
 use std::error::Error;
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Peripherals {
     Ads1115, // ADC
     Ak09915, // 3-axis magnetometer
@@ -49,6 +50,10 @@ impl<T: AnyHardware + 'static> AnyHardwareExt for T {
 }
 
 pub trait AnyHardware: AnyHardwareExt + Send {
+    /// Identifies the part, to pick between devices sharing a capability.
+    fn peripheral(&self) -> Option<Peripherals> {
+        None
+    }
     fn as_adc_sensor(&mut self) -> Option<&mut dyn AdcSensor> {
         None
     }
