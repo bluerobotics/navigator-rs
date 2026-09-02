@@ -103,6 +103,10 @@ pub struct SensorData {
 /// Please check [`Implementations`](struct.Navigator.html#implementations) and its examples, then start coding your applications!
 pub struct Navigator {
     devices: Vec<Box<dyn AnyHardware>>,
+    /// Which magnetometer [`Navigator::read_mag`] answers with on boards
+    /// carrying more than one. Without it the answer would come from the
+    /// insertion order of `devices`.
+    primary_magnetometer: Option<Peripherals>,
 }
 
 impl Default for Navigator {
@@ -153,9 +157,24 @@ impl Navigator {
     }
 
     fn get_magnetometer_sensor(&mut self) -> Option<&mut dyn MagnetometerSensor> {
+        if let Some(peripheral) = self.primary_magnetometer {
+            return self.get_magnetometer_sensor_from(peripheral);
+        }
         for device in &mut self.devices {
             if let Some(mag_sensor) = device.as_magnetometer_sensor() {
                 return Some(mag_sensor);
+            }
+        }
+        None
+    }
+
+    fn get_magnetometer_sensor_from(
+        &mut self,
+        peripheral: Peripherals,
+    ) -> Option<&mut dyn MagnetometerSensor> {
+        for device in &mut self.devices {
+            if device.peripheral() == Some(peripheral) {
+                return device.as_magnetometer_sensor();
             }
         }
         None
@@ -232,13 +251,26 @@ impl Navigator {
         }
     }
 
+    /// Reads the magnetic field, in µT, of the primary magnetometer.
+    ///
+    /// Navigator V3 carries two of them and answers with the MMC5983MA. Use
+    /// [`Navigator::read_mag_from`] to reach the IIS2MDC.
     pub fn read_mag(&mut self) -> AxisData {
         if let Some(mag_sensor) = self.get_magnetometer_sensor() {
             let (x, y, z) = mag_sensor.read_magnetic_field().unwrap();
-            // Adjust axes if necessary
             AxisData { x, y, z }
         } else {
             panic!("No magnetometer sensor available");
+        }
+    }
+
+    /// Reads the magnetic field, in µT, of one specific magnetometer.
+    pub fn read_mag_from(&mut self, peripheral: Peripherals) -> AxisData {
+        if let Some(mag_sensor) = self.get_magnetometer_sensor_from(peripheral) {
+            let (x, y, z) = mag_sensor.read_magnetic_field().unwrap();
+            AxisData { x, y, z }
+        } else {
+            panic!("No {peripheral:?} magnetometer sensor available");
         }
     }
 
@@ -466,7 +498,10 @@ impl NavigatorBuilder {
             .unwrap();
         devices.push(Box::new(rgb_device));
 
-        Navigator { devices }
+        Navigator {
+            devices,
+            primary_magnetometer: None,
+        }
     }
 
     pub fn build_navigator_v2_pi4(self) -> Navigator {
@@ -510,7 +545,10 @@ impl NavigatorBuilder {
             .unwrap();
         devices.push(Box::new(rgb_device));
 
-        Navigator { devices }
+        Navigator {
+            devices,
+            primary_magnetometer: None,
+        }
     }
 
     pub fn build_navigator_v1_pi5(self) -> Navigator {
@@ -558,7 +596,10 @@ impl NavigatorBuilder {
             ),
         ];
 
-        Navigator { devices }
+        Navigator {
+            devices,
+            primary_magnetometer: None,
+        }
     }
 
     pub fn build_navigator_v2_pi5(self) -> Navigator {
@@ -606,6 +647,9 @@ impl NavigatorBuilder {
             ),
         ];
 
-        Navigator { devices }
+        Navigator {
+            devices,
+            primary_magnetometer: None,
+        }
     }
 }
