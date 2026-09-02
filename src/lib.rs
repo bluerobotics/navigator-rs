@@ -9,8 +9,11 @@ mod ak09915;
 mod bmp280;
 mod bmp390;
 mod icm20689;
+mod iis2mdc;
 mod leak;
 mod led;
+mod lsm6dsv;
+mod mmc5983ma;
 mod pca9685;
 mod peripherals;
 mod rgb;
@@ -23,8 +26,11 @@ use crate::icm20689::Icm20689Device;
 use ads1115::Ads1115Device;
 use ak09915::Ak09915Device;
 use bmp390::Bmp390Device;
+use iis2mdc::Iis2mdcDevice;
 use leak::LeakDetector;
 use led::LedController;
+use lsm6dsv::Lsm6dsvDevice;
+use mmc5983ma::Mmc5983maDevice;
 use pca9685::Pca9685Device;
 use rgb::RgbController;
 
@@ -34,6 +40,8 @@ pub enum NavigatorVersion {
     #[default]
     V1 = 1,
     V2,
+    /// Board revision E, with the LSM6DSV, MMC5983MA and IIS2MDC
+    V3,
 }
 
 // add docs ( explicit difference btwen overlays)
@@ -449,10 +457,12 @@ impl NavigatorBuilder {
             PiVersion::Pi4 => match self.navigator {
                 NavigatorVersion::V1 => self.build_navigator_v1_pi4(),
                 NavigatorVersion::V2 => self.build_navigator_v2_pi4(),
+                NavigatorVersion::V3 => self.build_navigator_v3_pi4(),
             },
             PiVersion::Pi5 => match self.navigator {
                 NavigatorVersion::V1 => self.build_navigator_v1_pi5(),
                 NavigatorVersion::V2 => self.build_navigator_v2_pi5(),
+                NavigatorVersion::V3 => self.build_navigator_v3_pi5(),
             },
         }
     }
@@ -650,6 +660,114 @@ impl NavigatorBuilder {
         Navigator {
             devices,
             primary_magnetometer: None,
+        }
+    }
+
+    pub fn build_navigator_v3_pi4(self) -> Navigator {
+        let devices: Vec<Box<dyn AnyHardware>> = vec![
+            Box::new(
+                Ads1115Device::builder()
+                    .build()
+                    .expect("Failed to create Ads1115"),
+            ),
+            Box::new(
+                Bmp390Device::builder()
+                    .build()
+                    .expect("Failed to create Bmp390"),
+            ),
+            Box::new(
+                Iis2mdcDevice::builder()
+                    .build()
+                    .expect("Failed to create Iis2mdc"),
+            ),
+            Box::new(
+                LeakDetector::builder()
+                    .build()
+                    .expect("Failed to create LedDetector"),
+            ),
+            Box::new(LedController::builder().build()),
+            Box::new(
+                Lsm6dsvDevice::builder()
+                    .build()
+                    .expect("Failed to create Lsm6dsv"),
+            ),
+            Box::new(
+                Mmc5983maDevice::builder()
+                    .build()
+                    .expect("Failed to create Mmc5983ma"),
+            ),
+            Box::new(
+                Pca9685Device::builder()
+                    .build()
+                    .expect("Failed to create Pca9685"),
+            ),
+            Box::new(
+                RgbController::builder()
+                    .with_led_count(self.rgb_led_strip_size)
+                    .build()
+                    .expect("Failed to create RgbController"),
+            ),
+        ];
+
+        Navigator {
+            devices,
+            primary_magnetometer: Some(Peripherals::Mmc5983ma),
+        }
+    }
+
+    pub fn build_navigator_v3_pi5(self) -> Navigator {
+        let gpiochip = "/dev/gpiochip4";
+        let devices: Vec<Box<dyn AnyHardware>> = vec![
+            Box::new(
+                Ads1115Device::builder()
+                    .build()
+                    .expect("Failed to create Ads1115"),
+            ),
+            Box::new(
+                Bmp390Device::builder()
+                    .build()
+                    .expect("Failed to create Bmp390"),
+            ),
+            Box::new(
+                Iis2mdcDevice::builder()
+                    .build()
+                    .expect("Failed to create Iis2mdc"),
+            ),
+            Box::new(
+                LeakDetector::builder()
+                    .with_gpiochip(gpiochip)
+                    .build()
+                    .expect("Failed to create LedDetector"),
+            ),
+            Box::new(LedController::builder().with_gpiochip(gpiochip).build()),
+            Box::new(
+                Lsm6dsvDevice::builder()
+                    .build()
+                    .expect("Failed to create Lsm6dsv"),
+            ),
+            Box::new(
+                Mmc5983maDevice::builder()
+                    .build()
+                    .expect("Failed to create Mmc5983ma"),
+            ),
+            Box::new(
+                Pca9685Device::builder()
+                    .with_gpiochip(gpiochip)
+                    .with_i2c_bus("/dev/i2c-3")
+                    .build()
+                    .expect("Failed to create Pca9685"),
+            ),
+            Box::new(
+                RgbController::builder()
+                    .with_led_count(self.rgb_led_strip_size)
+                    .build()
+                    .expect("Failed to create RgbController"),
+            ),
+        ];
+
+        Navigator {
+            devices,
+            primary_magnetometer: Some(Peripherals::Mmc5983ma),
         }
     }
 }
