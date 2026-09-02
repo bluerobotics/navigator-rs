@@ -7,9 +7,12 @@ pub enum Peripherals {
     Bmp390,  // Pressure and Temperature
     Gpio,
     Icm20689, // Accelerometer and Gyroscope
+    Iis2mdc,  // 3-axis magnetometer
     Leak,
-    Pca9685, // PWM controller
-    Sk6812,  // Neopixel RGB LED
+    Lsm6dsv,   // Accelerometer and Gyroscope
+    Mmc5983ma, // 3-axis magnetometer
+    Pca9685,   // PWM controller
+    Sk6812,    // Neopixel RGB LED
 }
 
 pub enum PeripheralClass {
