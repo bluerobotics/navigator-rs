@@ -15,6 +15,7 @@ mod pca9685;
 mod peripherals;
 mod rgb;
 
+pub use peripherals::Peripherals;
 use peripherals::*;
 
 use crate::bmp280::Bmp280Device;
