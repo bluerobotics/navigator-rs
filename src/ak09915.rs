@@ -76,7 +76,18 @@ impl Ak09915Builder {
 
 impl MagnetometerSensor for Ak09915Device {
     fn read_magnetic_field(&mut self) -> Result<(f32, f32, f32), Box<dyn Error>> {
-        Ok(self.mag.read().unwrap())
+        // A caller polling between samples gets DataNotReady, which at 200 Hz
+        // clears within a few milliseconds, so wait here instead of failing
+        for _ in 0..20 {
+            match self.mag.read() {
+                Err(ak09915_rs::Error::DataNotReady) => {
+                    std::thread::sleep(std::time::Duration::from_millis(1));
+                }
+                Ok(field) => return Ok(field),
+                Err(error) => return Err(format!("AK09915: {error:?}").into()),
+            }
+        }
+        Err("AK09915: Timed out waiting for a sample".into())
     }
 }
 
