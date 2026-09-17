@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"macro":["offset_of","offset_of_tuple","raw_field","raw_field_tuple","span_of"]};
+window.SIDEBAR_ITEMS = {"macro":[["offset_of",1],["offset_of_tuple",1],["raw_field",1],["raw_field_tuple",1],["span_of",1]]};

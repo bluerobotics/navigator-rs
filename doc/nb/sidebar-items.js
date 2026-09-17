@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["Error"],"macro":["block"],"type":["Result"]};
+window.SIDEBAR_ITEMS = {"enum":["Error"],"macro":[["block",1]],"type":["Result"]};

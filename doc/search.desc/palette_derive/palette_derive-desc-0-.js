@@ -1,1 +1,0 @@
-searchState.loadedDescShard("palette_derive", 0, "Derives traits from the palette crate.")

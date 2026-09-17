@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["Direction","Edge","Error"],"macro":["try_unexport"],"struct":["Pin","PinPoller"],"type":["Result"]};
+window.SIDEBAR_ITEMS = {"enum":["Direction","Edge","Error"],"macro":[["try_unexport",1]],"struct":["Pin","PinPoller"],"type":["Result"]};

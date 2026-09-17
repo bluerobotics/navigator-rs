@@ -1,9 +1,9 @@
 (function() {
-    var implementors = Object.fromEntries([["sk6812_rpi",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.83.0/core/ops/bit/trait.ShlAssign.html\" title=\"trait core::ops::bit::ShlAssign\">ShlAssign</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.83.0/std/primitive.usize.html\">usize</a>&gt; for <a class=\"struct\" href=\"sk6812_rpi/strip/struct.Strip.html\" title=\"struct sk6812_rpi::strip::Strip\">Strip</a>"]]]]);
+    const implementors = Object.fromEntries([["sk6812_rpi",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.98.1/core/ops/bit/trait.ShlAssign.html\" title=\"trait core::ops::bit::ShlAssign\">ShlAssign</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.98.1/std/primitive.usize.html\">usize</a>&gt; for <a class=\"struct\" href=\"sk6812_rpi/strip/struct.Strip.html\" title=\"struct sk6812_rpi::strip::Strip\">Strip</a>",0]]]]);
     if (window.register_implementors) {
         window.register_implementors(implementors);
     } else {
         window.pending_implementors = implementors;
     }
 })()
-//{"start":57,"fragment_lengths":[403]}
+//{"start":59,"fragment_lengths":[405]}

@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"macro":["request_code_none","request_code_read","request_code_readwrite","request_code_write"]};
+window.SIDEBAR_ITEMS = {"macro":[["request_code_none",1],["request_code_read",1],["request_code_readwrite",1],["request_code_write",1]],"type":["ioctl_num_type","ioctl_param_type"]};

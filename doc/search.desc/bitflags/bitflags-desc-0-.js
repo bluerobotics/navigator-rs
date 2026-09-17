@@ -1,1 +1,0 @@
-searchState.loadedDescShard("bitflags", 0, "A typesafe bitmask flag generator useful for sets of …\nThe macro used to generate the flag structures.")
