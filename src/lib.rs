@@ -4,6 +4,10 @@
 
 use std::fmt;
 
+use embedded_hal::blocking::i2c::WriteRead;
+use linux_embedded_hal::I2cdev;
+use log::warn;
+
 mod ads1115;
 mod ak09915;
 mod bmp280;
@@ -50,6 +54,62 @@ pub enum PiVersion {
     #[default]
     Pi4 = 4,
     Pi5,
+}
+
+impl PiVersion {
+    /// Identifies the Raspberry Pi from the device tree.
+    ///
+    /// `None` when the model is neither of the supported ones, which covers
+    /// running anywhere that is not a Raspberry Pi at all.
+    pub fn detect() -> Option<Self> {
+        Self::from_model(&std::fs::read_to_string("/proc/device-tree/model").ok()?)
+    }
+
+    /// The device tree node holds a nul terminated string such as
+    /// "Raspberry Pi 5 Model B Rev 1.0", so the model number is enough.
+    fn from_model(model: &str) -> Option<Self> {
+        if model.contains("Pi 5") {
+            Some(Self::Pi5)
+        } else if model.contains("Pi 4") {
+            Some(Self::Pi4)
+        } else {
+            None
+        }
+    }
+}
+
+impl NavigatorVersion {
+    /// Identifies the board from the parts that differ between revisions.
+    ///
+    /// `None` when nothing answers, so a caller running off a Navigator can
+    /// fall back instead of driving a board that is not there.
+    pub fn detect() -> Option<Self> {
+        let mut i2c = I2cdev::new("/dev/i2c-1").ok()?;
+        Self::from_chip_ids(
+            read_chip_id(&mut i2c, 0x1E, 0x4F), // IIS2MDC, WHO_AM_I
+            read_chip_id(&mut i2c, 0x76, 0x00), // BMP390, CHIP_ID
+            read_chip_id(&mut i2c, 0x76, 0xD0), // BMP280, CHIP_ID
+        )
+    }
+
+    /// V3 is the only revision carrying the IIS2MDC, but it shares the BMP390
+    /// with V2, so the magnetometer has to be ruled out before the barometer
+    /// can tell V2 from V1.
+    fn from_chip_ids(iis2mdc: Option<u8>, bmp390: Option<u8>, bmp280: Option<u8>) -> Option<Self> {
+        match (iis2mdc, bmp390, bmp280) {
+            (Some(0x40), _, _) => Some(Self::V3),
+            (_, Some(0x60), _) => Some(Self::V2),
+            (_, _, Some(0x58)) => Some(Self::V1),
+            _ => None,
+        }
+    }
+}
+
+/// Reads a single register, `None` when nothing acknowledges the address.
+fn read_chip_id(i2c: &mut I2cdev, address: u8, register: u8) -> Option<u8> {
+    let mut value = [0u8];
+    i2c.write_read(address, &[register], &mut value).ok()?;
+    Some(value[0])
 }
 
 /// Set of available options to select ADC's channel.
@@ -125,13 +185,23 @@ impl Default for Navigator {
 
 impl Navigator {
     pub fn new() -> Navigator {
-        Self::create().build_navigator_v1_pi4()
+        Self::create().build()
     }
 
+    /// Starts from whatever hardware answers, `with_navigator` and `with_pi`
+    /// override it.
     pub fn create() -> NavigatorBuilder {
         NavigatorBuilder {
-            navigator: Default::default(),
-            pi: Default::default(),
+            navigator: NavigatorVersion::detect().unwrap_or_else(|| {
+                let assumed = NavigatorVersion::default();
+                warn!("No Navigator board answered, assuming {assumed:?}");
+                assumed
+            }),
+            pi: PiVersion::detect().unwrap_or_else(|| {
+                let assumed = PiVersion::default();
+                warn!("Unknown Raspberry Pi model, assuming {assumed:?}");
+                assumed
+            }),
             rgb_led_strip_size: 1, // There is only a single LED on the board
         }
     }
@@ -769,5 +839,43 @@ impl NavigatorBuilder {
             devices,
             primary_magnetometer: Some(Peripherals::Mmc5983ma),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn pi_model_comes_from_the_device_tree_string() {
+        // The device tree node is nul terminated
+        assert!(matches!(
+            PiVersion::from_model("Raspberry Pi 5 Model B Rev 1.0\0"),
+            Some(PiVersion::Pi5)
+        ));
+        assert!(matches!(
+            PiVersion::from_model("Raspberry Pi 4 Model B Rev 1.4\0"),
+            Some(PiVersion::Pi4)
+        ));
+        assert!(PiVersion::from_model("Raspberry Pi 3 Model B Plus Rev 1.3\0").is_none());
+    }
+
+    #[test]
+    fn board_revision_comes_from_the_chip_ids() {
+        // V3 carries a BMP390 too, so the IIS2MDC has to win over it
+        assert!(matches!(
+            NavigatorVersion::from_chip_ids(Some(0x40), Some(0x60), Some(0x00)),
+            Some(NavigatorVersion::V3)
+        ));
+        assert!(matches!(
+            NavigatorVersion::from_chip_ids(None, Some(0x60), Some(0x00)),
+            Some(NavigatorVersion::V2)
+        ));
+        assert!(matches!(
+            NavigatorVersion::from_chip_ids(None, Some(0x00), Some(0x58)),
+            Some(NavigatorVersion::V1)
+        ));
+        // Nothing on the bus, the caller has to decide what to do
+        assert!(NavigatorVersion::from_chip_ids(None, None, None).is_none());
     }
 }
