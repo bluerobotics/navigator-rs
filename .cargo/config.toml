@@ -1,0 +1,7 @@
+# icm20689 depends on cortex-m, which only exposes the modules it re-exports
+# when its build script sees HOST == TARGET, so any cross build fails to
+# compile it. Setting the cfg that build script looks for is inert here:
+# neither icm20689 nor this crate ever calls into cortex-m.
+
+[build]
+rustflags = ["--cfg", "native"]
